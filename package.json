@@ -1,0 +1,43 @@
+{
+  "name": "smartbanner.js",
+  "version": "0.0.1",
+  "description": "Customisable smart app banners for iOS and Android",
+  "homepage": "https://github.com/ain/smartbanner.js"
+  "author": {
+    "name": "Ain Tohvri",
+    "email": "ain@flashbit.net"
+  },
+  "license": "GPL-3.0",
+  "bugs": "https://github.com/ain/smartbanner.js/issues",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-concurrent": "~2.3.0",
+    "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-jshint": "~1.0.0",
+    "grunt-sass": "~1.2.0",
+    "grunt-contrib-uglify": "~1.0.1",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-mocha": "~1.0.1",
+    "jit-grunt": "~0.10.0",
+    "time-grunt": "~1.3.0",
+    "grunt-jscs": "~2.8.0"
+  },
+  "engines": {
+    "node": "^6.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ain/smartbanner.js.git"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
+  "keywords": [
+    "javascript",
+    "mobile",
+    "ios",
+    "android",
+    "banner"
+  ]
+}
