@@ -8,7 +8,6 @@
     ".git*",
     "test/",
     "**/.*",
-    "Gruntfile.js"
   ],
   "dependencies": {
   },
