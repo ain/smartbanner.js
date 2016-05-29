@@ -1,0 +1,26 @@
+{
+  "name": "smartbanner.js",
+  "description": "Customisable smart app banners for iOS and Android",
+  "main": "dist/smartbanner.js",
+  "version": "0.0.1",
+  "license": "GPL-3.0",
+  "ignore": [
+    ".git*",
+    "test/",
+    "**/.*",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "~2.5.3",
+    "chai": "~3.5.0"
+  },
+  "authors": [
+    "Ain Tohvri <ain@flashbit.net>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ain/smartbanner.js.git"
+  }
+}
