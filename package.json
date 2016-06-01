@@ -17,7 +17,8 @@
     "uglify-js": "^2.6.2",
     "babelify": "^7.3.0",
     "babel-preset-es2015": "^6.9.0",
-    "eslint": "^2.11.0"
+    "eslint": "^2.11.0",
+    "watchify": "^3.7.0"
   },
   "engines": {
     "node": "^6.2.0"
@@ -30,7 +31,8 @@
     "browserify": "browserify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ]",
     "uglify": "uglifyjs dist/smartbanner.js -o dist/smartbanner.min.js",
     "eslint": "eslint src/*.js",
-    "build-js": "npm run browserify && npm run uglify"
+    "build-js": "npm run browserify && npm run uglify",
+    "watch": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v"
   },
   "keywords": [
     "javascript",
