@@ -1,5 +1,5 @@
 import OptionParser from './optionparser.js';
-import SmartBanner from "./smartbanner.js";
+import SmartBanner from './smartbanner.js';
 
 let parser = new OptionParser;
 let smartbanner = new SmartBanner(parser.options);
