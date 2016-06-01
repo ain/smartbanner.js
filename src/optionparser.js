@@ -15,7 +15,6 @@ export default class OptionParser {
       return null;
     }
     let options = {};
-    let self = this;
     Array.from(metas).forEach(function(meta) {
       let name = meta.getAttribute('name');
       let content = meta.getAttribute('content');
