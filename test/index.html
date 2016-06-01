@@ -17,17 +17,11 @@
 </head>
 <body>
   <div id="mocha"></div>
-  <!-- TODO: update script paths -->
-  <script src="../bower_components/mocha/mocha.js"></script>
-  <script src="../bower_components/chai/chai.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
   <script>mocha.setup('bdd');</script>
-  <script>var expect = chai.expect;</script>
   <script src="../dist/smartbanner.js"></script>
   <script src="spec/smartbanner_spec.js"></script>
-  <script>
-    if (navigator.userAgent.indexOf('PhantomJS') < 0) {
-      mocha.run();
-    }
-  </script>
+  <script>mocha.run();</script>
 </body>
 </html>

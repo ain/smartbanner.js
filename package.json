@@ -33,7 +33,7 @@
     "eslint": "eslint src/*.js",
     "build-js": "npm run browserify && npm run uglify",
     "watch": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
-    "test": "npm run eslint"
+    "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js"
   },
   "keywords": [
     "javascript",
