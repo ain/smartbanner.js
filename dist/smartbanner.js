@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var parser = new _optionparser2.default();
 var smartbanner = new _smartbanner2.default(parser.options);
 
-console.log('SmartBanner initilised with', smartbanner.options);
+document.write('SmartBanner initilised with: ' + JSON.stringify(smartbanner.options));
 
 },{"./optionparser.js":2,"./smartbanner.js":3}],2:[function(require,module,exports){
 'use strict';
@@ -47,7 +47,6 @@ var OptionParser = function () {
         return null;
       }
       var options = {};
-      var self = this;
       Array.from(metas).forEach(function (meta) {
         var name = meta.getAttribute('name');
         var content = meta.getAttribute('content');
