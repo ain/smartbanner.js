@@ -11,14 +11,12 @@ export default class OptionParser {
 
   parse() {
     let metas = document.getElementsByTagName('meta');
-    if (metas.length === 0) {
-      return null;
-    }
     let options = {};
     Array.from(metas).forEach(function(meta) {
       let name = meta.getAttribute('name');
       let content = meta.getAttribute('content');
       if (name && content && valid(name) && content.length > 0) {
+        // TODO: transform price suffixes to camelCase
         options[name.split(':')[1]] = content;
       }
     });
