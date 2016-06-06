@@ -8,7 +8,7 @@ Customisable smart app banners for iOS and Android
 ```html
 <!-- Start SmartBanner configuration -->
 <meta name="smartbanner:title" content="Smart Application">
-<meta name="smartbanner:author" content="Ain Tohvri">
+<meta name="smartbanner:author" content="SmartBanner Contributors">
 <meta name="smartbanner:price" content="FREE">
 <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
 <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
