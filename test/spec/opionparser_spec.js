@@ -47,13 +47,11 @@ describe('OptionParser', function() {
         expect(parser.options.price).to.eql('FREE');
       });
 
-      // TODO: transform price suffixes to camelCase and test
-      xit('expected to parse iOS price suffix', function() {
+      it('expected to parse iOS price suffix', function() {
         expect(parser.options.priceSuffixApple).to.eql(' - On the App Store');
       });
 
-      // TODO: transform price suffixes to camelCase and test
-      xit('expected to parse Android price suffix', function() {
+      it('expected to parse Android price suffix', function() {
         expect(parser.options.priceSuffixGoogle).to.eql(' - In Google Play');
       });
 
