@@ -30,7 +30,6 @@ export default class OptionParser {
         optionName = name.split(':')[1];
         if (optionName.includes('-')) {
           optionName = convertToCamelCase(optionName);
-          console.log('optionName', optionName);
         }
         options[optionName] = content;
       }
