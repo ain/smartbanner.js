@@ -9,7 +9,8 @@ describe('OptionParser', function() {
 
   describe('parse', function() {
 
-    let parser;
+    let parser = new OptionParser();
+    let options = null;
 
     context('with smartbanner meta tags', function() {
 
@@ -28,35 +29,31 @@ describe('OptionParser', function() {
           '<body>' +
           '</body>' +
           '</html>');
-        parser = new OptionParser();
-      });
-
-      it('expected to not return null', function() {
-        expect(parser.options).to.not.be.null;
+          options = parser.parse();
       });
 
       it('expected to parse title', function() {
-        expect(parser.options.title).to.eql('Smart Application');
+        expect(options.title).to.eql('Smart Application');
       });
 
       it('expected to parse author', function() {
-        expect(parser.options.author).to.eql('SmartBanner Contributors');
+        expect(options.author).to.eql('SmartBanner Contributors');
       });
 
       it('expected to parse price', function() {
-        expect(parser.options.price).to.eql('FREE');
+        expect(options.price).to.eql('FREE');
       });
 
       it('expected to parse iOS price suffix', function() {
-        expect(parser.options.priceSuffixApple).to.eql(' - On the App Store');
+        expect(options.priceSuffixApple).to.eql(' - On the App Store');
       });
 
       it('expected to parse Android price suffix', function() {
-        expect(parser.options.priceSuffixGoogle).to.eql(' - In Google Play');
+        expect(options.priceSuffixGoogle).to.eql(' - In Google Play');
       });
 
       it('expected to parse button label', function() {
-        expect(parser.options.button).to.eql('VIEW');
+        expect(options.button).to.eql('VIEW');
       });
 
     });
@@ -72,11 +69,11 @@ describe('OptionParser', function() {
           '<body>' +
           '</body>' +
           '</html>');
-        parser = new OptionParser();
+        options = parser.parse();
       });
 
       it('expected to return empty object', function() {
-        expect(parser.options).to.be.empty;
+        expect(options).to.be.empty;
       });
 
     });
@@ -91,11 +88,11 @@ describe('OptionParser', function() {
           '<body>' +
           '</body>' +
           '</html>');
-        parser = new OptionParser();
+        options = parser.parse();
       });
 
       it('expected to return empty object', function() {
-        expect(parser.options).to.be.empty;
+        expect(options).to.be.empty;
       });
 
     });

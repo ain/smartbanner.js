@@ -32,6 +32,16 @@ function valid(name) {
   return name.indexOf('smartbanner:') !== -1 && name.split(':')[1].length > 0;
 }
 
+function convertToCamelCase(name) {
+  var parts = name.split('-');
+  parts.map(function (part, index) {
+    if (index > 0) {
+      parts[index] = part.charAt(0).toUpperCase() + part.substring(1);
+    }
+  });
+  return parts.join('');
+}
+
 var OptionParser = function () {
   function OptionParser() {
     _classCallCheck(this, OptionParser);
@@ -43,15 +53,17 @@ var OptionParser = function () {
     key: 'parse',
     value: function parse() {
       var metas = document.getElementsByTagName('meta');
-      if (metas.length === 0) {
-        return null;
-      }
       var options = {};
+      var optionName = null;
       Array.from(metas).forEach(function (meta) {
         var name = meta.getAttribute('name');
         var content = meta.getAttribute('content');
         if (name && content && valid(name) && content.length > 0) {
-          options[name.split(':')[1]] = content;
+          optionName = name.split(':')[1];
+          if (optionName.includes('-')) {
+            optionName = convertToCamelCase(optionName);
+          }
+          options[optionName] = content;
         }
       });
       return options;

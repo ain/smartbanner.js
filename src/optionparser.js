@@ -15,10 +15,6 @@ function convertToCamelCase(name) {
 
 export default class OptionParser {
 
-  constructor() {
-    this.options = this.parse();
-  }
-
   parse() {
     let metas = document.getElementsByTagName('meta');
     let options = {};
