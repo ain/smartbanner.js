@@ -34,7 +34,6 @@
     "eslint": "eslint src/*.js",
     "build-js": "npm run browserify && npm run uglify",
     "watch": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
-    "test2": "node_modules/mocha/bin/mocha --require test/helpers.js --compilers js:babel-core/register test/spec/*.js",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js"
   },
   "keywords": [
