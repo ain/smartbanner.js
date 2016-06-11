@@ -1,10 +1,5 @@
 import OptionParser from './optionparser.js';
 
-function validOptions(options) {
-  // TODO: option validation
-  return false;
-}
-
 export default class SmartBanner {
 
   constructor() {
@@ -13,8 +8,8 @@ export default class SmartBanner {
   }
 
   publish() {
-    if (!validOptions(this.options)) {
-      throw new Error('Options incomplete. Please consult documentation.');
+    if (Object.keys(this.options).length === 0) {
+      throw new Error('No options detected. Please consult documentation.');
     }
   }
 }
