@@ -1,7 +1,8 @@
 import OptionParser from './optionparser.js';
 
-function isEmptyObject(obj) {
-  return Object.keys(obj).legnth === 0;
+function validOptions() {
+  // TODO: option validation
+  return true;
 }
 
 export default class SmartBanner {
@@ -12,8 +13,9 @@ export default class SmartBanner {
   }
 
   publish() {
-    if (isEmptyObject(this.options)) {
-      throw 'Options could not be located. Aborting.';
+    // FIXME: 'this' undefined, causes test failure
+    if (validOptions(this.options)) {
+      throw new Error('Options incomplete. Please consult documentation.');
     }
   }
 }
