@@ -31,7 +31,7 @@
     "browserify": "browserify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ]",
     "uglify": "uglifyjs dist/smartbanner.js -o dist/smartbanner.min.js",
     "eslint": "eslint src/*.js",
-    "build-js": "npm run browserify && npm run uglify",
+    "build:js": "npm run browserify && npm run uglify",
     "watch": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js"
   },
