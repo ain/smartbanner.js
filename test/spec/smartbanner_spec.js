@@ -18,10 +18,7 @@ describe('SmartBanner', function() {
       });
 
       it('expected to throw error', function() {
-        var test = function() {
-          throw new Error('error!');
-        }
-        expect(smartbanner.publish).to.throw('Options incomplete. Please consult documentation.');
+        expect(() => smartbanner.publish()).to.throw('Options incomplete. Please consult documentation.');
       });
 
     });

@@ -1,8 +1,8 @@
 import OptionParser from './optionparser.js';
 
-function validOptions() {
+function validOptions(options) {
   // TODO: option validation
-  return true;
+  return false;
 }
 
 export default class SmartBanner {
@@ -13,8 +13,7 @@ export default class SmartBanner {
   }
 
   publish() {
-    // FIXME: 'this' undefined, causes test failure
-    if (validOptions(this.options)) {
+    if (!validOptions(this.options)) {
       throw new Error('Options incomplete. Please consult documentation.');
     }
   }
