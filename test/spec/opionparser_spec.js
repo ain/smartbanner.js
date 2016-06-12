@@ -15,20 +15,20 @@ describe('OptionParser', function() {
     context('with smartbanner meta tags', function() {
 
       before(function() {
-        global.document = jsdom.jsdom('<!doctype html>' +
-          '<html>' +
-          '<head>' +
-            '<meta charset="utf-8">' +
-            '<meta name="smartbanner:title" content="Smart Application">' +
-            '<meta name="smartbanner:author" content="SmartBanner Contributors">' +
-            '<meta name="smartbanner:price" content="FREE">' +
-            '<meta name="smartbanner:price-suffix-apple" content=" - On the App Store">' +
-            '<meta name="smartbanner:price-suffix-google" content=" - In Google Play">' +
-            '<meta name="smartbanner:button" content="VIEW">' +
-          '</head>' +
-          '<body>' +
-          '</body>' +
-          '</html>');
+        global.document = jsdom.jsdom(`<!doctype html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="smartbanner:title" content="Smart Application">
+            <meta name="smartbanner:author" content="SmartBanner Contributors">
+            <meta name="smartbanner:price" content="FREE">
+            <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+            <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+            <meta name="smartbanner:button" content="VIEW">
+          </head>
+          <body>
+          </body>
+          </html>`);
           options = parser.parse();
       });
 
@@ -61,14 +61,14 @@ describe('OptionParser', function() {
     context('without smartbanner meta tags', function() {
 
       before(function() {
-        global.document = jsdom.jsdom('<!doctype html>' +
-          '<html>' +
-          '<head>' +
-            '<meta charset="utf-8">' +
-          '</head>' +
-          '<body>' +
-          '</body>' +
-          '</html>');
+        global.document = jsdom.jsdom(`<!doctype html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+          </head>
+          <body>
+          </body>
+          </html>`);
         options = parser.parse();
       });
 
@@ -81,13 +81,12 @@ describe('OptionParser', function() {
     context('without any meta tags', function() {
 
       before(function() {
-        global.document = jsdom.jsdom('<!doctype html>' +
-          '<html>' +
-          '<head>' +
-          '</head>' +
-          '<body>' +
-          '</body>' +
-          '</html>');
+        global.document = jsdom.jsdom(`<!doctype html>
+          <html>
+          <head></head>
+          <body>
+          </body>
+          </html>`);
         options = parser.parse();
       });
 
