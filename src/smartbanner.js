@@ -17,7 +17,7 @@ export default class SmartBanner {
     }
   }
 
-  get template() {
+  get html() {
     return `<div class="smartbanner smartbanner--${this.platform}">
       <div class="smartbanner__icon"></div>
       <div class="smartbanner__info">
@@ -33,5 +33,6 @@ export default class SmartBanner {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
     }
+    document.write(this.html);
   }
 }
