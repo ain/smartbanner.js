@@ -27,6 +27,36 @@ describe('Detector', function() {
 
     });
 
+    context('when on iPad', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(template, {
+            userAgent: 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1'
+          }).defaultView;
+        platform = Detector.platform();
+      });
+
+      it('expected to return ios', function() {
+        expect(platform).to.eql('ios');
+      });
+
+    });
+
+    context('when on iPod', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(template, {
+            userAgent: 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4'
+          }).defaultView;
+        platform = Detector.platform();
+      });
+
+      it('expected to return ios', function() {
+        expect(platform).to.eql('ios');
+      });
+
+    });
+
     context('when on Android', function() {
 
       before(function() {
