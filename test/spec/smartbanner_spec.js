@@ -32,6 +32,21 @@ describe('SmartBanner', function() {
       </div>
     </div>`;
 
+  const ANDROID_BODY = `<div class="smartbanner smartbanner--android">
+      <div class="smartbanner__icon"></div>
+      <div class="smartbanner__info">
+        <div class="smartbanner__info__title">Smart Application</div>
+        <div class="smartbanner__info__author">SmartBanner Contributors</div>
+        <div class="smartbanner__info__price">FREE - In Google Play</div>
+        <div class="smartbanner__button">VIEW</div>
+      </div>
+    </div>`;
+
+  const USER_AGENT_IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
+  const USER_AGENT_IPAD = 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
+  const USER_AGENT_IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4'
+  const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]'
+
   let smartbanner = null;
 
   describe('publish', function() {
@@ -50,12 +65,10 @@ describe('SmartBanner', function() {
 
     context('with options', function() {
 
-      context('when iPhone', function() {
+      context('when on iPhone', function() {
 
         before(function() {
-          global.window = jsdom.jsdom(HTML, {
-            userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1'
-          }).defaultView;
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
           global.document = window.document;
           smartbanner = new SmartBanner();
         });
@@ -67,12 +80,10 @@ describe('SmartBanner', function() {
 
       });
 
-      context('when iPad', function() {
+      context('when on iPad', function() {
 
         before(function() {
-          global.window = jsdom.jsdom(HTML, {
-            userAgent: 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1'
-          }).defaultView;
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
           global.document = window.document;
           smartbanner = new SmartBanner();
         });
@@ -84,12 +95,10 @@ describe('SmartBanner', function() {
 
       });
 
-      context('when iPod', function() {
+      context('when on iPod', function() {
 
         before(function() {
-          global.window = jsdom.jsdom(HTML, {
-            userAgent: 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4'
-          }).defaultView;
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
           global.document = window.document;
           smartbanner = new SmartBanner();
         });
@@ -97,6 +106,21 @@ describe('SmartBanner', function() {
         it('expected to add iOS template to body', function() {
           smartbanner.publish();
           expect(document.body.innerHTML).to.eql(IOS_BODY);
+        });
+
+      });
+
+      context('when on Android', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+          global.document = window.document;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add Android template to body', function() {
+          smartbanner.publish();
+          expect(document.body.innerHTML).to.eql(ANDROID_BODY);
         });
 
       });
@@ -110,9 +134,7 @@ describe('SmartBanner', function() {
     context('when on iPhone', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, {
-          userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1'
-        }).defaultView;
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
         global.document = window.document;
         smartbanner = new SmartBanner();
       });
@@ -127,6 +149,72 @@ describe('SmartBanner', function() {
 
       it('expected to return iOS template', function() {
         expect(smartbanner.html).to.eql(IOS_BODY);
+      });
+
+    });
+
+    context('when on iPad', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
+        global.document = window.document;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to work against iOS platform', function() {
+        expect(smartbanner.platform).to.eql('ios');
+      });
+
+      it('expected to have iOS price suffix', function() {
+        expect(smartbanner.priceSuffix).to.eql(' - On the App Store');
+      });
+
+      it('expected to return iOS template', function() {
+        expect(smartbanner.html).to.eql(IOS_BODY);
+      });
+
+    });
+
+    context('when on iPod', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
+        global.document = window.document;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to work against iOS platform', function() {
+        expect(smartbanner.platform).to.eql('ios');
+      });
+
+      it('expected to have iOS price suffix', function() {
+        expect(smartbanner.priceSuffix).to.eql(' - On the App Store');
+      });
+
+      it('expected to return iOS template', function() {
+        expect(smartbanner.html).to.eql(IOS_BODY);
+      });
+
+    });
+
+    context('when on Android', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.document = window.document;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to work against Android platform', function() {
+        expect(smartbanner.platform).to.eql('android');
+      });
+
+      it('expected to have Android price suffix', function() {
+        expect(smartbanner.priceSuffix).to.eql(' - In Google Play');
+      });
+
+      it('expected to return Android template', function() {
+        expect(smartbanner.html).to.eql(ANDROID_BODY);
       });
 
     });
