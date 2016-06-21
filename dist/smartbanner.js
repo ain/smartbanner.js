@@ -1,9 +1,37 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var _optionparser = require('./optionparser.js');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _optionparser2 = _interopRequireDefault(_optionparser);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Detector = function () {
+  function Detector() {
+    _classCallCheck(this, Detector);
+  }
+
+  _createClass(Detector, null, [{
+    key: 'platform',
+    value: function platform() {
+      if (/iPhone|iPad|iPod/i.test(window.navigator.userAgent)) {
+        return 'ios';
+      } else if (/Android/i.test(window.navigator.userAgent)) {
+        return 'android';
+      }
+    }
+  }]);
+
+  return Detector;
+}();
+
+exports.default = Detector;
+
+},{}],2:[function(require,module,exports){
+'use strict';
 
 var _smartbanner = require('./smartbanner.js');
 
@@ -11,12 +39,12 @@ var _smartbanner2 = _interopRequireDefault(_smartbanner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var parser = new _optionparser2.default();
-var smartbanner = new _smartbanner2.default(parser.options);
+var smartbanner = new _smartbanner2.default();
+smartbanner.publish();
 
-document.write('SmartBanner initialised with: ' + JSON.stringify(smartbanner.options));
+//document.write('SmartBanner initialised with: ' + JSON.stringify(smartbanner.options));
 
-},{"./optionparser.js":2,"./smartbanner.js":3}],2:[function(require,module,exports){
+},{"./smartbanner.js":4}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45,8 +73,6 @@ function convertToCamelCase(name) {
 var OptionParser = function () {
   function OptionParser() {
     _classCallCheck(this, OptionParser);
-
-    this.options = this.parse();
   }
 
   _createClass(OptionParser, [{
@@ -75,21 +101,63 @@ var OptionParser = function () {
 
 exports.default = OptionParser;
 
-},{}],3:[function(require,module,exports){
-"use strict";
+},{}],4:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _optionparser = require('./optionparser.js');
+
+var _optionparser2 = _interopRequireDefault(_optionparser);
+
+var _detector = require('./detector.js');
+
+var _detector2 = _interopRequireDefault(_detector);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var SmartBanner = function SmartBanner(options) {
-  _classCallCheck(this, SmartBanner);
+var SmartBanner = function () {
+  function SmartBanner() {
+    _classCallCheck(this, SmartBanner);
 
-  this.options = options;
-};
+    var parser = new _optionparser2.default();
+    this.options = parser.parse();
+    this.platform = _detector2.default.platform();
+  }
+
+  _createClass(SmartBanner, [{
+    key: 'publish',
+    value: function publish() {
+      if (Object.keys(this.options).length === 0) {
+        throw new Error('No options detected. Please consult documentation.');
+      }
+      document.write(this.html);
+    }
+  }, {
+    key: 'priceSuffix',
+    get: function get() {
+      if (this.platform === 'ios') {
+        return this.options.priceSuffixApple;
+      } else if (this.platform == 'android') {
+        return this.options.priceSuffixGoogle;
+      }
+    }
+  }, {
+    key: 'html',
+    get: function get() {
+      return '<div class="smartbanner smartbanner--' + this.platform + '">\n      <div class="smartbanner__icon"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n        <div class="smartbanner__button">' + this.options.button + '</div>\n      </div>\n    </div>';
+    }
+  }]);
+
+  return SmartBanner;
+}();
 
 exports.default = SmartBanner;
 
-},{}]},{},[1]);
+},{"./detector.js":1,"./optionparser.js":3}]},{},[2]);
