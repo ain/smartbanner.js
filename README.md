@@ -1,6 +1,17 @@
 # smartbanner.js [![Build Status](https://travis-ci.org/ain/smartbanner.js.svg?branch=master)](https://travis-ci.org/ain/smartbanner.js)
 Customisable smart app banners for iOS and Android
 
+## Features
+
+- Default [Smart App Banner](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html) like design
+- Customisable design using `smartbanner--<platform>` class on wrapper
+- Fully customisable info
+- Close button that
+  - closes the banner
+  - sets cookie to keep banner closed for current session
+- Platform-specific app icon URL
+- Platform-specific URL for _View_ button
+
 ## Usage
 
 `smartbanner.js` works automagically given following meta tags:
