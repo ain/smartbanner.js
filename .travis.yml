@@ -6,6 +6,7 @@ before_install:
   - gem install bundler
 install:
   - bundle
+  - npm i
 script:
   - npm run eslint
   - npm run scsslint
