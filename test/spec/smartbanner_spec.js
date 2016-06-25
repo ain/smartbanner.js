@@ -144,9 +144,29 @@ describe('SmartBanner', function() {
         smartbanner.exit();
       });
 
-      it('expected to not to add anything to body', function() {
+      it('expected to not to add to body', function() {
         smartbanner.publish();
         expect(document.querySelector('.smartbanner')).not.to.exist;
+      });
+
+    });
+
+    context('when has been closed, but is reopened in new session', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.document = window.document;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
+        smartbanner.exit();
+      });
+
+      it('expected to add to body', function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.document = window.document;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
+        expect(document.querySelector('.smartbanner')).to.exist;
       });
 
     });
