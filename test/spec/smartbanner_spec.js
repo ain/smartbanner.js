@@ -26,7 +26,7 @@ describe('SmartBanner', function() {
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios">
       <a href="#exit" class="smartbanner__exit"></a>
-      <div class="smartbanner__icon"></div>
+      <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
       <div class="smartbanner__info">
         <div class="smartbanner__info__title">Smart Application</div>
         <div class="smartbanner__info__author">SmartBanner Contributors</div>
@@ -37,7 +37,7 @@ describe('SmartBanner', function() {
 
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android">
       <a href="#exit" class="smartbanner__exit"></a>
-      <div class="smartbanner__icon"></div>
+      <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
         <div class="smartbanner__info__title">Smart Application</div>
         <div class="smartbanner__info__author">SmartBanner Contributors</div>
