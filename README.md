@@ -12,6 +12,8 @@ Customisable smart app banners for iOS and Android
 <meta name="smartbanner:price" content="FREE">
 <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
 <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+<meta name="smartbanner:icon-apple" content="http://url/to/apple-store-icon.png">
+<meta name="smartbanner:icon-google" content="http://url/to/google-play-icon.png">
 <meta name="smartbanner:button" content="VIEW">
 <!-- End SmartBanner configuration -->
 ```
