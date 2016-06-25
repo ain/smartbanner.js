@@ -15,5 +15,7 @@ Customisable smart app banners for iOS and Android
 <meta name="smartbanner:icon-apple" content="http://url/to/apple-store-icon.png">
 <meta name="smartbanner:icon-google" content="http://url/to/google-play-icon.png">
 <meta name="smartbanner:button" content="VIEW">
+<meta name="smartbanner:button-url-apple" content="https://ios/application-url">
+<meta name="smartbanner:button-url-google" content="https://android/application-url">
 <!-- End SmartBanner configuration -->
 ```
