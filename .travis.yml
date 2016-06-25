@@ -1,6 +1,11 @@
 language: node_js
 node_js:
   - 6
+before_install:
+  - rvm install 2.3.1
+  - gem install bundler
+install:
+  - bundle
 script:
   - npm run eslint
   - npm run scsslint
