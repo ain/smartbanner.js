@@ -15,6 +15,7 @@
     "babelify": "^7.3.0",
     "chai": "^3.5.0",
     "eslint": "^2.13.0",
+    "http-server": "^0.9.0",
     "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
     "node-sass": "^3.7.0",
@@ -38,7 +39,8 @@
     "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
     "watch:css": "npm run build:css -- -w",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js",
-    "test:watch": "npm run test -- -w"
+    "test:watch": "npm run test -- -w",
+    "server": "http-server dist/ -o"
   },
   "keywords": [
     "javascript",
