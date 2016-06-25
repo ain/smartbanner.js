@@ -52,9 +52,10 @@ export default class SmartBanner {
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
+    } else if (Bakery.baked) {
+      return false;
     }
     document.write(this.html);
-
   }
 
   exit() {

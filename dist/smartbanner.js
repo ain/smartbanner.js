@@ -177,6 +177,8 @@ var SmartBanner = function () {
     value: function publish() {
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
+      } else if (_bakery2.default.baked) {
+        return false;
       }
       document.write(this.html);
     }

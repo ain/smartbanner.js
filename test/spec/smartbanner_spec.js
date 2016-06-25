@@ -134,6 +134,23 @@ describe('SmartBanner', function() {
 
     });
 
+    context('when has been closed within current session', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.document = window.document;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
+        smartbanner.exit();
+      });
+
+      it('expected to not to add anything to body', function() {
+        smartbanner.publish();
+        expect(document.querySelector('.smartbanner')).not.to.exist;
+      });
+
+    });
+
   });
 
   describe('template', function() {
