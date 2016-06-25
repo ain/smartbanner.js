@@ -36,7 +36,8 @@
     "sasslint": "node_modules/sass-lint/bin/sass-lint.js -c .scss-lint.yml src/smartbanner.scss -v -q",
     "build:js": "npm run browserify && npm run uglify",
     "build:css": "node_modules/node-sass/bin/node-sass src/smartbanner.scss dist/smartbanner.css",
-    "watch": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
+    "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
+    "watch:css": "npm run build:css -- -w",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js",
     "test:watch": "npm run test -- -w"
   },
