@@ -42,8 +42,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var smartbanner = new _smartbanner2.default();
 smartbanner.publish();
 
-//document.write('SmartBanner initialised with: ' + JSON.stringify(smartbanner.options));
-
 },{"./smartbanner.js":4}],3:[function(require,module,exports){
 'use strict';
 
@@ -147,11 +145,21 @@ var SmartBanner = function () {
       } else if (this.platform == 'android') {
         return this.options.priceSuffixGoogle;
       }
+      return '';
+    }
+  }, {
+    key: 'icon',
+    get: function get() {
+      if (this.platform == 'android') {
+        return this.options.iconGoogle;
+      } else {
+        return this.options.iconApple;
+      }
     }
   }, {
     key: 'html',
     get: function get() {
-      return '<div class="smartbanner smartbanner--' + this.platform + '">\n      <div class="smartbanner__icon"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n        <div class="smartbanner__button">' + this.options.button + '</div>\n      </div>\n    </div>';
+      return '<div class="smartbanner smartbanner--' + this.platform + '">\n      <a href="#exit" class="smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n      </div>\n      <a href="#view" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
     }
   }]);
 

@@ -16,30 +16,34 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:price" content="FREE">
       <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
       <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
-      <meta name="smartbanner:button" content="VIEW">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
     </head>
     <body>
     </body>
   </html>`;
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios">
+      <a href="#exit" class="smartbanner__exit"></a>
       <div class="smartbanner__icon"></div>
       <div class="smartbanner__info">
         <div class="smartbanner__info__title">Smart Application</div>
         <div class="smartbanner__info__author">SmartBanner Contributors</div>
         <div class="smartbanner__info__price">FREE - On the App Store</div>
-        <div class="smartbanner__button">VIEW</div>
       </div>
+      <a href="#view" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android">
+      <a href="#exit" class="smartbanner__exit"></a>
       <div class="smartbanner__icon"></div>
       <div class="smartbanner__info">
         <div class="smartbanner__info__title">Smart Application</div>
         <div class="smartbanner__info__author">SmartBanner Contributors</div>
         <div class="smartbanner__info__price">FREE - In Google Play</div>
-        <div class="smartbanner__button">VIEW</div>
       </div>
+      <a href="#view" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
   const USER_AGENT_IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
@@ -151,6 +155,10 @@ describe('SmartBanner', function() {
         expect(smartbanner.html).to.eql(IOS_BODY);
       });
 
+      it('expected to have iOS icon', function() {
+        expect(smartbanner.icon).to.eql('icon--apple.jpg');
+      });
+
     });
 
     context('when on iPad', function() {
@@ -171,6 +179,10 @@ describe('SmartBanner', function() {
 
       it('expected to return iOS template', function() {
         expect(smartbanner.html).to.eql(IOS_BODY);
+      });
+
+      it('expected to have iOS icon', function() {
+        expect(smartbanner.icon).to.eql('icon--apple.jpg');
       });
 
     });
@@ -195,6 +207,10 @@ describe('SmartBanner', function() {
         expect(smartbanner.html).to.eql(IOS_BODY);
       });
 
+      it('expected to have iOS icon', function() {
+        expect(smartbanner.icon).to.eql('icon--apple.jpg');
+      });
+
     });
 
     context('when on Android', function() {
@@ -215,6 +231,10 @@ describe('SmartBanner', function() {
 
       it('expected to return Android template', function() {
         expect(smartbanner.html).to.eql(ANDROID_BODY);
+      });
+
+      it('expected to have Android icon', function() {
+        expect(smartbanner.icon).to.eql('icon--google.jpg');
       });
 
     });

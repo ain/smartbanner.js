@@ -1,8 +1,116 @@
-$grey: 'f3f3f3';
+$light-grey: #f3f3f3;
+$grey: #767676;
+$blue: #1474fc;
 
 .smartbanner {
-  background: $grey;
+  position: absolute;
+  top: 0;
+  left: 0;
 
-  height: 81px;
+  background: $light-grey;
+
+  font-family: Helvetica, sans, sans-serif;
+
+  padding: 10px;
+
+  height: 64px;
   width: 100%;
+
+  &__exit {
+
+    position: absolute;
+    display: block;
+
+    border: 0;
+    margin: 0;
+
+    top: calc(50% - 6px);
+
+    width: 12px;
+    height: 12px;
+
+    text-align: center;
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: ' ';
+      background: $grey;
+      height: 12px;
+      width: 1px;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__icon {
+    position: absolute;
+
+    left: 30px;
+    top: 10px;
+    width: 64px;
+    height: 64px;
+
+    border-radius: 15px;
+    background-size: 64px 64px;
+  }
+
+  &__info {
+    position: absolute;
+
+    left: 104px;
+    top: 15px;
+
+    height: 64px;
+    width: 100%;
+
+    &__title {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    &__author,
+    &__price {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    &__price {
+    }
+  }
+
+  &__button {
+    position: absolute;
+
+    display: block;
+
+    background: $light-grey;
+
+    min-width: 10%;
+
+    right: 35px;
+    top: 32px;
+    text-decoration: none;
+
+    color: $blue;
+    font-size: 18px;
+
+    text-align: center;
+
+    padding: 0 10px;
+
+    z-index: 1;
+
+    border-radius: 5px;
+
+    &__label {
+      text-align: center;
+    }
+  }
 }

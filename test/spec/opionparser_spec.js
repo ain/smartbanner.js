@@ -24,6 +24,8 @@ describe('OptionParser', function() {
             <meta name="smartbanner:price" content="FREE">
             <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
             <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+            <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+            <meta name="smartbanner:icon-google" content="icon--google.jpg">
             <meta name="smartbanner:button" content="VIEW">
           </head>
           <body>
@@ -56,6 +58,13 @@ describe('OptionParser', function() {
         expect(options.button).to.eql('VIEW');
       });
 
+      it('expected to parse iOS icon', function() {
+        expect(options.iconApple).to.eql('icon--apple.jpg');
+      });
+
+      it('expected to parse Android icon', function() {
+        expect(options.iconGoogle).to.eql('icon--google.jpg');
+      });
     });
 
     context('without smartbanner meta tags', function() {
