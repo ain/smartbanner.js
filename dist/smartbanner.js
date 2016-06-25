@@ -150,16 +150,26 @@ var SmartBanner = function () {
   }, {
     key: 'icon',
     get: function get() {
-      if (this.platform == 'android') {
+      if (this.platform === 'android') {
         return this.options.iconGoogle;
       } else {
         return this.options.iconApple;
       }
     }
   }, {
+    key: 'buttonUrl',
+    get: function get() {
+      if (this.platform === 'android') {
+        return this.options.buttonUrlGoogle;
+      } else if (this.platform === 'ios') {
+        return this.options.buttonUrlApple;
+      }
+      return '#';
+    }
+  }, {
     key: 'html',
     get: function get() {
-      return '<div class="smartbanner smartbanner--' + this.platform + '">\n      <a href="#exit" class="smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n      </div>\n      <a href="#view" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
+      return '<div class="smartbanner smartbanner--' + this.platform + '">\n      <a href="#exit" class="smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n      </div>\n      <a href="' + this.buttonUrl + '" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
     }
   }]);
 

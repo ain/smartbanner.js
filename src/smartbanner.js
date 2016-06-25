@@ -19,11 +19,20 @@ export default class SmartBanner {
   }
 
   get icon() {
-    if (this.platform == 'android') {
+    if (this.platform === 'android') {
       return this.options.iconGoogle;
     } else {
       return this.options.iconApple;
     }
+  }
+
+  get buttonUrl() {
+    if (this.platform === 'android') {
+      return this.options.buttonUrlGoogle;
+    } else if (this.platform === 'ios') {
+      return this.options.buttonUrlApple;
+    }
+    return '#';
   }
 
   get html() {
@@ -35,7 +44,7 @@ export default class SmartBanner {
         <div class="smartbanner__info__author">${this.options.author}</div>
         <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
       </div>
-      <a href="#view" class="smartbanner__button"><span class="smartbanner__button__label">${this.options.button}</span></a>
+      <a href="${this.buttonUrl}" class="smartbanner__button"><span class="smartbanner__button__label">${this.options.button}</span></a>
     </div>`;
   }
 

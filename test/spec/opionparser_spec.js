@@ -27,6 +27,8 @@ describe('OptionParser', function() {
             <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
             <meta name="smartbanner:icon-google" content="icon--google.jpg">
             <meta name="smartbanner:button" content="VIEW">
+            <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+            <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
           </head>
           <body>
           </body>
@@ -64,6 +66,14 @@ describe('OptionParser', function() {
 
       it('expected to parse Android icon', function() {
         expect(options.iconGoogle).to.eql('icon--google.jpg');
+      });
+
+      it('expected to parse iOS button URL', function() {
+        expect(options.buttonUrlApple).to.eql('https://itunes.apple.com/us/genre/ios/id36?mt=8');
+      });
+
+      it('expected to parse Android button URL', function() {
+        expect(options.buttonUrlGoogle).to.eql('https://play.google.com/store');
       });
     });
 

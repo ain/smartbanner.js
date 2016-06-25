@@ -19,6 +19,8 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
       <meta name="smartbanner:icon-google" content="icon--google.jpg">
       <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
     </head>
     <body>
     </body>
@@ -32,7 +34,7 @@ describe('SmartBanner', function() {
         <div class="smartbanner__info__author">SmartBanner Contributors</div>
         <div class="smartbanner__info__price">FREE - On the App Store</div>
       </div>
-      <a href="#view" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
+      <a href="https://itunes.apple.com/us/genre/ios/id36?mt=8" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android">
@@ -43,7 +45,7 @@ describe('SmartBanner', function() {
         <div class="smartbanner__info__author">SmartBanner Contributors</div>
         <div class="smartbanner__info__price">FREE - In Google Play</div>
       </div>
-      <a href="#view" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
+      <a href="https://play.google.com/store" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
   const USER_AGENT_IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
@@ -159,6 +161,10 @@ describe('SmartBanner', function() {
         expect(smartbanner.icon).to.eql('icon--apple.jpg');
       });
 
+      it('expected to have iOS button URL', function() {
+        expect(smartbanner.buttonUrl).to.eql('https://itunes.apple.com/us/genre/ios/id36?mt=8');
+      });
+
     });
 
     context('when on iPad', function() {
@@ -183,6 +189,10 @@ describe('SmartBanner', function() {
 
       it('expected to have iOS icon', function() {
         expect(smartbanner.icon).to.eql('icon--apple.jpg');
+      });
+
+      it('expected to have iOS button URL', function() {
+        expect(smartbanner.buttonUrl).to.eql('https://itunes.apple.com/us/genre/ios/id36?mt=8');
       });
 
     });
@@ -211,6 +221,10 @@ describe('SmartBanner', function() {
         expect(smartbanner.icon).to.eql('icon--apple.jpg');
       });
 
+      it('expected to have iOS button URL', function() {
+        expect(smartbanner.buttonUrl).to.eql('https://itunes.apple.com/us/genre/ios/id36?mt=8');
+      });
+
     });
 
     context('when on Android', function() {
@@ -235,6 +249,10 @@ describe('SmartBanner', function() {
 
       it('expected to have Android icon', function() {
         expect(smartbanner.icon).to.eql('icon--google.jpg');
+      });
+
+      it('expected to have Android button URL', function() {
+        expect(smartbanner.buttonUrl).to.eql('https://play.google.com/store');
       });
 
     });
