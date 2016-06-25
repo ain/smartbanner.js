@@ -12,7 +12,7 @@ export default class SmartBanner {
   get priceSuffix() {
     if (this.platform === 'ios') {
       return this.options.priceSuffixApple;
-    } else if (this.platform == 'android') {
+    } else if (this.platform === 'android') {
       return this.options.priceSuffixGoogle;
     }
     return '';
