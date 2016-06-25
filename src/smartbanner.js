@@ -2,6 +2,16 @@ import OptionParser from './optionparser.js';
 import Detector from './detector.js';
 import Bakery from './bakery.js';
 
+function handleExitClick(event, self) {
+  self.exit();
+  event.preventDefault();
+}
+
+function addEventListeners(self) {
+  let closeIcon = document.querySelector('.js_smartbanner__exit');
+  closeIcon.addEventListener('click', () => handleExitClick(event, self));
+}
+
 export default class SmartBanner {
 
   constructor() {
@@ -38,7 +48,7 @@ export default class SmartBanner {
 
   get html() {
     return `<div class="smartbanner smartbanner--${this.platform}">
-      <a href="#exit" class="smartbanner__exit"></a>
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
         <div class="smartbanner__info__title">${this.options.title}</div>
@@ -56,6 +66,7 @@ export default class SmartBanner {
       return false;
     }
     document.write(this.html);
+    addEventListeners(this);
   }
 
   exit() {

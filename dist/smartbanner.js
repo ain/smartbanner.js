@@ -163,6 +163,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function handleExitClick(event, self) {
+  self.exit();
+  event.preventDefault();
+}
+
+function addEventListeners(self) {
+  var closeIcon = document.querySelector('.js_smartbanner__exit');
+  closeIcon.addEventListener('click', function () {
+    return handleExitClick(event, self);
+  });
+}
+
 var SmartBanner = function () {
   function SmartBanner() {
     _classCallCheck(this, SmartBanner);
@@ -181,6 +193,7 @@ var SmartBanner = function () {
         return false;
       }
       document.write(this.html);
+      addEventListeners(this);
     }
   }, {
     key: 'exit',
@@ -221,7 +234,7 @@ var SmartBanner = function () {
   }, {
     key: 'html',
     get: function get() {
-      return '<div class="smartbanner smartbanner--' + this.platform + '">\n      <a href="#exit" class="smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n      </div>\n      <a href="' + this.buttonUrl + '" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
+      return '<div class="smartbanner smartbanner--' + this.platform + '">\n      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n      </div>\n      <a href="' + this.buttonUrl + '" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
     }
   }]);
 
