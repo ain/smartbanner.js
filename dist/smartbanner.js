@@ -9,6 +9,45 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var Bakery = function () {
+  function Bakery() {
+    _classCallCheck(this, Bakery);
+  }
+
+  _createClass(Bakery, null, [{
+    key: 'bake',
+    value: function bake() {
+      document.cookie = 'smartbanner_exited=1';
+    }
+  }, {
+    key: 'unbake',
+    value: function unbake() {
+      document.cookie = 'smartbanner_exited=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+  }, {
+    key: 'baked',
+    get: function get() {
+      var value = document.cookie.replace(/(?:(?:^|.*;\s*)smartbanner_exited\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+      return value === '1';
+    }
+  }]);
+
+  return Bakery;
+}();
+
+exports.default = Bakery;
+
+},{}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var Detector = function () {
   function Detector() {
     _classCallCheck(this, Detector);
@@ -30,7 +69,7 @@ var Detector = function () {
 
 exports.default = Detector;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var _smartbanner = require('./smartbanner.js');
@@ -42,7 +81,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var smartbanner = new _smartbanner2.default();
 smartbanner.publish();
 
-},{"./smartbanner.js":4}],3:[function(require,module,exports){
+},{"./smartbanner.js":5}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -99,7 +138,7 @@ var OptionParser = function () {
 
 exports.default = OptionParser;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -115,6 +154,10 @@ var _optionparser2 = _interopRequireDefault(_optionparser);
 var _detector = require('./detector.js');
 
 var _detector2 = _interopRequireDefault(_detector);
+
+var _bakery = require('./bakery.js');
+
+var _bakery2 = _interopRequireDefault(_bakery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -136,6 +179,13 @@ var SmartBanner = function () {
         throw new Error('No options detected. Please consult documentation.');
       }
       document.write(this.html);
+    }
+  }, {
+    key: 'exit',
+    value: function exit() {
+      var banner = document.querySelector('.smartbanner');
+      banner.outerHTML = '';
+      _bakery2.default.bake();
     }
   }, {
     key: 'priceSuffix',
@@ -178,4 +228,4 @@ var SmartBanner = function () {
 
 exports.default = SmartBanner;
 
-},{"./detector.js":1,"./optionparser.js":3}]},{},[2]);
+},{"./bakery.js":1,"./detector.js":2,"./optionparser.js":4}]},{},[3]);

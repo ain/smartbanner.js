@@ -4,6 +4,7 @@ let chai = require('chai');
 let expect = chai.expect;
 
 import SmartBanner from '../../src/smartbanner.js';
+import Bakery from '../../src/bakery.js';
 
 describe('SmartBanner', function() {
 
@@ -258,4 +259,25 @@ describe('SmartBanner', function() {
     });
 
   });
+
+  describe('exit', function() {
+
+    before(function() {
+      global.document = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE });
+      smartbanner = new SmartBanner();
+      smartbanner.publish();
+      smartbanner.exit();
+    });
+
+    it('expected to set cookie', function() {
+      expect(Bakery.baked).to.be.true;
+    });
+
+    it('expected to remove HTML', function() {
+      let element = document.querySelector('.smartbanner');
+      expect(element).not.to.exist;
+    });
+
+  });
+
 });

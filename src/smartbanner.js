@@ -1,5 +1,6 @@
 import OptionParser from './optionparser.js';
 import Detector from './detector.js';
+import Bakery from './bakery.js';
 
 export default class SmartBanner {
 
@@ -53,5 +54,12 @@ export default class SmartBanner {
       throw new Error('No options detected. Please consult documentation.');
     }
     document.write(this.html);
+
+  }
+
+  exit() {
+    let banner = document.querySelector('.smartbanner');
+    banner.outerHTML = '';
+    Bakery.bake();
   }
 }
