@@ -32,3 +32,7 @@ Customisable smart app banner for iOS and Android.
 <meta name="smartbanner:button-url-google" content="https://android/application-url">
 <!-- End SmartBanner configuration -->
 ```
+
+## Licence
+
+Copyright © 2016 Ain Tohvri. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/master/LICENSE).
