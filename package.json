@@ -31,7 +31,7 @@
     "url": "https://github.com/ain/smartbanner.js.git"
   },
   "scripts": {
-    "bannerise": "add-banner --template=banner.tmpl dist/*.{js,css}",
+    "bannerise": "add-banner --template=banner.tmpl dist/*.*s",
     "browserify": "browserify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ]",
     "uglify": "uglifyjs dist/smartbanner.js -o dist/smartbanner.min.js",
     "eslint": "eslint src/*.js",
