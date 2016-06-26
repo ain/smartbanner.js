@@ -36,6 +36,13 @@ Customisable smart app banner for iOS and Android.
 <!-- End SmartBanner configuration -->
 ```
 
+Additionally, JavaScript and CSS has to be included:
+
+```html
+<link rel="stylesheet" href="path/to/component/dist/smartbanner.min.css">
+<script src="path/to/component/dist/smartbanner.min.js"></script>
+```
+
 ## Licence
 
 Copyright © 2016 Ain Tohvri. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/master/LICENSE).
