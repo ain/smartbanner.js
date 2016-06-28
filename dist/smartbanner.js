@@ -179,6 +179,16 @@ function addEventListeners(self) {
   });
 }
 
+function getOriginalHtmlTopMargin() {
+  var html = document.querySelector('html');
+  var margin = parseFloat(getComputedStyle(html).marginTop);
+  return isNaN(margin) ? 0 : margin;
+}
+
+function setHtmlTopMargin(margin) {
+  document.querySelector('html').style.marginTop = margin + 'px';
+}
+
 var SmartBanner = function () {
   function SmartBanner() {
     _classCallCheck(this, SmartBanner);
@@ -186,6 +196,7 @@ var SmartBanner = function () {
     var parser = new _optionparser2.default();
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
+    this.originalTopMargin = getOriginalHtmlTopMargin();
   }
 
   _createClass(SmartBanner, [{
@@ -197,14 +208,16 @@ var SmartBanner = function () {
         return false;
       }
       document.write(this.html);
+      setHtmlTopMargin(this.originalTopMargin + this.height);
       addEventListeners(this);
     }
   }, {
     key: 'exit',
     value: function exit() {
-      var banner = document.querySelector('.smartbanner');
+      var banner = document.querySelector('.js_smartbanner');
       banner.outerHTML = '';
       _bakery2.default.bake();
+      setHtmlTopMargin(this.originalTopMargin);
     }
   }, {
     key: 'priceSuffix',
@@ -238,7 +251,12 @@ var SmartBanner = function () {
   }, {
     key: 'html',
     get: function get() {
-      return '<div class="smartbanner smartbanner--' + this.platform + '">\n      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n      </div>\n      <a href="' + this.buttonUrl + '" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
+      return '<div class="smartbanner smartbanner--' + this.platform + ' js_smartbanner">\n      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n      </div>\n      <a href="' + this.buttonUrl + '" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
+    }
+  }, {
+    key: 'height',
+    get: function get() {
+      return document.querySelector('.js_smartbanner').offsetHeight;
     }
   }]);
 

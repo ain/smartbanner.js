@@ -9,7 +9,7 @@ import Bakery from '../../src/bakery.js';
 describe('SmartBanner', function() {
 
   const HTML = `<!doctype html>
-    <html>
+    <html style="margin-top: 2em;">
     <head>
       <meta charset="utf-8">
       <meta name="smartbanner:title" content="Smart Application">
@@ -27,7 +27,7 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
-  const IOS_BODY = `<div class="smartbanner smartbanner--ios">
+  const IOS_BODY = `<div class="smartbanner smartbanner--ios js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
       <div class="smartbanner__info">
@@ -38,7 +38,7 @@ describe('SmartBanner', function() {
       <a href="https://itunes.apple.com/us/genre/ios/id36?mt=8" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
-  const ANDROID_BODY = `<div class="smartbanner smartbanner--android">
+  const ANDROID_BODY = `<div class="smartbanner smartbanner--android js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
@@ -146,7 +146,7 @@ describe('SmartBanner', function() {
 
       it('expected to not to add to body', function() {
         smartbanner.publish();
-        expect(document.querySelector('.smartbanner')).not.to.exist;
+        expect(document.querySelector('.js_smartbanner')).not.to.exist;
       });
 
     });
@@ -166,7 +166,7 @@ describe('SmartBanner', function() {
         global.document = window.document;
         smartbanner = new SmartBanner();
         smartbanner.publish();
-        expect(document.querySelector('.smartbanner')).to.exist;
+        expect(document.querySelector('.js_smartbanner')).to.exist;
       });
 
     });
@@ -310,11 +310,32 @@ describe('SmartBanner', function() {
       expect(Bakery.baked).to.be.true;
     });
 
-    it('expected to remove HTML', function() {
-      let element = document.querySelector('.smartbanner');
+    it('expected to remove component markup', function() {
+      let element = document.querySelector('.js_smartbanner');
       expect(element).not.to.exist;
     });
 
+    it('expected to restore HTML margin', function() {
+      let html = document.querySelector('html');
+      let margin = parseFloat(getComputedStyle(html).marginTop);
+      if (isNaN(margin)) {
+        margin = 0;
+      }
+      expect(margin).to.eql(smartbanner.originalTopMargin);
+    });
+
+  });
+
+  describe('height', function() {
+    before(function() {
+      global.document = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE });
+      smartbanner = new SmartBanner();
+      smartbanner.publish();
+    });
+
+    it('expected to match component offset height', function() {
+      expect(smartbanner.height).to.eql(document.querySelector('.js_smartbanner').offsetHeight);
+    });
   });
 
 });

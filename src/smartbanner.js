@@ -12,12 +12,23 @@ function addEventListeners(self) {
   closeIcon.addEventListener('click', () => handleExitClick(event, self));
 }
 
+function getOriginalHtmlTopMargin() {
+  let html = document.querySelector('html');
+  let margin = parseFloat(getComputedStyle(html).marginTop);
+  return isNaN(margin) ? 0 : margin;
+}
+
+function setHtmlTopMargin(margin) {
+  document.querySelector('html').style.marginTop = margin + 'px';
+}
+
 export default class SmartBanner {
 
   constructor() {
     let parser = new OptionParser();
     this.options = parser.parse();
     this.platform = Detector.platform();
+    this.originalTopMargin = getOriginalHtmlTopMargin();
   }
 
   get priceSuffix() {
@@ -47,7 +58,7 @@ export default class SmartBanner {
   }
 
   get html() {
-    return `<div class="smartbanner smartbanner--${this.platform}">
+    return `<div class="smartbanner smartbanner--${this.platform} js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
@@ -59,6 +70,10 @@ export default class SmartBanner {
     </div>`;
   }
 
+  get height() {
+    return document.querySelector('.js_smartbanner').offsetHeight;
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
@@ -66,12 +81,14 @@ export default class SmartBanner {
       return false;
     }
     document.write(this.html);
+    setHtmlTopMargin(this.originalTopMargin + this.height);
     addEventListeners(this);
   }
 
   exit() {
-    let banner = document.querySelector('.smartbanner');
+    let banner = document.querySelector('.js_smartbanner');
     banner.outerHTML = '';
     Bakery.bake();
+    setHtmlTopMargin(this.originalTopMargin);
   }
 }
