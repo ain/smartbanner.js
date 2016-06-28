@@ -61,6 +61,8 @@ describe('SmartBanner', function() {
     context('without options', function() {
 
       before(function() {
+        global.document = jsdom.jsdom('<html></html>', { userAgent: USER_AGENT_IPHONE });
+        global.getComputedStyle = document.defaultView.getComputedStyle;
         smartbanner = new SmartBanner();
       });
 
@@ -77,6 +79,7 @@ describe('SmartBanner', function() {
         before(function() {
           global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
           global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
         });
 
@@ -92,6 +95,7 @@ describe('SmartBanner', function() {
         before(function() {
           global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
           global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
         });
 
@@ -107,6 +111,7 @@ describe('SmartBanner', function() {
         before(function() {
           global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
           global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
         });
 
@@ -122,6 +127,7 @@ describe('SmartBanner', function() {
         before(function() {
           global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
           global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
         });
 
@@ -139,6 +145,7 @@ describe('SmartBanner', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
         global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
         smartbanner.publish();
         smartbanner.exit();
@@ -156,6 +163,7 @@ describe('SmartBanner', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
         global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
         smartbanner.publish();
         smartbanner.exit();
@@ -164,6 +172,7 @@ describe('SmartBanner', function() {
       it('expected to add to body', function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
         global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
         smartbanner.publish();
         expect(document.querySelector('.js_smartbanner')).to.exist;
@@ -180,6 +189,7 @@ describe('SmartBanner', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
         global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
       });
 
@@ -210,6 +220,7 @@ describe('SmartBanner', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
         global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
       });
 
@@ -240,6 +251,7 @@ describe('SmartBanner', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
         global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
       });
 
@@ -270,6 +282,7 @@ describe('SmartBanner', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
         global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
       });
 
@@ -301,6 +314,7 @@ describe('SmartBanner', function() {
 
     before(function() {
       global.document = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE });
+      global.getComputedStyle = document.defaultView.getComputedStyle;
       smartbanner = new SmartBanner();
       smartbanner.publish();
       smartbanner.exit();
@@ -329,6 +343,7 @@ describe('SmartBanner', function() {
   describe('height', function() {
     before(function() {
       global.document = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE });
+      global.getComputedStyle = document.defaultView.getComputedStyle;
       smartbanner = new SmartBanner();
       smartbanner.publish();
     });
