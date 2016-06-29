@@ -1,15 +1,20 @@
+/*!
+ * smartbanner.js <https://github.com/ain/smartbanner.js>
+ * Copyright © 2016 Ain Tohvri. Licensed under GPL-3.0.
+ */
 .smartbanner {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 10px;
+  overflow-x: hidden;
   width: 100%;
-  height: 64px;
+  height: 84px;
   background: #f3f3f3;
   font-family: Helvetica, sans, sans-serif; }
   .smartbanner__exit {
     position: absolute;
     top: calc(50% - 6px);
+    left: 9px;
     display: block;
     margin: 0;
     width: 12px;
@@ -36,20 +41,21 @@
     background-size: 64px 64px; }
   .smartbanner__info {
     position: absolute;
-    top: 15px;
+    top: 10px;
     left: 104px;
-    width: 100%;
-    height: 64px; }
+    display: flex;
+    overflow-y: hidden;
+    width: 60%;
+    height: 64px;
+    align-items: center; }
     .smartbanner__info__title {
-      font-size: 14px;
-      line-height: 20px; }
+      font-size: 14px; }
     .smartbanner__info__author, .smartbanner__info__price {
-      font-size: 12px;
-      line-height: 16px; }
+      font-size: 12px; }
   .smartbanner__button {
     position: absolute;
     top: 32px;
-    right: 30px;
+    right: 10px;
     z-index: 1;
     display: block;
     padding: 0 10px;

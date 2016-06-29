@@ -31,9 +31,11 @@ describe('SmartBanner', function() {
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
       <div class="smartbanner__info">
-        <div class="smartbanner__info__title">Smart Application</div>
-        <div class="smartbanner__info__author">SmartBanner Contributors</div>
-        <div class="smartbanner__info__price">FREE - On the App Store</div>
+        <div>
+          <div class="smartbanner__info__title">Smart Application</div>
+          <div class="smartbanner__info__author">SmartBanner Contributors</div>
+          <div class="smartbanner__info__price">FREE - On the App Store</div>
+        </div>
       </div>
       <a href="https://itunes.apple.com/us/genre/ios/id36?mt=8" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
@@ -42,9 +44,11 @@ describe('SmartBanner', function() {
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
-        <div class="smartbanner__info__title">Smart Application</div>
-        <div class="smartbanner__info__author">SmartBanner Contributors</div>
-        <div class="smartbanner__info__price">FREE - In Google Play</div>
+        <div>
+          <div class="smartbanner__info__title">Smart Application</div>
+          <div class="smartbanner__info__author">SmartBanner Contributors</div>
+          <div class="smartbanner__info__price">FREE - In Google Play</div>
+        </div>
       </div>
       <a href="https://play.google.com/store" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;

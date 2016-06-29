@@ -66,6 +66,11 @@ var Detector = function () {
         return 'android';
       }
     }
+  }, {
+    key: 'jQueryMobilePage',
+    value: function jQueryMobilePage() {
+      return typeof $ !== 'undefined' && $.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
+    }
   }]);
 
   return Detector;
@@ -251,7 +256,7 @@ var SmartBanner = function () {
   }, {
     key: 'html',
     get: function get() {
-      return '<div class="smartbanner smartbanner--' + this.platform + ' js_smartbanner">\n      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div class="smartbanner__info__title">' + this.options.title + '</div>\n        <div class="smartbanner__info__author">' + this.options.author + '</div>\n        <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n      </div>\n      <a href="' + this.buttonUrl + '" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
+      return '<div class="smartbanner smartbanner--' + this.platform + ' js_smartbanner">\n      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div>\n          <div class="smartbanner__info__title">' + this.options.title + '</div>\n          <div class="smartbanner__info__author">' + this.options.author + '</div>\n          <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n        </div>\n      </div>\n      <a href="' + this.buttonUrl + '" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
     }
   }, {
     key: 'height',

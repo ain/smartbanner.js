@@ -62,9 +62,11 @@ export default class SmartBanner {
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
-        <div class="smartbanner__info__title">${this.options.title}</div>
-        <div class="smartbanner__info__author">${this.options.author}</div>
-        <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
+        <div>
+          <div class="smartbanner__info__title">${this.options.title}</div>
+          <div class="smartbanner__info__author">${this.options.author}</div>
+          <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
+        </div>
       </div>
       <a href="${this.buttonUrl}" class="smartbanner__button"><span class="smartbanner__button__label">${this.options.button}</span></a>
     </div>`;
