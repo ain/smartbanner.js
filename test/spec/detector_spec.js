@@ -7,7 +7,7 @@ import Detector from '../../src/detector.js';
 
 describe('Detector', function() {
 
-  describe('os', function() {
+  describe('platform', function() {
 
     const USER_AGENT_IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
     const USER_AGENT_IPAD = 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
@@ -71,4 +71,35 @@ describe('Detector', function() {
     });
 
   });
+
+  describe('jQueryMobilePage', function() {
+
+    context('without jQuery Mobile', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(`<!doctype html><html><head></head><body></body></html>`).defaultView;
+        global.document = window.document;
+      });
+
+      it('expected to return false', function() {
+        expect(Detector.jQueryMobilePage()).to.be.false;
+      });
+
+    });
+
+    context('with jQuery Mobile', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(`<!doctype html><html><head></head><body class="ui-page"></body></html>`).defaultView;
+        global.document = window.document;
+        global.$ = {mobile: true};
+      });
+
+      it('expected to return true', function() {
+        expect(Detector.jQueryMobilePage()).to.be.true;
+      });
+
+    });
+  });
+
 });

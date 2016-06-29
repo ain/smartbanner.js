@@ -8,4 +8,8 @@ export default class Detector {
     }
   }
 
+  static jQueryMobilePage() {
+    return typeof $ !== 'undefined' && $.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
+  }
+
 }
