@@ -9,7 +9,7 @@ import Bakery from '../../src/bakery.js';
 describe('SmartBanner', function() {
 
   const HTML = `<!doctype html>
-    <html style="margin-top: 2em;">
+    <html style="margin-top:10px;">
     <head>
       <meta charset="utf-8">
       <meta name="smartbanner:title" content="Smart Application">
@@ -80,16 +80,27 @@ describe('SmartBanner', function() {
 
       context('when on iPhone', function() {
 
-        before(function() {
+        beforeEach(function() {
           global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
         });
 
+        afterEach(function() {
+          smartbanner.exit();
+        });
+
         it('expected to add iOS template to body', function() {
           smartbanner.publish();
           expect(document.body.innerHTML).to.eql(IOS_BODY);
+        });
+
+        it('expected to store original top margin', function() {
+          let html = document.querySelector('html');
+          let margin = parseFloat(getComputedStyle(html).marginTop);
+          smartbanner.publish();
+          expect(smartbanner.originalTopMargin).to.eql(margin);
         });
 
       });
