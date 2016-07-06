@@ -102,4 +102,36 @@ describe('Detector', function() {
     });
   });
 
+  describe('marginedElement', function() {
+
+    context('without jQuery Mobile', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(`<!doctype html><html><head></head><body></body></html>`).defaultView;
+        global.document = window.document;
+      });
+
+      it('expected to return html element', function() {
+        expect(Detector.marginedElement()).to.eql(document.querySelector('html'));
+      });
+
+    });
+
+    context('with jQuery Mobile', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(`<!doctype html><html><head></head><body class="ui-page"></body></html>`).defaultView;
+        global.document = window.document;
+        global.$ = {mobile: true};
+      });
+
+      it('expected to return ui-page element', function() {
+        expect(Detector.marginedElement()).to.eql(document.querySelector('.ui-page'));
+      });
+
+    });
+  });
+
+
+
 });

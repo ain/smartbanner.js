@@ -9,7 +9,12 @@ export default class Detector {
   }
 
   static jQueryMobilePage() {
-    return typeof $ !== 'undefined' && $.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
+    return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
+  }
+
+  static marginedElement() {
+    let selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
+    return document.querySelector(selector);
   }
 
 }

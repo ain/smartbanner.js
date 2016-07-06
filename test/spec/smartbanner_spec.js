@@ -23,7 +23,7 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
     </head>
-    <body>
+    <body class="ui-page" style="margin-top:12px;">
     </body>
   </html>`;
 
@@ -81,9 +81,10 @@ describe('SmartBanner', function() {
       context('when on iPhone', function() {
 
         beforeEach(function() {
-          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE}).defaultView;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
+          global.$ = undefined;
           smartbanner = new SmartBanner();
         });
 
@@ -93,7 +94,8 @@ describe('SmartBanner', function() {
 
         it('expected to add iOS template to body', function() {
           smartbanner.publish();
-          expect(document.body.innerHTML).to.eql(IOS_BODY);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY);
         });
 
         it('expected to store original top margin', function() {
@@ -108,7 +110,7 @@ describe('SmartBanner', function() {
       context('when on iPad', function() {
 
         before(function() {
-          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPAD}).defaultView;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
@@ -116,7 +118,8 @@ describe('SmartBanner', function() {
 
         it('expected to add iOS template to body', function() {
           smartbanner.publish();
-          expect(document.body.innerHTML).to.eql(IOS_BODY);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY);
         });
 
       });
@@ -124,7 +127,7 @@ describe('SmartBanner', function() {
       context('when on iPod', function() {
 
         before(function() {
-          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPOD}).defaultView;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
@@ -132,7 +135,8 @@ describe('SmartBanner', function() {
 
         it('expected to add iOS template to body', function() {
           smartbanner.publish();
-          expect(document.body.innerHTML).to.eql(IOS_BODY);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY);
         });
 
       });
@@ -148,7 +152,8 @@ describe('SmartBanner', function() {
 
         it('expected to add Android template to body', function() {
           smartbanner.publish();
-          expect(document.body.innerHTML).to.eql(ANDROID_BODY);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(ANDROID_BODY);
         });
 
       });
@@ -327,30 +332,56 @@ describe('SmartBanner', function() {
 
   describe('exit', function() {
 
-    before(function() {
-      global.document = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE });
-      global.getComputedStyle = document.defaultView.getComputedStyle;
+    beforeEach(function() {
+      global.document = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE});
+      global.window = document.defaultView;
+      global.getComputedStyle = window.getComputedStyle;
       smartbanner = new SmartBanner();
       smartbanner.publish();
-      smartbanner.exit();
     });
 
     it('expected to set cookie', function() {
+      smartbanner.exit();
       expect(Bakery.baked).to.be.true;
     });
 
     it('expected to remove component markup', function() {
+      smartbanner.exit();
       let element = document.querySelector('.js_smartbanner');
       expect(element).not.to.exist;
     });
 
-    it('expected to restore HTML margin', function() {
-      let html = document.querySelector('html');
-      let margin = parseFloat(getComputedStyle(html).marginTop);
-      if (isNaN(margin)) {
-        margin = 0;
-      }
-      expect(margin).to.eql(smartbanner.originalTopMargin);
+    context('without jQuery Mobile', function() {
+      before(function() {
+        global.$ = undefined;
+      });
+
+      it('expected to restore HTML margin', function() {
+        let html = document.querySelector('html');
+        let margin = parseFloat(getComputedStyle(html).marginTop);
+        if (isNaN(margin)) {
+          margin = 0;
+        }
+        smartbanner.exit();
+        expect(margin).to.eql(smartbanner.originalTopMargin);
+      });
+    });
+
+    context('with jQuery Mobile', function() {
+
+      before(function() {
+        global.$ = {mobile: true};
+      });
+
+      it('expected to restore HTML margin', function() {
+        let page = document.querySelector('.ui-page');
+        let margin = parseFloat(getComputedStyle(page).marginTop);
+        if (isNaN(margin)) {
+          margin = 0;
+        }
+        smartbanner.exit();
+        expect(margin).to.eql(smartbanner.originalTopMargin);
+      });
     });
 
   });
@@ -359,12 +390,16 @@ describe('SmartBanner', function() {
     before(function() {
       global.document = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE });
       global.getComputedStyle = document.defaultView.getComputedStyle;
+      global.window = document.defaultView;
+      global.$ = {mobile: true};
       smartbanner = new SmartBanner();
       smartbanner.publish();
     });
 
     it('expected to match component offset height', function() {
-      expect(smartbanner.height).to.eql(document.querySelector('.js_smartbanner').offsetHeight);
+      let height = document.querySelector('.js_smartbanner').offsetHeight;
+      height = height !== undefined ? height : 0;
+      expect(smartbanner.height).to.eql(height);
     });
   });
 

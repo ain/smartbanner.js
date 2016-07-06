@@ -12,14 +12,14 @@ function addEventListeners(self) {
   closeIcon.addEventListener('click', () => handleExitClick(event, self));
 }
 
-function getOriginalHtmlTopMargin() {
-  let html = document.querySelector('html');
-  let margin = parseFloat(getComputedStyle(html).marginTop);
+function getOriginalTopMargin() {
+  let element = Detector.marginedElement();
+  let margin = parseFloat(getComputedStyle(element).marginTop);
   return isNaN(margin) ? 0 : margin;
 }
 
-function setHtmlTopMargin(margin) {
-  document.querySelector('html').style.marginTop = margin + 'px';
+function setTopMargin(margin) {
+  Detector.marginedElement().style.marginTop = margin + 'px';
 }
 
 export default class SmartBanner {
@@ -28,7 +28,7 @@ export default class SmartBanner {
     let parser = new OptionParser();
     this.options = parser.parse();
     this.platform = Detector.platform();
-    this.originalTopMargin = getOriginalHtmlTopMargin();
+    this.originalTopMargin = getOriginalTopMargin();
   }
 
   get priceSuffix() {
@@ -73,7 +73,8 @@ export default class SmartBanner {
   }
 
   get height() {
-    return document.querySelector('.js_smartbanner').offsetHeight;
+    let height = document.querySelector('.js_smartbanner').offsetHeight;
+    return height !== undefined ? height : 0;
   }
 
   publish() {
@@ -82,8 +83,8 @@ export default class SmartBanner {
     } else if (Bakery.baked) {
       return false;
     }
-    document.write(this.html);
-    setHtmlTopMargin(this.originalTopMargin + this.height);
+    document.querySelector('body').innerHTML += this.html;
+    setTopMargin(this.originalTopMargin + this.height);
     addEventListeners(this);
   }
 
@@ -91,6 +92,6 @@ export default class SmartBanner {
     let banner = document.querySelector('.js_smartbanner');
     banner.outerHTML = '';
     Bakery.bake();
-    setHtmlTopMargin(this.originalTopMargin);
+    setTopMargin(this.originalTopMargin);
   }
 }
