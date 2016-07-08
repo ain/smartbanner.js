@@ -42,6 +42,7 @@ var Bakery = function () {
 exports.default = Bakery;
 
 },{}],2:[function(require,module,exports){
+(function (global){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -69,7 +70,13 @@ var Detector = function () {
   }, {
     key: 'jQueryMobilePage',
     value: function jQueryMobilePage() {
-      return typeof $ !== 'undefined' && $.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
+      return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
+    }
+  }, {
+    key: 'marginedElement',
+    value: function marginedElement() {
+      var selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
+      return document.querySelector(selector);
     }
   }]);
 
@@ -78,6 +85,7 @@ var Detector = function () {
 
 exports.default = Detector;
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
 'use strict';
 
@@ -184,14 +192,14 @@ function addEventListeners(self) {
   });
 }
 
-function getOriginalHtmlTopMargin() {
-  var html = document.querySelector('html');
-  var margin = parseFloat(getComputedStyle(html).marginTop);
+function getOriginalTopMargin() {
+  var element = _detector2.default.marginedElement();
+  var margin = parseFloat(getComputedStyle(element).marginTop);
   return isNaN(margin) ? 0 : margin;
 }
 
-function setHtmlTopMargin(margin) {
-  document.querySelector('html').style.marginTop = margin + 'px';
+function setTopMargin(margin) {
+  _detector2.default.marginedElement().style.marginTop = margin + 'px';
 }
 
 var SmartBanner = function () {
@@ -201,7 +209,7 @@ var SmartBanner = function () {
     var parser = new _optionparser2.default();
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
-    this.originalTopMargin = getOriginalHtmlTopMargin();
+    this.originalTopMargin = getOriginalTopMargin();
   }
 
   _createClass(SmartBanner, [{
@@ -212,8 +220,8 @@ var SmartBanner = function () {
       } else if (_bakery2.default.baked) {
         return false;
       }
-      document.write(this.html);
-      setHtmlTopMargin(this.originalTopMargin + this.height);
+      document.querySelector('body').innerHTML += this.html;
+      setTopMargin(this.originalTopMargin + this.height);
       addEventListeners(this);
     }
   }, {
@@ -222,7 +230,7 @@ var SmartBanner = function () {
       var banner = document.querySelector('.js_smartbanner');
       banner.outerHTML = '';
       _bakery2.default.bake();
-      setHtmlTopMargin(this.originalTopMargin);
+      setTopMargin(this.originalTopMargin);
     }
   }, {
     key: 'priceSuffix',
@@ -261,7 +269,8 @@ var SmartBanner = function () {
   }, {
     key: 'height',
     get: function get() {
-      return document.querySelector('.js_smartbanner').offsetHeight;
+      var height = document.querySelector('.js_smartbanner').offsetHeight;
+      return height !== undefined ? height : 0;
     }
   }]);
 
