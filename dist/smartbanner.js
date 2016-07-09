@@ -202,15 +202,15 @@ function getOriginalTopMargin() {
   return isNaN(margin) ? 0 : margin;
 }
 
-function getOriginalOffsetTop() {
+function getOriginalTop() {
   var element = _detector2.default.wrapperElement();
-  var offset = parseFloat(getComputedStyle(element).offsetTop);
-  return isNaN(offset) ? 0 : offset;
+  var top = parseFloat(getComputedStyle(element).top);
+  return isNaN(top) ? 0 : top;
 }
 
-function setTopMarginOrOffset(value) {
+function setTopMarginOrTop(value) {
   if (_detector2.default.jQueryMobilePage) {
-    _detector2.default.wrapperElement().style.offsetTop = value + 'px';
+    _detector2.default.wrapperElement().style.top = value + 'px';
   } else {
     _detector2.default.wrapperElement().style.marginTop = value + 'px';
   }
@@ -224,7 +224,7 @@ var SmartBanner = function () {
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
     this.originalTopMargin = getOriginalTopMargin();
-    this.originalOffsetTop = getOriginalOffsetTop();
+    this.originalTop = getOriginalTop();
   }
 
   _createClass(SmartBanner, [{
@@ -236,7 +236,8 @@ var SmartBanner = function () {
         return false;
       }
       document.querySelector('body').innerHTML += this.html;
-      setTopMarginOrOffset(this.originalTopMargin + this.height);
+      var position = _detector2.default.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
+      setTopMarginOrTop(position + this.height);
       addEventListeners(this);
     }
   }, {
@@ -245,7 +246,8 @@ var SmartBanner = function () {
       var banner = document.querySelector('.js_smartbanner');
       banner.outerHTML = '';
       _bakery2.default.bake();
-      setTopMarginOrOffset(this.originalTopMargin);
+      var position = _detector2.default.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
+      setTopMarginOrTop(position);
     }
   }, {
     key: 'priceSuffix',

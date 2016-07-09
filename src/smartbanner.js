@@ -18,15 +18,15 @@ function getOriginalTopMargin() {
   return isNaN(margin) ? 0 : margin;
 }
 
-function getOriginalOffsetTop() {
+function getOriginalTop() {
   let element = Detector.wrapperElement();
-  let offset = parseFloat(getComputedStyle(element).offsetTop);
-  return isNaN(offset) ? 0 : offset;
+  let top = parseFloat(getComputedStyle(element).top);
+  return isNaN(top) ? 0 : top;
 }
 
-function setTopMarginOrOffset(value) {
+function setTopMarginOrTop(value) {
   if (Detector.jQueryMobilePage) {
-    Detector.wrapperElement().style.offsetTop = value + 'px';
+    Detector.wrapperElement().style.top = value + 'px';
   } else {
     Detector.wrapperElement().style.marginTop = value + 'px';
   }
@@ -39,7 +39,7 @@ export default class SmartBanner {
     this.options = parser.parse();
     this.platform = Detector.platform();
     this.originalTopMargin = getOriginalTopMargin();
-    this.originalOffsetTop = getOriginalOffsetTop();
+    this.originalTop = getOriginalTop();
   }
 
   get priceSuffix() {
@@ -95,7 +95,8 @@ export default class SmartBanner {
       return false;
     }
     document.querySelector('body').innerHTML += this.html;
-    setTopMarginOrOffset(this.originalTopMargin + this.height);
+    let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
+    setTopMarginOrTop(position + this.height);
     addEventListeners(this);
   }
 
@@ -103,6 +104,7 @@ export default class SmartBanner {
     let banner = document.querySelector('.js_smartbanner');
     banner.outerHTML = '';
     Bakery.bake();
-    setTopMarginOrOffset(this.originalTopMargin);
+    let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
+    setTopMarginOrTop(position);
   }
 }

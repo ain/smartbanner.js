@@ -375,12 +375,12 @@ describe('SmartBanner', function() {
 
       it('expected to restore HTML margin', function() {
         let page = document.querySelector('.ui-page');
-        let offsetTop = parseFloat(getComputedStyle(page).offsetTop);
-        if (isNaN(offsetTop)) {
-          offsetTop = 0;
+        let top = parseFloat(getComputedStyle(page).top);
+        if (isNaN(top)) {
+          top = 0;
         }
         smartbanner.exit();
-        expect(offsetTop).to.eql(smartbanner.originalOffsetTop);
+        expect(top).to.eql(smartbanner.originalTop);
       });
     });
 
