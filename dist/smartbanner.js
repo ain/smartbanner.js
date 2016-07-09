@@ -210,7 +210,7 @@ function getOriginalOffsetTop() {
 
 function setTopMarginOrOffset(value) {
   if (_detector2.default.jQueryMobilePage) {
-    _detector2.default.wrapperElement().style.offsetTop = value;
+    _detector2.default.wrapperElement().style.offsetTop = value + 'px';
   } else {
     _detector2.default.wrapperElement().style.marginTop = value + 'px';
   }
