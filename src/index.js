@@ -1,6 +1,8 @@
 import SmartBanner from './smartbanner.js';
 
-let smartbanner = new SmartBanner();
+let smartbanner;
+
 window.onload = function() {
+  smartbanner = new SmartBanner();
   smartbanner.publish();
 };

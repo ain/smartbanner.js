@@ -73,8 +73,8 @@ var Detector = function () {
       return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
     }
   }, {
-    key: 'marginedElement',
-    value: function marginedElement() {
+    key: 'wrapperElement',
+    value: function wrapperElement() {
       var selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
       return document.querySelector(selector);
     }
@@ -95,8 +95,10 @@ var _smartbanner2 = _interopRequireDefault(_smartbanner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var smartbanner = new _smartbanner2.default();
+var smartbanner = void 0;
+
 window.onload = function () {
+  smartbanner = new _smartbanner2.default();
   smartbanner.publish();
 };
 
@@ -195,13 +197,23 @@ function addEventListeners(self) {
 }
 
 function getOriginalTopMargin() {
-  var element = _detector2.default.marginedElement();
+  var element = _detector2.default.wrapperElement();
   var margin = parseFloat(getComputedStyle(element).marginTop);
   return isNaN(margin) ? 0 : margin;
 }
 
-function setTopMargin(margin) {
-  _detector2.default.marginedElement().style.marginTop = margin + 'px';
+function getOriginalOffsetTop() {
+  var element = _detector2.default.wrapperElement();
+  var offset = parseFloat(getComputedStyle(element).offsetTop);
+  return isNaN(offset) ? 0 : offset;
+}
+
+function setTopMarginOrOffset(value) {
+  if (_detector2.default.jQueryMobilePage) {
+    _detector2.default.wrapperElement().style.offsetTop = value;
+  } else {
+    _detector2.default.wrapperElement().style.marginTop = value + 'px';
+  }
 }
 
 var SmartBanner = function () {
@@ -212,6 +224,7 @@ var SmartBanner = function () {
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
     this.originalTopMargin = getOriginalTopMargin();
+    this.originalOffsetTop = getOriginalOffsetTop();
   }
 
   _createClass(SmartBanner, [{
@@ -223,7 +236,7 @@ var SmartBanner = function () {
         return false;
       }
       document.querySelector('body').innerHTML += this.html;
-      setTopMargin(this.originalTopMargin + this.height);
+      setTopMarginOrOffset(this.originalTopMargin + this.height);
       addEventListeners(this);
     }
   }, {
@@ -232,7 +245,7 @@ var SmartBanner = function () {
       var banner = document.querySelector('.js_smartbanner');
       banner.outerHTML = '';
       _bakery2.default.bake();
-      setTopMargin(this.originalTopMargin);
+      setTopMarginOrOffset(this.originalTopMargin);
     }
   }, {
     key: 'priceSuffix',

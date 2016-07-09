@@ -12,7 +12,7 @@ export default class Detector {
     return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
   }
 
-  static marginedElement() {
+  static wrapperElement() {
     let selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
     return document.querySelector(selector);
   }

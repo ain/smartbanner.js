@@ -112,7 +112,7 @@ describe('Detector', function() {
       });
 
       it('expected to return html element', function() {
-        expect(Detector.marginedElement()).to.eql(document.querySelector('html'));
+        expect(Detector.wrapperElement()).to.eql(document.querySelector('html'));
       });
 
     });
@@ -126,7 +126,7 @@ describe('Detector', function() {
       });
 
       it('expected to return ui-page element', function() {
-        expect(Detector.marginedElement()).to.eql(document.querySelector('.ui-page'));
+        expect(Detector.wrapperElement()).to.eql(document.querySelector('.ui-page'));
       });
 
     });

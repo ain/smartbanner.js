@@ -23,7 +23,7 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
     </head>
-    <body class="ui-page" style="margin-top:12px;">
+    <body class="ui-page" style="position:absolute; top:12px;">
     </body>
   </html>`;
 
@@ -375,12 +375,12 @@ describe('SmartBanner', function() {
 
       it('expected to restore HTML margin', function() {
         let page = document.querySelector('.ui-page');
-        let margin = parseFloat(getComputedStyle(page).marginTop);
-        if (isNaN(margin)) {
-          margin = 0;
+        let offsetTop = parseFloat(getComputedStyle(page).offsetTop);
+        if (isNaN(offsetTop)) {
+          offsetTop = 0;
         }
         smartbanner.exit();
-        expect(margin).to.eql(smartbanner.originalTopMargin);
+        expect(offsetTop).to.eql(smartbanner.originalOffsetTop);
       });
     });
 
