@@ -235,7 +235,9 @@ var SmartBanner = function () {
       } else if (_bakery2.default.baked) {
         return false;
       }
-      document.querySelector('body').innerHTML += this.html;
+      var bannerDiv = document.createElement('div');
+      document.querySelector('body').appendChild(bannerDiv);
+      bannerDiv.outerHTML = this.html;
       var position = _detector2.default.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
       setTopMarginOrTop(position + this.height);
       addEventListeners(this);

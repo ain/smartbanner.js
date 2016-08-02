@@ -94,7 +94,9 @@ export default class SmartBanner {
     } else if (Bakery.baked) {
       return false;
     }
-    document.querySelector('body').innerHTML += this.html;
+    let bannerDiv = document.createElement('div');
+    document.querySelector('body').appendChild(bannerDiv);
+    bannerDiv.outerHTML = this.html;
     let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
     setTopMarginOrTop(position + this.height);
     addEventListeners(this);
