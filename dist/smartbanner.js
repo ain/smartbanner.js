@@ -93,16 +93,26 @@ var _smartbanner = require('./smartbanner.js');
 
 var _smartbanner2 = _interopRequireDefault(_smartbanner);
 
+var _detector = require('./detector.js');
+
+var _detector2 = _interopRequireDefault(_detector);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var smartbanner = void 0;
 
 window.onload = function () {
+
   smartbanner = new _smartbanner2.default();
   smartbanner.publish();
+
+  if (_detector2.default.jQueryMobilePage()) {
+    document.addEventListener('pagebeforeload', smartbanner.exit);
+    document.addEventListener('pageload', smartbanner.publish);
+  }
 };
 
-},{"./smartbanner.js":5}],4:[function(require,module,exports){
+},{"./detector.js":2,"./smartbanner.js":5}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -186,6 +196,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function handleExitClick(event, self) {
   self.exit();
+  _bakery2.default.bake();
   event.preventDefault();
 }
 
@@ -247,7 +258,6 @@ var SmartBanner = function () {
     value: function exit() {
       var banner = document.querySelector('.js_smartbanner');
       banner.outerHTML = '';
-      _bakery2.default.bake();
       var position = _detector2.default.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
       setTopMarginOrTop(position);
     }

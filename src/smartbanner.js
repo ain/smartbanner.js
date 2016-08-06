@@ -4,6 +4,7 @@ import Bakery from './bakery.js';
 
 function handleExitClick(event, self) {
   self.exit();
+  Bakery.bake();
   event.preventDefault();
 }
 
@@ -105,7 +106,6 @@ export default class SmartBanner {
   exit() {
     let banner = document.querySelector('.js_smartbanner');
     banner.outerHTML = '';
-    Bakery.bake();
     let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
     setTopMarginOrTop(position);
   }
