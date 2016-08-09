@@ -4,28 +4,33 @@ import Bakery from './bakery.js';
 
 function handleExitClick(event, self) {
   self.exit();
-  Bakery.bake();
   event.preventDefault();
+}
+
+function handleJQueryMobilePageLoad(event) {
+  setContentTop(event.data.self.originalTop + event.data.self.height);
 }
 
 function addEventListeners(self) {
   let closeIcon = document.querySelector('.js_smartbanner__exit');
   closeIcon.addEventListener('click', () => handleExitClick(event, self));
-}
-
-function getOriginalTopMargin() {
-  let element = Detector.wrapperElement();
-  let margin = parseFloat(getComputedStyle(element).marginTop);
-  return isNaN(margin) ? 0 : margin;
+  if (Detector.jQueryMobilePage()) {
+    $(document).on('pageload', self, handleJQueryMobilePageLoad);
+  }
 }
 
 function getOriginalTop() {
   let element = Detector.wrapperElement();
-  let top = parseFloat(getComputedStyle(element).top);
-  return isNaN(top) ? 0 : top;
+  if (Detector.jQueryMobilePage()) {
+    let top = parseFloat(getComputedStyle(element).top);
+    return isNaN(top) ? 0 : top;
+  } else {
+    let margin = parseFloat(getComputedStyle(element).marginTop);
+    return isNaN(margin) ? 0 : margin;
+  }
 }
 
-function setTopMarginOrTop(value) {
+function setContentTop(value) {
   if (Detector.jQueryMobilePage) {
     Detector.wrapperElement().style.top = value + 'px';
   } else {
@@ -39,8 +44,10 @@ export default class SmartBanner {
     let parser = new OptionParser();
     this.options = parser.parse();
     this.platform = Detector.platform();
-    this.originalTopMargin = getOriginalTopMargin();
     this.originalTop = getOriginalTop();
+
+    // Deprecated property. Will be removed in future versions.
+    this.originalTopMargin = this.originalTop;
   }
 
   get priceSuffix() {
@@ -98,15 +105,18 @@ export default class SmartBanner {
     let bannerDiv = document.createElement('div');
     document.querySelector('body').appendChild(bannerDiv);
     bannerDiv.outerHTML = this.html;
-    let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
-    setTopMarginOrTop(position + this.height);
+    //let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
+    //setTopMarginOrTop(position + this.height);
+    setContentTop(this.originalTop + this.height);
     addEventListeners(this);
   }
 
   exit() {
     let banner = document.querySelector('.js_smartbanner');
     banner.outerHTML = '';
-    let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
-    setTopMarginOrTop(position);
+    //let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
+    //setTopMarginOrTop(position);
+    setContentTop(this.originalTop);
+    Bakery.bake();
   }
 }

@@ -22,5 +22,9 @@
     "Gemfile*",
     "banner.tmpl",
     "*.png"
-  ]
+  ],
+  "devDependencies": {
+    "jquery": "1.10.2",
+    "jquery-mobile-bower": "1.4.5"
+  }
 }
