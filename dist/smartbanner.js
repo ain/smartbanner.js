@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.0.1 <https://github.com/ain/smartbanner.js>
+ * smartbanner.js v1.0.2-alpha1 <https://github.com/ain/smartbanner.js>
  * Copyright © 2016 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -93,10 +93,6 @@ var _smartbanner = require('./smartbanner.js');
 
 var _smartbanner2 = _interopRequireDefault(_smartbanner);
 
-var _detector = require('./detector.js');
-
-var _detector2 = _interopRequireDefault(_detector);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var smartbanner = void 0;
@@ -106,7 +102,7 @@ window.onload = function () {
   smartbanner.publish();
 };
 
-},{"./detector.js":2,"./smartbanner.js":5}],4:[function(require,module,exports){
+},{"./smartbanner.js":5}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
