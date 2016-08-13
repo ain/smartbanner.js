@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.0.2-alpha1 <https://github.com/ain/smartbanner.js>
+ * smartbanner.js v1.0.2-beta1 <https://github.com/ain/smartbanner.js>
  * Copyright © 2016 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -76,7 +76,7 @@ var Detector = function () {
     key: 'wrapperElement',
     value: function wrapperElement() {
       var selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
-      return document.querySelector(selector);
+      return document.querySelectorAll(selector);
     }
   }]);
 
@@ -184,13 +184,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var datas = {
+  originalTop: 'data-smartbanner-original-top',
+  originalMarginTop: 'data-smartbanner-original-margin-top'
+};
+
 function handleExitClick(event, self) {
   self.exit();
   event.preventDefault();
 }
 
 function handleJQueryMobilePageLoad(event) {
-  setContentTop(event.data.self.originalTop + event.data.self.height);
+  setContentPosition(event.data.height);
 }
 
 function addEventListeners(self) {
@@ -199,26 +204,47 @@ function addEventListeners(self) {
     return handleExitClick(event, self);
   });
   if (_detector2.default.jQueryMobilePage()) {
-    $(document).on('pageload', self, handleJQueryMobilePageLoad);
+    $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
   }
 }
 
-function getOriginalTop() {
-  var element = _detector2.default.wrapperElement();
+function removeEventListeners() {
   if (_detector2.default.jQueryMobilePage()) {
-    var top = parseFloat(getComputedStyle(element).top);
-    return isNaN(top) ? 0 : top;
-  } else {
-    var margin = parseFloat(getComputedStyle(element).marginTop);
-    return isNaN(margin) ? 0 : margin;
+    $(document).off('pagebeforeshow', handleJQueryMobilePageLoad);
   }
 }
 
-function setContentTop(value) {
-  if (_detector2.default.jQueryMobilePage) {
-    _detector2.default.wrapperElement().style.top = value + 'px';
-  } else {
-    _detector2.default.wrapperElement().style.marginTop = value + 'px';
+function setContentPosition(value) {
+  var wrappers = _detector2.default.wrapperElement();
+  for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
+    wrapper = wrappers[i];
+    if (_detector2.default.jQueryMobilePage()) {
+      if (wrapper.getAttribute(datas.originalTop)) {
+        continue;
+      }
+      var top = parseFloat(getComputedStyle(wrapper).top);
+      wrapper.setAttribute(datas.originalTop, isNaN(top) ? 0 : top);
+      wrapper.style.top = value + 'px';
+    } else {
+      if (wrapper.getAttribute(datas.originalMarginTop)) {
+        continue;
+      }
+      var margin = parseFloat(getComputedStyle(wrapper).marginTop);
+      wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
+      wrapper.style.marginTop = value + 'px';
+    }
+  }
+}
+
+function restoreContentPosition() {
+  var wrappers = _detector2.default.wrapperElement();
+  for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
+    wrapper = wrappers[i];
+    if (_detector2.default.jQueryMobilePage() && wrapper.getAttribute(datas.originalTop)) {
+      wrapper.style.top = wrapper.getAttribute(datas.originalTop) + 'px';
+    } else if (wrapper.getAttribute(datas.originalMarginTop)) {
+      wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
+    }
   }
 }
 
@@ -229,11 +255,10 @@ var SmartBanner = function () {
     var parser = new _optionparser2.default();
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
-    this.originalTop = getOriginalTop();
-
-    // Deprecated property. Will be removed in future versions.
-    this.originalTopMargin = this.originalTop;
   }
+
+  // DEPRECATED. Will be removed.
+
 
   _createClass(SmartBanner, [{
     key: 'publish',
@@ -246,20 +271,32 @@ var SmartBanner = function () {
       var bannerDiv = document.createElement('div');
       document.querySelector('body').appendChild(bannerDiv);
       bannerDiv.outerHTML = this.html;
-      //let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
-      //setTopMarginOrTop(position + this.height);
-      setContentTop(this.originalTop + this.height);
+      setContentPosition(this.height);
       addEventListeners(this);
     }
   }, {
     key: 'exit',
     value: function exit() {
+      removeEventListeners();
+      restoreContentPosition();
       var banner = document.querySelector('.js_smartbanner');
-      banner.outerHTML = '';
-      //let position = Detector.jQueryMobilePage ? this.originalTop : this.originalTopMargin;
-      //setTopMarginOrTop(position);
-      setContentTop(this.originalTop);
+      document.querySelector('body').removeChild(banner);
       _bakery2.default.bake();
+    }
+  }, {
+    key: 'originalTop',
+    get: function get() {
+      var wrapper = _detector2.default.wrapperElement()[0];
+      return parseFloat(wrapper.getAttribute(datas.originalTop));
+    }
+
+    // DEPRECATED. Will be removed.
+
+  }, {
+    key: 'originalTopMargin',
+    get: function get() {
+      var wrapper = _detector2.default.wrapperElement()[0];
+      return parseFloat(wrapper.getAttribute(datas.originalMarginTop));
     }
   }, {
     key: 'priceSuffix',

@@ -7,14 +7,19 @@ import Detector from '../../src/detector.js';
 
 describe('Detector', function() {
 
+  const USER_AGENT_IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
+  const USER_AGENT_IPAD = 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
+  const USER_AGENT_IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4'
+  const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]'
+
+  const HTML = `<!doctype html><html><head></head><body></body></html>`;
+
+  const SCRIPTS = [
+    'bower_components/jquery/jquery.min.js',
+    'bower_components/jquery-mobile-bower/js/jquery.mobile-1.4.5.min.js'
+  ];
+
   describe('platform', function() {
-
-    const USER_AGENT_IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
-    const USER_AGENT_IPAD = 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
-    const USER_AGENT_IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4'
-    const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]'
-
-    const HTML = `<!doctype html><html><head></head><body></body></html>`;
 
     let platform = null;
 
@@ -89,14 +94,21 @@ describe('Detector', function() {
 
     context('with jQuery Mobile', function() {
 
-      before(function() {
-        global.window = jsdom.jsdom(`<!doctype html><html><head></head><body class="ui-page"></body></html>`).defaultView;
-        global.document = window.document;
-        global.$ = {mobile: true};
+      before(function(done) {
+        jsdom.env({
+          html: `<!doctype html><html><head></head><body class="ui-page"></body></html>`,
+          scripts: SCRIPTS,
+          done: function(err, window) {
+            global.document = window.document;
+            global.window = window;
+            done();
+          }
+        });
       });
 
-      it('expected to return true', function() {
+      it('expected to return true', function(done) {
         expect(Detector.jQueryMobilePage()).to.be.true;
+        done();
       });
 
     });
@@ -111,27 +123,31 @@ describe('Detector', function() {
         global.document = window.document;
       });
 
-      it('expected to return html element', function() {
-        expect(Detector.wrapperElement()).to.eql(document.querySelector('html'));
+      it('expected to return html element as first item of array', function() {
+        expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('html'));
       });
 
     });
 
     context('with jQuery Mobile', function() {
 
-      before(function() {
-        global.window = jsdom.jsdom(`<!doctype html><html><head></head><body class="ui-page"></body></html>`).defaultView;
-        global.document = window.document;
-        global.$ = {mobile: true};
+      before(function(done) {
+        jsdom.env({
+          html: `<!doctype html><html><head></head><body class="ui-page"></body></html>`,
+          scripts: SCRIPTS,
+          done: function(err, window) {
+            global.document = window.document;
+            global.window = window;
+            done();
+          }
+        });
       });
 
-      it('expected to return ui-page element', function() {
-        expect(Detector.wrapperElement()).to.eql(document.querySelector('.ui-page'));
+      it('expected to return ui-page element as first item of array', function() {
+        expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('.ui-page'));
       });
 
     });
   });
-
-
 
 });

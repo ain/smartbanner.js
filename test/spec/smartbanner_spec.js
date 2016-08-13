@@ -23,7 +23,9 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
     </head>
-    <body class="ui-page" style="position:absolute; top:12px;">
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
 
@@ -343,10 +345,12 @@ describe('SmartBanner', function() {
         jsdom.env({
           html: HTML,
           userAgent: USER_AGENT_IPHONE,
+          //scripts: null,
           done: function(err, window) {
             global.document = window.document;
             global.window = window;
             global.getComputedStyle = window.getComputedStyle;
+            //global.$ = null;
             smartbanner = new SmartBanner();
             smartbanner.publish();
             done();
@@ -368,12 +372,12 @@ describe('SmartBanner', function() {
       });
 
       it('expected to restore HTML margin', function(done) {
+        smartbanner.exit();
         let html = document.querySelector('html');
         let margin = parseFloat(getComputedStyle(html).marginTop);
         if (isNaN(margin)) {
           margin = 0;
         }
-        smartbanner.exit();
         expect(margin).to.eql(smartbanner.originalTopMargin);
         done();
       });
@@ -398,12 +402,12 @@ describe('SmartBanner', function() {
       });
 
       it('expected to restore top distance', function(done) {
+        smartbanner.exit();
         let page = document.querySelector('.ui-page');
         let top = parseFloat(getComputedStyle(page).top);
         if (isNaN(top)) {
           top = 0;
         }
-        smartbanner.exit();
         expect(top).to.eql(smartbanner.originalTop);
         done();
       });

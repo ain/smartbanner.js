@@ -14,7 +14,7 @@ export default class Detector {
 
   static wrapperElement() {
     let selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
-    return document.querySelector(selector);
+    return document.querySelectorAll(selector);
   }
 
 }
