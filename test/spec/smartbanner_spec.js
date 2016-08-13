@@ -345,12 +345,10 @@ describe('SmartBanner', function() {
         jsdom.env({
           html: HTML,
           userAgent: USER_AGENT_IPHONE,
-          //scripts: null,
           done: function(err, window) {
             global.document = window.document;
             global.window = window;
             global.getComputedStyle = window.getComputedStyle;
-            //global.$ = null;
             smartbanner = new SmartBanner();
             smartbanner.publish();
             done();
