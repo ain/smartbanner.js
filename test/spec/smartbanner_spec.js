@@ -23,9 +23,16 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
     </head>
-    <body class="ui-page" style="position:absolute; top:12px;">
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
+
+  const SCRIPTS = [
+    'bower_components/jquery/jquery.min.js',
+    'bower_components/jquery-mobile-bower/js/jquery.mobile-1.4.5.min.js'
+  ];
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
@@ -332,74 +339,101 @@ describe('SmartBanner', function() {
 
   describe('exit', function() {
 
-    beforeEach(function() {
-      global.document = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE});
-      global.window = document.defaultView;
-      global.getComputedStyle = window.getComputedStyle;
-      smartbanner = new SmartBanner();
-      smartbanner.publish();
-    });
+    context('without jQuery Mobile', function(done) {
 
-    it('expected to set cookie', function() {
-      smartbanner.exit();
-      expect(Bakery.baked).to.be.true;
-    });
-
-    it('expected to remove component markup', function() {
-      smartbanner.exit();
-      let element = document.querySelector('.js_smartbanner');
-      expect(element).not.to.exist;
-    });
-
-    context('without jQuery Mobile', function() {
-      before(function() {
-        global.$ = undefined;
+      beforeEach(function(done) {
+        jsdom.env({
+          html: HTML,
+          userAgent: USER_AGENT_IPHONE,
+          done: function(err, window) {
+            global.document = window.document;
+            global.window = window;
+            global.getComputedStyle = window.getComputedStyle;
+            smartbanner = new SmartBanner();
+            smartbanner.publish();
+            done();
+          }
+        });
       });
 
-      it('expected to restore HTML margin', function() {
+      it('expected to set cookie', function(done) {
+        smartbanner.exit();
+        expect(Bakery.baked).to.be.true;
+        done();
+      });
+
+      it('expected to remove component markup', function(done) {
+        smartbanner.exit();
+        let element = document.querySelector('.js_smartbanner');
+        expect(element).not.to.exist;
+        done();
+      });
+
+      it('expected to restore HTML margin', function(done) {
+        smartbanner.exit();
         let html = document.querySelector('html');
         let margin = parseFloat(getComputedStyle(html).marginTop);
         if (isNaN(margin)) {
           margin = 0;
         }
-        smartbanner.exit();
         expect(margin).to.eql(smartbanner.originalTopMargin);
+        done();
       });
     });
 
-    context('with jQuery Mobile', function() {
-
-      before(function() {
-        global.$ = {mobile: true};
+    context('with jQuery Mobile', function(done) {
+      before(function(done) {
+        jsdom.env({
+          html: HTML,
+          scripts: SCRIPTS,
+          userAgent: USER_AGENT_IPHONE,
+          done: function(err, window) {
+            global.document = window.document;
+            global.window = window;
+            global.$ = window.jQuery;
+            global.getComputedStyle = window.getComputedStyle;
+            smartbanner = new SmartBanner();
+            smartbanner.publish();
+            done();
+          }
+        });
       });
 
-      it('expected to restore HTML margin', function() {
+      it('expected to restore top distance', function(done) {
+        smartbanner.exit();
         let page = document.querySelector('.ui-page');
         let top = parseFloat(getComputedStyle(page).top);
         if (isNaN(top)) {
           top = 0;
         }
-        smartbanner.exit();
         expect(top).to.eql(smartbanner.originalTop);
+        done();
       });
     });
 
   });
 
   describe('height', function() {
-    before(function() {
-      global.document = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE });
-      global.getComputedStyle = document.defaultView.getComputedStyle;
-      global.window = document.defaultView;
-      global.$ = {mobile: true};
-      smartbanner = new SmartBanner();
-      smartbanner.publish();
+    before(function(done) {
+      jsdom.env({
+        html: HTML,
+        scripts: SCRIPTS,
+        done: function(err, window) {
+          global.document = window.document;
+          global.window = window;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+          smartbanner.publish();
+          done();
+        }
+      });
     });
 
-    it('expected to match component offset height', function() {
+    it('expected to match component offset height', function(done) {
       let height = document.querySelector('.js_smartbanner').offsetHeight;
       height = height !== undefined ? height : 0;
       expect(smartbanner.height).to.eql(height);
+      done();
     });
   });
 
