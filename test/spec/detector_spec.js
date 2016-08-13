@@ -101,6 +101,7 @@ describe('Detector', function() {
           done: function(err, window) {
             global.document = window.document;
             global.window = window;
+            global.$ = window.jQuery;
             done();
           }
         });
