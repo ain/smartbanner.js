@@ -139,9 +139,10 @@ var OptionParser = function () {
       var metas = document.getElementsByTagName('meta');
       var options = {};
       var optionName = null;
-      Array.from(metas).forEach(function (meta) {
-        var name = meta.getAttribute('name');
-        var content = meta.getAttribute('content');
+      for (var i = 0, l = metas.length, meta, name, content; i < l; i++) {
+        meta = metas[i];
+        name = meta.getAttribute('name');
+        content = meta.getAttribute('content');
         if (name && content && valid(name) && content.length > 0) {
           optionName = name.split(':')[1];
           if (optionName.includes('-')) {
@@ -149,7 +150,7 @@ var OptionParser = function () {
           }
           options[optionName] = content;
         }
-      });
+      }
       return options;
     }
   }]);
