@@ -19,9 +19,10 @@ export default class OptionParser {
     let metas = document.getElementsByTagName('meta');
     let options = {};
     let optionName = null;
-    Array.from(metas).forEach(function(meta) {
-      let name = meta.getAttribute('name');
-      let content = meta.getAttribute('content');
+    for (let i = 0, l = metas.length, meta, name, content; i < l; i++) {
+      meta = metas[i];
+      name = meta.getAttribute('name');
+      content = meta.getAttribute('content');
       if (name && content && valid(name) && content.length > 0) {
         optionName = name.split(':')[1];
         if (optionName.includes('-')) {
@@ -29,9 +30,8 @@ export default class OptionParser {
         }
         options[optionName] = content;
       }
-    });
+    }
     return options;
   }
-
 
 }
