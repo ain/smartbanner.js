@@ -24,7 +24,7 @@ export default class OptionParser {
       let content = meta.getAttribute('content');
       if (name && content && valid(name) && content.length > 0) {
         optionName = name.split(':')[1];
-        if (optionName.includes('-')) {
+        if (Array.from(optionName).includes('-')) {
           optionName = convertToCamelCase(optionName);
         }
         options[optionName] = content;
@@ -32,6 +32,5 @@ export default class OptionParser {
     });
     return options;
   }
-
 
 }
