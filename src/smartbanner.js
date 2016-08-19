@@ -133,7 +133,7 @@ export default class SmartBanner {
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
-    } else if (Bakery.baked) {
+    } else if (Bakery.baked || !Detector.platform()) {
       return false;
     }
     let bannerDiv = document.createElement('div');
