@@ -1,3 +1,6 @@
+import './polyfills/array/from.js';
+import './polyfills/array/includes.js';
+
 function valid(name) {
   // TODO: validate against options dictionary
   return name.indexOf('smartbanner:') !== -1 && name.split(':')[1].length > 0;
@@ -24,7 +27,7 @@ export default class OptionParser {
       let content = meta.getAttribute('content');
       if (name && content && valid(name) && content.length > 0) {
         optionName = name.split(':')[1];
-        if (optionName.includes('-')) {
+        if (Array.from(optionName).includes('-')) {
           optionName = convertToCamelCase(optionName);
         }
         options[optionName] = content;
@@ -32,6 +35,5 @@ export default class OptionParser {
     });
     return options;
   }
-
 
 }

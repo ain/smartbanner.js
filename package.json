@@ -22,7 +22,9 @@
     "uglify-js": "^2.6.2",
     "add-banner": "ain/add-banner#121b56d",
     "watchify": "^3.7.0",
-    "bower": "^1.7.9"
+    "bower": "^1.7.9",
+    "autoprefixer": "^6.4.0",
+    "postcss-cli": "^2.4.1"
   },
   "engines": {
     "node": "^6.2.0"
@@ -39,10 +41,11 @@
     "scsslint": "scss-lint src/smartbanner.scss",
     "build:js": "npm run browserify && npm run uglify",
     "build:css": "node_modules/node-sass/bin/node-sass src/smartbanner.scss dist/smartbanner.css",
+    "autoprefix": "node_modules/postcss-cli/bin/postcss --use autoprefixer --local-plugins --replace dist/smartbanner.css",
     "build:css-min": "node_modules/node-sass/bin/node-sass --output-style=compressed src/smartbanner.scss dist/smartbanner.min.css",
-    "build": "npm run build:js && npm run build:css && npm run build:css-min && npm run bannerise",
+    "build": "npm run build:js && npm run build:css && npm run autoprefix && npm run build:css-min && npm run bannerise",
     "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
-    "watch:css": "npm run build:css -- -w",
+    "watch:css": "npm run build:css | npm run autoprefix -- -w",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js",
     "test:watch": "npm run test -- -w",
     "server": "http-server dist/ -o"
