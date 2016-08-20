@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.0.2 <https://github.com/ain/smartbanner.js>
+ * smartbanner.js v1.0.3 <https://github.com/ain/smartbanner.js>
  * Copyright © 2016 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 .smartbanner {
@@ -28,9 +28,11 @@
       background: #767676;
       content: ' '; }
     .smartbanner__exit::before {
-      transform: rotate(45deg); }
+      -webkit-transform: rotate(45deg);
+              transform: rotate(45deg); }
     .smartbanner__exit::after {
-      transform: rotate(-45deg); }
+      -webkit-transform: rotate(-45deg);
+              transform: rotate(-45deg); }
   .smartbanner__icon {
     position: absolute;
     top: 10px;
@@ -43,11 +45,15 @@
     position: absolute;
     top: 10px;
     left: 104px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     overflow-y: hidden;
     width: 60%;
     height: 64px;
-    align-items: center; }
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
     .smartbanner__info__title {
       font-size: 14px; }
     .smartbanner__info__author, .smartbanner__info__price {
