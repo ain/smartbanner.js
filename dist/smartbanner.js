@@ -65,6 +65,8 @@ var Detector = function () {
         return 'ios';
       } else if (/Android/i.test(window.navigator.userAgent)) {
         return 'android';
+      } else if (/Windows Phone/i.test(window.navigator.userAgent)) {
+        return 'windows';
       }
     }
   }, {
@@ -434,6 +436,8 @@ var SmartBanner = function () {
         return this.options.priceSuffixApple;
       } else if (this.platform === 'android') {
         return this.options.priceSuffixGoogle;
+      } else if (this.platform === 'windows') {
+        return this.options.priceSuffixMicrosoft;
       }
       return '';
     }
@@ -442,6 +446,8 @@ var SmartBanner = function () {
     get: function get() {
       if (this.platform === 'android') {
         return this.options.iconGoogle;
+      } else if (this.platform === 'windows') {
+        return this.options.iconMicrosoft;
       } else {
         return this.options.iconApple;
       }
@@ -451,6 +457,8 @@ var SmartBanner = function () {
     get: function get() {
       if (this.platform === 'android') {
         return this.options.buttonUrlGoogle;
+      } else if (this.platform === 'windows') {
+        return this.options.buttonUrlMicrosoft;
       } else if (this.platform === 'ios') {
         return this.options.buttonUrlApple;
       }
