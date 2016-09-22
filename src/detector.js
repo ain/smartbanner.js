@@ -5,6 +5,8 @@ export default class Detector {
       return 'ios';
     } else if (/Android/i.test(window.navigator.userAgent)) {
       return 'android';
+    } else if (/Windows Phone/i.test(window.navigator.userAgent)) {
+      return 'windows';
     }
   }
 

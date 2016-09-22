@@ -89,6 +89,8 @@ export default class SmartBanner {
       return this.options.priceSuffixApple;
     } else if (this.platform === 'android') {
       return this.options.priceSuffixGoogle;
+    } else if (this.platform === 'windows') {
+      return this.options.priceSuffixMicrosoft;
     }
     return '';
   }
@@ -96,6 +98,8 @@ export default class SmartBanner {
   get icon() {
     if (this.platform === 'android') {
       return this.options.iconGoogle;
+    } else if (this.platform === 'windows') {
+      return this.options.iconMicrosoft;
     } else {
       return this.options.iconApple;
     }
@@ -104,6 +108,8 @@ export default class SmartBanner {
   get buttonUrl() {
     if (this.platform === 'android') {
       return this.options.buttonUrlGoogle;
+    } else if (this.platform === 'windows') {
+      return this.options.buttonUrlMicrosoft;
     } else if (this.platform === 'ios') {
       return this.options.buttonUrlApple;
     }
