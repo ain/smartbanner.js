@@ -131,7 +131,7 @@ export default class SmartBanner {
   }
 
   get platfromEnabled() {
-    return this.options.enabledPlatforms && this.options.enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) != -1;
+    return this.options.enabledPlatforms && this.options.enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
   }
 
   publish() {
