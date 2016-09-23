@@ -29,6 +29,7 @@ describe('OptionParser', function() {
             <meta name="smartbanner:button" content="VIEW">
             <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
             <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+            <meta name="smartbanner:enabled-platforms" content="android">
           </head>
           <body>
           </body>
@@ -74,6 +75,10 @@ describe('OptionParser', function() {
 
       it('expected to parse Android button URL', function() {
         expect(options.buttonUrlGoogle).to.eql('https://play.google.com/store');
+      });
+
+      it('expected to parse enabledPlatforms option', function() {
+        expect(options.enabledPlatforms).to.eql('android');
       });
     });
 

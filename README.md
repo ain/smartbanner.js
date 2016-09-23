@@ -33,6 +33,7 @@ Customisable smart app banner for iOS and Android.
 <meta name="smartbanner:button" content="VIEW">
 <meta name="smartbanner:button-url-apple" content="https://ios/application-url">
 <meta name="smartbanner:button-url-google" content="https://android/application-url">
+<meta name="smartbanner:enabled-platforms" content="android,ios">
 <!-- End SmartBanner configuration -->
 ```
 

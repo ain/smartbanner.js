@@ -130,10 +130,14 @@ export default class SmartBanner {
     return height !== undefined ? height : 0;
   }
 
+  get platfromEnabled() {
+    return this.options.enabledPlatforms && this.options.enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) != -1;
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
-    } else if (Bakery.baked || !Detector.platform()) {
+    } else if (Bakery.baked || !Detector.platform() || !this.platfromEnabled) {
       return false;
     }
     let bannerDiv = document.createElement('div');
