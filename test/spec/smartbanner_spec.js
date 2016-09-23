@@ -166,7 +166,7 @@ describe('SmartBanner', function() {
 
       });
 
-      context.only('when on desktop', function() {
+      context('when on desktop', function() {
 
         before(function() {
           global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_DESKTOP }).defaultView;
