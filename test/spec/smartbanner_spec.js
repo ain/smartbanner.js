@@ -436,8 +436,8 @@ describe('SmartBanner', function() {
         html: HTML,
         scripts: SCRIPTS,
         done: function(err, window) {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
           global.document = window.document;
-          global.window = window;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
           smartbanner.publish();
