@@ -22,6 +22,7 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:button" content="View">
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:enabled-platforms" content="android,ios">
     </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
@@ -166,7 +167,7 @@ describe('SmartBanner', function() {
 
       });
 
-      context.only('when on desktop', function() {
+      context('when on desktop', function() {
 
         before(function() {
           global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_DESKTOP }).defaultView;
@@ -220,6 +221,76 @@ describe('SmartBanner', function() {
         smartbanner = new SmartBanner();
         smartbanner.publish();
         expect(document.querySelector('.js_smartbanner')).to.exist;
+      });
+
+    });
+
+    context('when enabled-platform set to android, but opened on iOS', function() {
+      const HTML_WITH_PLATFROM_OPTION_ANDROID = `<!doctype html>
+        <html style="margin-top:10px;">
+        <head>
+          <meta charset="utf-8">
+          <meta name="smartbanner:title" content="Smart Application">
+          <meta name="smartbanner:author" content="SmartBanner Contributors">
+          <meta name="smartbanner:price" content="FREE">
+          <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+          <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+          <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+          <meta name="smartbanner:icon-google" content="icon--google.jpg">
+          <meta name="smartbanner:button" content="View">
+          <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+          <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+          <meta name="smartbanner:enabled-platforms" content="android">
+        </head>
+        <body>
+        </body>
+      </html>`;
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_ANDROID, { userAgent: USER_AGENT_IPHONE }).defaultView;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
+      });
+
+      it('expected to not add anything to body', function() {
+        expect(document.querySelector('.js_smartbanner')).to.be.null;
+      });
+
+    });
+
+    context('when enabled-platform set to ios, but opened on Android', function() {
+      const HTML_WITH_PLATFROM_OPTION_IOS = `<!doctype html>
+        <html style="margin-top:10px;">
+        <head>
+          <meta charset="utf-8">
+          <meta name="smartbanner:title" content="Smart Application">
+          <meta name="smartbanner:author" content="SmartBanner Contributors">
+          <meta name="smartbanner:price" content="FREE">
+          <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+          <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+          <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+          <meta name="smartbanner:icon-google" content="icon--google.jpg">
+          <meta name="smartbanner:button" content="View">
+          <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+          <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+          <meta name="smartbanner:enabled-platforms" content="ios">
+        </head>
+        <body>
+        </body>
+      </html>`;
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_IOS, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
+      });
+
+      it('expected to not add anything to body', function() {
+        expect(document.querySelector('.js_smartbanner')).to.be.null;
       });
 
     });
@@ -436,8 +507,8 @@ describe('SmartBanner', function() {
         html: HTML,
         scripts: SCRIPTS,
         done: function(err, window) {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
           global.document = window.document;
-          global.window = window;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
           smartbanner.publish();
