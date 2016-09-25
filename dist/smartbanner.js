@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.0.3 <https://github.com/ain/smartbanner.js>
+ * smartbanner.js v1.1.0 <https://github.com/ain/smartbanner.js>
  * Copyright © 2016 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -313,6 +313,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var DEFAULT_PLATFORMS = 'android,ios';
+
 var datas = {
   originalTop: 'data-smartbanner-original-top',
   originalMarginTop: 'data-smartbanner-original-margin-top'
@@ -470,7 +472,8 @@ var SmartBanner = function () {
   }, {
     key: 'platfromEnabled',
     get: function get() {
-      return this.options.enabledPlatforms && this.options.enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
+      var enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
+      return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
     }
   }]);
 
