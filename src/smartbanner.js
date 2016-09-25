@@ -2,6 +2,8 @@ import OptionParser from './optionparser.js';
 import Detector from './detector.js';
 import Bakery from './bakery.js';
 
+const DEFAULT_PLATFORMS = 'android,ios';
+
 let datas = {
   originalTop: 'data-smartbanner-original-top',
   originalMarginTop: 'data-smartbanner-original-margin-top'
@@ -131,7 +133,8 @@ export default class SmartBanner {
   }
 
   get platfromEnabled() {
-    return this.options.enabledPlatforms && this.options.enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
+    let enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
+    return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
   }
 
   publish() {

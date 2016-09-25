@@ -22,7 +22,6 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:button" content="View">
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
-      <meta name="smartbanner:enabled-platforms" content="android,ios">
     </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
