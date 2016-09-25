@@ -225,7 +225,7 @@ describe('SmartBanner', function() {
 
     });
 
-    context('when enabledPlatform set to android, but is openned on a iPhone', function() {
+    context('when enabled-platform set to android, but opened on iOS', function() {
       const HTML_WITH_PLATFROM_OPTION_ANDROID = `<!doctype html>
         <html style="margin-top:10px;">
         <head>
@@ -240,7 +240,7 @@ describe('SmartBanner', function() {
           <meta name="smartbanner:button" content="View">
           <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
           <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
-          <meta name="smartbanner:enabledPlatforms" content="android">
+          <meta name="smartbanner:enabled-platforms" content="android">
         </head>
         <body>
         </body>
@@ -260,7 +260,7 @@ describe('SmartBanner', function() {
 
     });
 
-    context('when enabledPlatform set to ios, but is openned on a Android', function() {
+    context('when enabled-platform set to ios, but opened on Android', function() {
       const HTML_WITH_PLATFROM_OPTION_IOS = `<!doctype html>
         <html style="margin-top:10px;">
         <head>
@@ -275,7 +275,7 @@ describe('SmartBanner', function() {
           <meta name="smartbanner:button" content="View">
           <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
           <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
-          <meta name="smartbanner:enabledPlatforms" content="ios">
+          <meta name="smartbanner:enabled-platforms" content="ios">
         </head>
         <body>
         </body>
