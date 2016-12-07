@@ -132,7 +132,7 @@ export default class SmartBanner {
     return height !== undefined ? height : 0;
   }
 
-  get platfromEnabled() {
+  get platformEnabled() {
     let enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
     return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
   }
@@ -140,7 +140,7 @@ export default class SmartBanner {
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
-    } else if (Bakery.baked || !Detector.platform() || !this.platfromEnabled) {
+    } else if (Bakery.baked || !Detector.platform() || !this.platformEnabled) {
       return false;
     }
     let bannerDiv = document.createElement('div');

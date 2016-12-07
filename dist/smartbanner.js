@@ -396,7 +396,7 @@ var SmartBanner = function () {
     value: function publish() {
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
-      } else if (_bakery2.default.baked || !_detector2.default.platform() || !this.platfromEnabled) {
+      } else if (_bakery2.default.baked || !_detector2.default.platform() || !this.platformEnabled) {
         return false;
       }
       var bannerDiv = document.createElement('div');
@@ -470,7 +470,7 @@ var SmartBanner = function () {
       return height !== undefined ? height : 0;
     }
   }, {
-    key: 'platfromEnabled',
+    key: 'platformEnabled',
     get: function get() {
       var enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
       return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
