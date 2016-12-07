@@ -68,6 +68,11 @@ var Detector = function () {
       }
     }
   }, {
+    key: 'userAgentMatchesRegex',
+    value: function userAgentMatchesRegex(regexString) {
+      return new RegExp(regexString).test(window.navigator.userAgent);
+    }
+  }, {
     key: 'jQueryMobilePage',
     value: function jQueryMobilePage() {
       return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
@@ -396,9 +401,23 @@ var SmartBanner = function () {
     value: function publish() {
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
-      } else if (_bakery2.default.baked || !_detector2.default.platform() || !this.platformEnabled) {
+      }
+
+      if (_bakery2.default.baked) {
         return false;
       }
+
+      // User Agent was explicetely excluded by defined excludeUserAgentRegex
+      if (this.userAgentExcluded) {
+        return false;
+      }
+
+      // User agent was neither included by platformEnabled,
+      // nor by defined includeUserAgentRegex
+      if (!(this.platformEnabled || this.userAgentIncluded)) {
+        return false;
+      }
+
       var bannerDiv = document.createElement('div');
       document.querySelector('body').appendChild(bannerDiv);
       bannerDiv.outerHTML = this.html;
@@ -474,6 +493,22 @@ var SmartBanner = function () {
     get: function get() {
       var enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
       return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
+    }
+  }, {
+    key: 'userAgentExcluded',
+    get: function get() {
+      if (!this.options.excludeUserAgentRegex) {
+        return false;
+      }
+      return _detector2.default.userAgentMatchesRegex(this.options.excludeUserAgentRegex);
+    }
+  }, {
+    key: 'userAgentIncluded',
+    get: function get() {
+      if (!this.options.includeUserAgentRegex) {
+        return false;
+      }
+      return _detector2.default.userAgentMatchesRegex(this.options.includeUserAgentRegex);
     }
   }]);
 

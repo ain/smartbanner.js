@@ -17,7 +17,7 @@ Customisable smart app banner for iOS and Android.
 - Platform-specific URL for _View_ button
 - jQuery Mobile and AngularJS compliant
 
-## Usage
+## Basic Usage
 
 `smartbanner.js` works automagically given following meta tags:
 
@@ -43,6 +43,30 @@ Additionally, JavaScript and CSS has to be included:
 <link rel="stylesheet" href="path/to/component/dist/smartbanner.min.css">
 <script src="path/to/component/dist/smartbanner.min.js"></script>
 ```
+
+## Advanced usage
+
+### Hide the smartbanner for certain User Agents
+
+There are cases where you do not want to show the smart app banner on all Android and/or all iOS devices. For example:
+* your app is availabe only for some Android/iOS versions
+* your app is only availabe on iPhone, but not iPad
+* your app is a web app which also shows this website, but of course should not show the smart app banner.
+
+In this case you can define a regular expression, which matches all user agent strings that should be excluded. Just add another `meta` tag like the following:
+```html
+<meta name="smartbanner:exclude-user-agent-regex" content="^.*My Example Webapp$">
+```
+This regular expression would match any user agent string, that ends with *My Example Webapp*.
+
+### Show the smartbanner for certain User Agents
+
+In addition to blacklisting certain user agents using the regex explained in the previous section, you can also whitelist certain user agents:
+```html
+<meta name="smartbanner:include-user-agent-regex" content="iPhone 7">
+```
+
+**Note:** You can define `enabled-platforms`, `exclude-user-agent-regex` and `include-user-agent-regex` at the same time. `enabled-platforms` has the lowest priority, `exclude-user-agent-regex` the highest priority.
 
 ## Contributing
 

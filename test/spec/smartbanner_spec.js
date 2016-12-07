@@ -60,10 +60,13 @@ describe('SmartBanner', function() {
       <a href="https://play.google.com/store" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
-  const USER_AGENT_IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
+  const USER_AGENT_IPHONE_IOS8 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A405 Safari/600.1.4';
+  const USER_AGENT_IPHONE_IOS9 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
+  const USER_AGENT_IPHONE_CUSTOM_WEBAPP = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1 My Example Webapp';
   const USER_AGENT_IPAD = 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
   const USER_AGENT_IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4';
   const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
+  const USER_AGENT_ANDROID_CUSTOM_WEBAPP = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]  My Example Webapp';
   const USER_AGENT_DESKTOP = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7';
 
   let smartbanner = null;
@@ -73,7 +76,7 @@ describe('SmartBanner', function() {
     context('without options', function() {
 
       before(function() {
-        global.document = jsdom.jsdom('<html></html>', { userAgent: USER_AGENT_IPHONE });
+        global.document = jsdom.jsdom('<html></html>', { userAgent: USER_AGENT_IPHONE_IOS9 });
         global.getComputedStyle = document.defaultView.getComputedStyle;
         smartbanner = new SmartBanner();
       });
@@ -89,7 +92,7 @@ describe('SmartBanner', function() {
       context('when on iPhone', function() {
 
         beforeEach(function() {
-          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE}).defaultView;
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).defaultView;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.$ = undefined;
@@ -246,7 +249,82 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_ANDROID, { userAgent: USER_AGENT_IPHONE }).defaultView;
+        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_ANDROID, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
+      });
+
+      it('expected to not add anything to body', function() {
+        expect(document.querySelector('.js_smartbanner')).to.be.null;
+      });
+
+    });
+
+    context('when enabled-platform set to android, but opened on iOS 9 which is included by include-user-agent-regex', function() {
+      const HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9 = `<!doctype html>
+        <html style="margin-top:10px;">
+        <head>
+          <meta charset="utf-8">
+          <meta name="smartbanner:title" content="Smart Application">
+          <meta name="smartbanner:author" content="SmartBanner Contributors">
+          <meta name="smartbanner:price" content="FREE">
+          <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+          <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+          <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+          <meta name="smartbanner:icon-google" content="icon--google.jpg">
+          <meta name="smartbanner:button" content="View">
+          <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+          <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+          <meta name="smartbanner:enabled-platforms" content="android">
+          <meta name="smartbanner:include-user-agent-regex" content=".*iPhone OS [9\\-10].*">
+        </head>
+        <body>
+        </body>
+      </html>`;
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to add iOS template to body', function() {
+        smartbanner.publish();
+        let html = document.querySelector('.js_smartbanner').outerHTML;
+        expect(html).to.eql(IOS_BODY);
+      });
+
+    });
+
+    context('when enabled-platform set to android, but opened on iOS 9 webapp which is included by include-user-agent-regex but ' +
+      'excluded by exclude-user-agent-regex', function() {
+      const HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9_EXCLUDE_WEBAPP = `<!doctype html>
+        <html style="margin-top:10px;">
+        <head>
+          <meta charset="utf-8">
+          <meta name="smartbanner:title" content="Smart Application">
+          <meta name="smartbanner:author" content="SmartBanner Contributors">
+          <meta name="smartbanner:price" content="FREE">
+          <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+          <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+          <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+          <meta name="smartbanner:icon-google" content="icon--google.jpg">
+          <meta name="smartbanner:button" content="View">
+          <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+          <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+          <meta name="smartbanner:enabled-platforms" content="android">
+          <meta name="smartbanner:include-user-agent-regex" content=".*iPhone OS [9\\-10].*">
+          <meta name="smartbanner:exclude-user-agent-regex" content=".*My Example Webapp$">
+        </head>
+        <body>
+        </body>
+      </html>`;
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9_EXCLUDE_WEBAPP, { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP }).defaultView;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -301,7 +379,7 @@ describe('SmartBanner', function() {
     context('when on iPhone', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -431,7 +509,7 @@ describe('SmartBanner', function() {
       beforeEach(function(done) {
         jsdom.env({
           html: HTML,
-          userAgent: USER_AGENT_IPHONE,
+          userAgent: USER_AGENT_IPHONE_IOS9,
           done: function(err, window) {
             global.document = window.document;
             global.window = window;
@@ -473,7 +551,7 @@ describe('SmartBanner', function() {
         jsdom.env({
           html: HTML,
           scripts: SCRIPTS,
-          userAgent: USER_AGENT_IPHONE,
+          userAgent: USER_AGENT_IPHONE_IOS9,
           done: function(err, window) {
             global.document = window.document;
             global.window = window;
@@ -506,7 +584,7 @@ describe('SmartBanner', function() {
         html: HTML,
         scripts: SCRIPTS,
         done: function(err, window) {
-          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE }).defaultView;
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
