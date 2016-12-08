@@ -44,6 +44,10 @@ Additionally, JavaScript and CSS has to be included:
 <script src="path/to/component/dist/smartbanner.min.js"></script>
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Licence
 
 Copyright © 2016 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/master/LICENSE).
