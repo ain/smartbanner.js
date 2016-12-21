@@ -139,7 +139,11 @@ export default class SmartBanner {
 
   publish() {
     if (Object.keys(this.options).length === 0) {
-      throw new Error('No options detected. Please consult documentation.');
+      let errorMessage = 'No smartbanner options detected. Please consult documentation.';
+      if (console) {
+        console.warn ? console.warn(errorMessage) : console.log(errorMessage)
+      }
+      return false;
     } else if (Bakery.baked || !Detector.platform() || !this.platformEnabled) {
       return false;
     }
