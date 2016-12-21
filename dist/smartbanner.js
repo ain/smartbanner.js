@@ -395,7 +395,11 @@ var SmartBanner = function () {
     key: 'publish',
     value: function publish() {
       if (Object.keys(this.options).length === 0) {
-        throw new Error('No options detected. Please consult documentation.');
+        var errorMessage = 'No smartbanner options detected. Please consult documentation.';
+        if (console) {
+          console.warn ? console.warn(errorMessage) : console.log(errorMessage);
+        }
+        return false;
       } else if (_bakery2.default.baked || !_detector2.default.platform() || !this.platformEnabled) {
         return false;
       }
