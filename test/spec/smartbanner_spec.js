@@ -78,8 +78,8 @@ describe('SmartBanner', function() {
         smartbanner = new SmartBanner();
       });
 
-      it('expected to throw error', function() {
-        expect(() => smartbanner.publish()).to.throw('No options detected. Please consult documentation.');
+      it('expected to return false', function() {
+        expect(smartbanner.publish()).to.be.false;
       });
 
     });
