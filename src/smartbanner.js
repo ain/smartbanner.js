@@ -137,12 +137,40 @@ export default class SmartBanner {
     return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
   }
 
+  get userAgentExcluded() {
+    if (!this.options.excludeUserAgentRegex) {
+      return false;
+    }
+    return Detector.userAgentMatchesRegex(this.options.excludeUserAgentRegex);
+  }
+
+  get userAgentIncluded() {
+    if (!this.options.includeUserAgentRegex) {
+      return false;
+    }
+    return Detector.userAgentMatchesRegex(this.options.includeUserAgentRegex);
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
-    } else if (Bakery.baked || !Detector.platform() || !this.platformEnabled) {
+    }
+
+    if (Bakery.baked) {
       return false;
     }
+
+    // User Agent was explicetely excluded by defined excludeUserAgentRegex
+    if (this.userAgentExcluded) {
+      return false;
+    }
+
+    // User agent was neither included by platformEnabled,
+    // nor by defined includeUserAgentRegex
+    if (!(this.platformEnabled || this.userAgentIncluded)) {
+      return false;
+    }
+
     let bannerDiv = document.createElement('div');
     document.querySelector('body').appendChild(bannerDiv);
     bannerDiv.outerHTML = this.html;

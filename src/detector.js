@@ -8,6 +8,10 @@ export default class Detector {
     }
   }
 
+  static userAgentMatchesRegex(regexString) {
+    return new RegExp(regexString).test(window.navigator.userAgent);
+  }
+
   static jQueryMobilePage() {
     return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
   }
