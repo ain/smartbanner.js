@@ -4,10 +4,6 @@ node_js:
 before_install:
   - rvm install 2.3.1
   - gem install bundler
-install:
-  - bundle
-  - npm i
-  - bower i
 script:
   - npm run eslint
   - npm run scsslint
