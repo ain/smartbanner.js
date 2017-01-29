@@ -30,8 +30,8 @@ describe('SmartBanner', function() {
   </html>`;
 
   const SCRIPTS = [
-    'bower_components/jquery/jquery.min.js',
-    'bower_components/jquery-mobile-bower/js/jquery.mobile-1.4.5.min.js'
+    'https://code.jquery.com/jquery-3.1.1.min.js',
+    'https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'
   ];
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios js_smartbanner">
