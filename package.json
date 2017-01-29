@@ -22,9 +22,10 @@
     "uglify-js": "^2.6.2",
     "add-banner": "ain/add-banner#121b56d",
     "watchify": "^3.7.0",
-    "bower": "^1.7.9",
     "autoprefixer": "^6.4.0",
-    "postcss-cli": "^2.4.1"
+    "postcss-cli": "^2.4.1",
+    "jquery": "~3.1.1",
+    "jquery-mobile": "~1.4.1"
   },
   "engines": {
     "node": "^6.2.0"
@@ -34,7 +35,7 @@
     "url": "https://github.com/ain/smartbanner.js.git"
   },
   "scripts": {
-    "install": "bundle && bower install",
+    "install": "bundle install",
     "bannerise": "add-banner --template=banner.tmpl dist/*.*s",
     "browserify": "browserify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ]",
     "uglify": "uglifyjs dist/smartbanner.js -o dist/smartbanner.min.js",
