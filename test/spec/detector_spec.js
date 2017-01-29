@@ -21,8 +21,8 @@ describe('Detector', function() {
   const HTML = `<!doctype html><html><head></head><body></body></html>`;
 
   const SCRIPTS = [
-    'bower_components/jquery/jquery.min.js',
-    'bower_components/jquery-mobile-bower/js/jquery.mobile-1.4.5.min.js'
+    'https://code.jquery.com/jquery-3.1.1.min.js',
+    'https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'
   ];
 
   describe('platform', function() {

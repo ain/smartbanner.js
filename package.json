@@ -23,9 +23,7 @@
     "add-banner": "ain/add-banner#121b56d",
     "watchify": "^3.7.0",
     "autoprefixer": "^6.4.0",
-    "postcss-cli": "^2.4.1",
-    "jquery": "~3.1.1",
-    "jquery-mobile": "~1.4.1"
+    "postcss-cli": "^2.4.1"
   },
   "engines": {
     "node": "^6.2.0"
