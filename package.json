@@ -58,12 +58,7 @@
     "banner"
   ],
   "files": [
-    ".eslintrc.json",
-    ".babelrc",
-    ".jscsrc",
-    ".scss-lint.yml",
-    ".tern-project",
-    ".travis.yml",
+    "**/.*",
     "banner.tmpl",
     "bower.json",
     "Gemfile*",
