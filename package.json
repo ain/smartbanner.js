@@ -59,11 +59,7 @@
   ],
   "files": [
     "dist",
-    "src",
     "*.md",
-    "LICENSE",
-    "package.json",
-    "banner.tmpl",
-    "Gemfile*"
+    "LICENSE"
   ]
 }
