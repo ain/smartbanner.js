@@ -58,11 +58,12 @@
     "banner"
   ],
   "files": [
-    "**/.*",
+    "dist",
+    "src",
+    "*.md",
+    "LICENSE",
+    "package.json",
     "banner.tmpl",
-    "bower.json",
-    "Gemfile*",
-    "bower_components",
-    "test"
+    "Gemfile*"
   ]
 }
