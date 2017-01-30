@@ -5,7 +5,7 @@
 If you want to build `smartbanner.js` from source, you have to install the required dependencies first:
 
 ```
-npm i
+npm run install-deps
 ```
 
 Afterwards, you can generate build the files in `dist/` from source by running:
