@@ -19,5 +19,5 @@ npm run build
 To run the unit tests, just execute:
 
 ```
-npm run test
+npm test
 ```
