@@ -20,7 +20,7 @@ function handleJQueryMobilePageLoad(event) {
 
 function addEventListeners(self) {
   let closeIcon = document.querySelector('.js_smartbanner__exit');
-  closeIcon.addEventListener('click', () => handleExitClick(event, self));
+  closeIcon.addEventListener('click', (event) => handleExitClick(event, self));
   if (Detector.jQueryMobilePage()) {
     $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
   }
