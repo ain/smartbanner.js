@@ -69,6 +69,13 @@ In addition to blacklisting certain user agents using the regex explained in the
 
 **Note:** You can define `enabled-platforms`, `exclude-user-agent-regex` and `include-user-agent-regex` at the same time. `enabled-platforms` has the lowest priority, `exclude-user-agent-regex` the highest priority.
 
+### Disable Positioning
+
+If you want to to all the positioning of the smart banner yourself (e.g. in CSS), you can disable the built-in positioning with the following option:
+```html
+<meta name="smartbanner:disable-positioning" content="true">
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
