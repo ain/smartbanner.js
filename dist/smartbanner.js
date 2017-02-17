@@ -104,8 +104,11 @@ var smartbanner = void 0;
 
 window.addEventListener('load', function () {
   smartbanner = new _smartbanner2.default();
-  smartbanner.publish();
 });
+
+window.SmartBanner = function () {
+  smartbanner.publish();
+};
 
 },{"./smartbanner.js":7}],4:[function(require,module,exports){
 'use strict';
