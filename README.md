@@ -20,7 +20,7 @@ Customisable smart app banner for iOS and Android.
 
 ## Basic Usage
 
-`smartbanner.js` works automagically given following meta tags:
+Put given meta tags to your html template:
 
 ```html
 <!-- Start SmartBanner configuration -->
@@ -37,6 +37,8 @@ Customisable smart app banner for iOS and Android.
 <meta name="smartbanner:enabled-platforms" content="android,ios">
 <!-- End SmartBanner configuration -->
 ```
+
+Call `SmartBanner()` function
 
 Additionally, JavaScript and CSS has to be included:
 
