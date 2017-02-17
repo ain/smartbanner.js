@@ -4,5 +4,8 @@ let smartbanner;
 
 window.addEventListener('load', function() {
   smartbanner = new SmartBanner();
-  smartbanner.publish();
 });
+
+window.SmartBanner = function() {
+  smartbanner.publish();
+};
