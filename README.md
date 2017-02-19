@@ -71,7 +71,7 @@ In addition to blacklisting certain user agents using the regex explained in the
 
 ### Disable Positioning
 
-If you want to to all the positioning of the smart banner yourself (e.g. in CSS), you can disable the built-in positioning with the following option:
+If you want to position smart app banner yourself (e.g. in CSS), you can disable built-in positioning with following option:
 ```html
 <meta name="smartbanner:disable-positioning" content="true">
 ```
