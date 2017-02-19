@@ -331,7 +331,9 @@ function handleExitClick(event, self) {
 }
 
 function handleJQueryMobilePageLoad(event) {
-  setContentPosition(event.data.height);
+  if (!this.positioningDisabled) {
+    setContentPosition(event.data.height);
+  }
 }
 
 function addEventListeners(self) {
@@ -421,14 +423,18 @@ var SmartBanner = function () {
       var bannerDiv = document.createElement('div');
       document.querySelector('body').appendChild(bannerDiv);
       bannerDiv.outerHTML = this.html;
-      setContentPosition(this.height);
+      if (!this.positioningDisabled) {
+        setContentPosition(this.height);
+      }
       addEventListeners(this);
     }
   }, {
     key: 'exit',
     value: function exit() {
       removeEventListeners();
-      restoreContentPosition();
+      if (!this.positioningDisabled) {
+        restoreContentPosition();
+      }
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
       _bakery2.default.bake();
@@ -493,6 +499,11 @@ var SmartBanner = function () {
     get: function get() {
       var enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
       return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
+    }
+  }, {
+    key: 'positioningDisabled',
+    get: function get() {
+      return this.options.disablePositioning === 'true';
     }
   }, {
     key: 'userAgentExcluded',

@@ -22,6 +22,29 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:button" content="View">
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:disable-positioning" content="false">
+    </head>
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
+  const HTML_DISABLED_POSITIONING = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="FREE">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:disable-positioning" content="true">
     </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
@@ -598,6 +621,50 @@ describe('SmartBanner', function() {
       let height = document.querySelector('.js_smartbanner').offsetHeight;
       height = height !== undefined ? height : 0;
       expect(smartbanner.height).to.eql(height);
+      done();
+    });
+  });
+
+  describe('disable-positioning', function() {
+    before(function(done) {
+      jsdom.env({
+        html: HTML_DISABLED_POSITIONING,
+        scripts: SCRIPTS,
+        done: function(err, window) {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+          smartbanner.publish();
+          done();
+        }
+      });
+    });
+
+    it('expected to match component offset height', function(done) {
+      let height = document.querySelector('.js_smartbanner').offsetHeight;
+      height = height !== undefined ? height : 0;
+      expect(smartbanner.height).to.eql(height);
+      done();
+    });
+
+    it('expected to not alter <html> top margin', function(done) {
+      let html = document.querySelector('html');
+      let margin = parseFloat(getComputedStyle(html).marginTop);
+      if (isNaN(margin)) {
+        margin = 0;
+      }
+      expect(margin).to.eql(10);
+      done();
+    });
+
+    it('expected to not alter ui-page top margin', function(done) {
+      let page = document.querySelector('.ui-page');
+      let top = parseFloat(getComputedStyle(page).top);
+      if (isNaN(top)) {
+        top = 0;
+      }
+      expect(top).to.eql(12);
       done();
     });
   });

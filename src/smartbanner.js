@@ -15,7 +15,9 @@ function handleExitClick(event, self) {
 }
 
 function handleJQueryMobilePageLoad(event) {
-  setContentPosition(event.data.height);
+  if (!this.positioningDisabled) {
+    setContentPosition(event.data.height);
+  }
 }
 
 function addEventListeners(self) {
@@ -137,6 +139,10 @@ export default class SmartBanner {
     return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
   }
 
+  get positioningDisabled() {
+    return this.options.disablePositioning === 'true';
+  }
+
   get userAgentExcluded() {
     if (!this.options.excludeUserAgentRegex) {
       return false;
@@ -174,13 +180,17 @@ export default class SmartBanner {
     let bannerDiv = document.createElement('div');
     document.querySelector('body').appendChild(bannerDiv);
     bannerDiv.outerHTML = this.html;
-    setContentPosition(this.height);
+    if (!this.positioningDisabled) {
+      setContentPosition(this.height);
+    }
     addEventListeners(this);
   }
 
   exit() {
     removeEventListeners();
-    restoreContentPosition();
+    if (!this.positioningDisabled) {
+      restoreContentPosition();
+    }
     let banner = document.querySelector('.js_smartbanner');
     document.querySelector('body').removeChild(banner);
     Bakery.bake();
