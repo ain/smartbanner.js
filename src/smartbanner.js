@@ -157,6 +157,13 @@ export default class SmartBanner {
     return Detector.userAgentMatchesRegex(this.options.includeUserAgentRegex);
   }
 
+  get daysToHide() {
+    if (!this.options.daysToHide) {
+      return false;
+    }
+    return this.options.daysToHide;
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
@@ -193,6 +200,6 @@ export default class SmartBanner {
     }
     let banner = document.querySelector('.js_smartbanner');
     document.querySelector('body').removeChild(banner);
-    Bakery.bake();
+    Bakery.bake(this.options.daysToHide);
   }
 }
