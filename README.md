@@ -80,6 +80,12 @@ If you want to position smart app banner yourself (e.g. in CSS), you can disable
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Sponsors
+
+Cross-browser testing across all mobile platforms is powered by
+
+<a href="https://www.browserstack.com"><img src="https://rawgithub.com/ain/smartbanner.js/master/browserstack.svg" height="32px"></a>
+
 ## Licence
 
 Copyright © 2016, 2017 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/master/LICENSE).
