@@ -100,12 +100,7 @@ var _smartbanner2 = _interopRequireDefault(_smartbanner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var smartbanner = void 0;
-
-window.addEventListener('load', function () {
-  smartbanner = new _smartbanner2.default();
-  smartbanner.publish();
-});
+window.SmartBanner = _smartbanner2.default;
 
 },{"./smartbanner.js":7}],4:[function(require,module,exports){
 'use strict';
@@ -387,11 +382,15 @@ function restoreContentPosition() {
 }
 
 var SmartBanner = function () {
-  function SmartBanner() {
+  function SmartBanner(options) {
     _classCallCheck(this, SmartBanner);
 
-    var parser = new _optionparser2.default();
-    this.options = parser.parse();
+    if (!options) {
+      var parser = new _optionparser2.default();
+      this.options = parser.parse();
+    } else {
+      this.options = options;
+    }
     this.platform = _detector2.default.platform();
   }
 

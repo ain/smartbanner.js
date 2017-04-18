@@ -70,9 +70,13 @@ function restoreContentPosition() {
 
 export default class SmartBanner {
 
-  constructor() {
-    let parser = new OptionParser();
-    this.options = parser.parse();
+  constructor(options) {
+    if (!options) {
+      let parser = new OptionParser();
+      this.options = parser.parse();
+    } else {
+      this.options = options;
+    }
     this.platform = Detector.platform();
   }
 

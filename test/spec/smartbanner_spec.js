@@ -110,6 +110,31 @@ describe('SmartBanner', function() {
 
     });
 
+    context('with options in constructor not in dom', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).defaultView;
+        global.document = jsdom.jsdom('<html></html>', { userAgent: USER_AGENT_IPHONE_IOS9 });
+        global.getComputedStyle = document.defaultView.getComputedStyle;
+        smartbanner = new SmartBanner({
+          title: 'Smart Application',
+          author: 'SmartBanner Contributors',
+          price: 'FREE',
+          button: 'View',
+          priceSuffixApple: ' - On the App Store',
+          buttonUrlApple: 'https://itunes.apple.com/us/genre/ios/id36?mt=8',
+          iconApple: 'icon--apple.jpg',
+        });
+      });
+
+      it('expected to add iOS template to body', function() {
+        smartbanner.publish();
+        let html = document.querySelector('.js_smartbanner').outerHTML;
+        expect(html).to.eql(IOS_BODY);
+      });
+
+    });
+
     context('with options', function() {
 
       context('when on iPhone', function() {
