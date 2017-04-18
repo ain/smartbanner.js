@@ -20,10 +20,25 @@
   <link rel="stylesheet" href="smartbanner.css">
   <script src="smartbanner.js"></script>
   <script type="text/javascript">
-    var sb = new SmartBanner({
-      title: 'Smart Application'
-    });
-    sb.publish();
+    window.addEventListener('load', function() {
+      // you can use options in meta by calling SmartBanner without options
+      // i.e: new SmartBanner();
+
+      var sb = new SmartBanner({
+        title: 'Smart Application',
+        author: 'SmartBanner Contributors',
+        price: 'FREE',
+        button: 'View',
+        priceSuffixApple: ' - On the App Store',
+        priceSuffixGoogle: ' - In Google Play',
+        iconApple: 'http://a3.mzstatic.com/us/r30/Purple60/v4/c1/3b/b0/c13bb085-64c0-cc90-f97a-521b96963986/icon350x350.jpeg',
+        iconGoogle: 'http://lh3.ggpht.com/f4oX61ljZ6x8aYDELZOgxlvdUEu73-wSQ4fy5bx6fCRISnZP8T353wdaM43RO_DbGg=w300',
+        buttonUrlApple: 'https://itunes.apple.com/us/genre/ios/id36?mt=8',
+        buttonUrlApple: 'https://play.google.com/store',
+        enabledPlatforms: 'android,ios'
+      });
+      sb.publish();
+    })
   </script>
 </head>
 <body>
