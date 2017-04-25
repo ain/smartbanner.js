@@ -110,27 +110,70 @@ describe('SmartBanner', function() {
 
     });
 
-    context('with options in constructor not in dom', function() {
+    context('direct api usage', function() {
+      const HTML_WITH_API = `<!doctype html>
+        <html style="margin-top:10px;">
+        <head>
+          <meta charset="utf-8">
+          <meta name="smartbanner:api" content="true">
+        </head>
+        <body>
+        </body>
+      </html>`;
 
-      before(function() {
-        global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).defaultView;
-        global.document = jsdom.jsdom('<html></html>', { userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.getComputedStyle = document.defaultView.getComputedStyle;
-        smartbanner = new SmartBanner({
-          title: 'Smart Application',
-          author: 'SmartBanner Contributors',
-          price: 'FREE',
-          button: 'View',
-          priceSuffixApple: ' - On the App Store',
-          buttonUrlApple: 'https://itunes.apple.com/us/genre/ios/id36?mt=8',
-          iconApple: 'icon--apple.jpg',
-        });
+      context('when we append meta api and no arguments in constructor', function() {
+          before(function() {
+            global.window = jsdom.jsdom(HTML_WITH_API, {userAgent: USER_AGENT_IPHONE_IOS9}).defaultView;
+            global.document = window.document;
+          });
+
+          it('expected to throw error', function() {
+            expect(() => new SmartBanner()).to.throw('No options detected in constructor with api enabled');
+          });
       });
 
-      it('expected to add iOS template to body', function() {
-        smartbanner.publish();
-        let html = document.querySelector('.js_smartbanner').outerHTML;
-        expect(html).to.eql(IOS_BODY);
+      context('when on we do not append meta api with arguments in constructor', function() {
+          before(function() {
+            global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).defaultView;
+            global.document = window.document;
+            smartbanner = new SmartBanner({
+              title: 'Smart Application',
+              author: 'SmartBanner Contributors',
+              price: 'FREE',
+              button: 'View',
+              priceSuffixApple: ' - On the App Store',
+              buttonUrlApple: 'https://itunes.apple.com/us/genre/ios/id36?mt=8',
+              iconApple: 'icon--apple.jpg',
+            });
+          });
+
+          it('expected to add iOS template to body', function() {
+            smartbanner.publish();
+            let html = document.querySelector('.js_smartbanner').outerHTML;
+            expect(html).to.eql(IOS_BODY);
+          });
+      });
+
+      context('when on we append meta api and pass arguments to constructor', function() {
+        before(function() {
+          global.window = jsdom.jsdom(HTML_WITH_API, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+          global.document = window.document;
+          smartbanner = new SmartBanner({
+            title: 'Smart Application',
+            author: 'SmartBanner Contributors',
+            price: 'FREE',
+            button: 'View',
+            priceSuffixApple: ' - On the App Store',
+            buttonUrlApple: 'https://itunes.apple.com/us/genre/ios/id36?mt=8',
+            iconApple: 'icon--apple.jpg',
+          });
+        });
+
+        it('expected to add iOS template to body', function() {
+          smartbanner.publish();
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY);
+        });
       });
 
     });

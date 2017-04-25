@@ -102,6 +102,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 window.SmartBanner = _smartbanner2.default;
 
+window.addEventListener('load', function () {
+  var smartbanner = new window.SmartBanner();
+  smartbanner.publish();
+});
+
 },{"./smartbanner.js":7}],4:[function(require,module,exports){
 'use strict';
 
@@ -385,12 +390,16 @@ var SmartBanner = function () {
   function SmartBanner(options) {
     _classCallCheck(this, SmartBanner);
 
+    // DEPRECATED. Will be removed in a future major version
     if (!options) {
       var parser = new _optionparser2.default();
-      this.options = parser.parse();
-    } else {
-      this.options = options;
+      options = parser.parse();
+      if (options.api) {
+        throw new Error('No options detected in constructor with api enabled');
+      }
     }
+
+    this.options = options;
     this.platform = _detector2.default.platform();
   }
 
