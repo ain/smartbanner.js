@@ -4,7 +4,7 @@ $blue: #1474fc;
 
 .smartbanner {
   position: absolute;
-  top: 0;
+  top: -84px;
   left: 0;
 
   overflow-x: hidden;
@@ -52,36 +52,44 @@ $blue: #1474fc;
     &::after {
       transform: rotate(-45deg);
     }
+
+    &::active,
+    &::hover {
+      color: #aaa;
+    }
   }
 
   &__icon {
     position: absolute;
 
-    top: 10px;
-    left: 30px;
+    top: 13px;
+    left: 29px;
 
-    width: 64px;
-    height: 64px;
+    width: 57px;
+    height: 57px;
 
-    border-radius: 15px;
-    background-size: 64px 64px;
+    border-radius: 10px;
+    background-size: cover;
   }
 
   &__info {
     position: absolute;
 
     top: 10px;
-    left: 104px;
+    left: 98px;
 
     display: flex;
     overflow-y: hidden;
-    width: 60%;
+    width: 46%;
     height: 64px;
 
     align-items: center;
+    line-height: 13px;
+    font-weight: bold;
 
     &__title {
-      font-size: 14px;
+      font-size: 13px;
+      line-height: 18px;
     }
 
     &__author,
