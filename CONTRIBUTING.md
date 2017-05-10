@@ -29,5 +29,5 @@ npm test
 To lint an SCSS file, run:
 
 ```
-scss-lint src/<filename>.scss
+npm run scsslint
 ```
