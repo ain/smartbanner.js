@@ -52,45 +52,36 @@ $blue: #1474fc;
     &::after {
       transform: rotate(-45deg);
     }
-
-    &:active,
-    &:hover {
-      color: #aaa;
-    }
   }
 
   &__icon {
     position: absolute;
 
     top: 13px;
-    left: 29px;
+    left: 30px;
 
-    width: 57px;
-    height: 57px;
+    width: 64px;
+    height: 64px;
 
-    border-radius: 10px;
-    background-size: cover;
+    border-radius: 15px;
+    background-size: 64px 64px;
   }
 
   &__info {
     position: absolute;
 
     top: 10px;
-    left: 98px;
+    left: 104px;
 
     display: flex;
     overflow-y: hidden;
-    width: 46%;
+    width: 60%;
     height: 64px;
 
     align-items: center;
 
-    font-weight: bold;
-    line-height: 13px;
-
     &__title {
-      font-size: 13px;
-      line-height: 18px;
+      font-size: 14px;
     }
 
     &__author,
