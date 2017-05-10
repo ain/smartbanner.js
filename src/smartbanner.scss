@@ -53,8 +53,8 @@ $blue: #1474fc;
       transform: rotate(-45deg);
     }
 
-    &::active,
-    &::hover {
+    &:active,
+    &:hover {
       color: #aaa;
     }
   }
@@ -84,8 +84,9 @@ $blue: #1474fc;
     height: 64px;
 
     align-items: center;
-    line-height: 13px;
+
     font-weight: bold;
+    line-height: 13px;
 
     &__title {
       font-size: 13px;
@@ -129,31 +130,36 @@ $blue: #1474fc;
     box-shadow: inset 0 4px 0 #88b131;
 
     .smartbanner__exit {
-      font-family: 'ArialRoundedMTBold', Arial;
-      font-size: 20px;
-      border-radius: 14px;
-      -webkit-font-smoothing: subpixel-antialiased;
       left: 6px;
+
+      margin-right: 7px;
       width: 17px;
       height: 17px;
-      line-height: 17px;
-      margin-right: 7px;
-      color: #b1b1b3;
+
+      border-radius: 14px;
       background: #1c1e21;
-      text-shadow: 0 1px 1px #000;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
+
+      color: #b1b1b3;
+      font-family: 'ArialRoundedMTBold', Arial;
+      font-size: 20px;
+      -webkit-font-smoothing: subpixel-antialiased;
+      line-height: 17px;
+      text-shadow: 0 1px 1px #000;
 
       &::before,
       &::after {
-        height: 11px;
         top: 3px;
         left: 8px;
+
         width: 2px;
+        height: 11px;
+
         background: #b1b1b3;
       }
 
-      &::active,
-      &::hover {
+      &:active,
+      &:hover {
         color: #eee;
       }
     }
@@ -174,35 +180,40 @@ $blue: #1474fc;
     }
 
     .smartbanner__button {
-      min-width: 12%;
-      color: #d1d1d1;
-      padding: 0;
-      background: none;
-      border-radius: 0;
-      box-shadow: 0 0 0 1px #333, 0 0 0 2px #dddcdc;
-      font-weight: bold;
-      font-size: 14px;
       top: 30px;
       right: 20px;
 
-      &::active,
-      &::hover {
+      padding: 0;
+      min-width: 12%;
+
+      border-radius: 0;
+      background: none;
+      box-shadow: 0 0 0 1px #333, 0 0 0 2px #dddcdc;
+
+      color: #d1d1d1;
+      font-size: 14px;
+      font-weight: bold;
+
+      &:active,
+      &:hover {
         background: none;
       }
 
       &__label {
-        text-align: center;
         display: block;
         padding: 0 10px;
+
         background: #42b6c9;
         background: linear-gradient(to bottom, #42b6c9, #39a9bb);
-        text-transform: none;
-        text-shadow: none;
         box-shadow: none;
-        line-height: 24px;
 
-        &::active,
-        &::hover {
+        line-height: 24px;
+        text-align: center;
+        text-shadow: none;
+        text-transform: none;
+
+        &:active,
+        &:hover {
           background: #2ac7e1;
         }
       }
