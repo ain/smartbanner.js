@@ -75,6 +75,13 @@ If you want to position smart app banner yourself (e.g. in CSS), you can disable
 ```html
 <meta name="smartbanner:disable-positioning" content="true">
 ```
+### Hide the smartbanner completely
+
+If you want to prevent smartbanner rendering in some html pages, you can add optional `meta` tag:
+
+```html
+<meta name="smartbanner:enabled-platforms" content="none">
+```
 
 ## Contributing
 
