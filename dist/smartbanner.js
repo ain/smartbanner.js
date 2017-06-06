@@ -20,13 +20,29 @@ var Bakery = function () {
 
   _createClass(Bakery, null, [{
     key: 'bake',
-    value: function bake() {
-      document.cookie = 'smartbanner_exited=1';
+    value: function bake(daysToHide) {
+      var cookie = 'smartbanner_exited=1';
+
+      if (daysToHide) {
+        cookie = cookie + '; expires=' + Bakery.getExpireDate(daysToHide) + ';';
+      }
+
+      document.cookie = cookie;
     }
   }, {
     key: 'unbake',
     value: function unbake() {
       document.cookie = 'smartbanner_exited=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+  }, {
+    key: 'getExpireDate',
+    value: function getExpireDate(daysToHide) {
+      var date = new Date();
+      // convert days to miliseconds.
+      var ms = daysToHide * 24 * 60 * 60 * 1000;
+      date.setTime(date.getTime() + ms);
+
+      return date;
     }
   }, {
     key: 'baked',
@@ -437,7 +453,7 @@ var SmartBanner = function () {
       }
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
-      _bakery2.default.bake();
+      _bakery2.default.bake(this.options.daysToHide);
     }
   }, {
     key: 'originalTop',
@@ -520,6 +536,14 @@ var SmartBanner = function () {
         return false;
       }
       return _detector2.default.userAgentMatchesRegex(this.options.includeUserAgentRegex);
+    }
+  }, {
+    key: 'daysToHide',
+    get: function get() {
+      if (!this.options.daysToHide) {
+        return false;
+      }
+      return this.options.daysToHide;
     }
   }]);
 

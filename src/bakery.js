@@ -1,7 +1,13 @@
 export default class Bakery {
 
-  static bake() {
-    document.cookie = 'smartbanner_exited=1';
+  static bake(daysToHide) {
+    let cookie = 'smartbanner_exited=1';
+
+    if (daysToHide) {
+      cookie = cookie + '; expires=' + Bakery.getExpireDate(daysToHide) + ';';
+    }
+
+    document.cookie = cookie;
   }
 
   static unbake() {
@@ -11,6 +17,15 @@ export default class Bakery {
   static get baked() {
     let value = document.cookie.replace(/(?:(?:^|.*;\s*)smartbanner_exited\s*\=\s*([^;]*).*$)|^.*$/, '$1');
     return value === '1';
+  }
+
+  static getExpireDate(daysToHide) {
+    let date = new Date();
+    // convert days to miliseconds.
+    let ms = daysToHide * 24 * 60 * 60 *1000;
+    date.setTime(date.getTime() + ms);
+
+    return date;
   }
 
 }
