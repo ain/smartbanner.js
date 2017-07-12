@@ -43,7 +43,7 @@
     "build:css": "node ./node_modules/node-sass/bin/node-sass src/smartbanner.scss dist/smartbanner.css",
     "autoprefix": "node ./node_modules/postcss-cli/bin/postcss --use autoprefixer --local-plugins --replace dist/smartbanner.css",
     "build:css-min": "node ./node_modules/node-sass/bin/node-sass --output-style=compressed src/smartbanner.scss dist/smartbanner.min.css",
-    "build": "npm run build:js && npm run build:css && npm run autoprefix && npm run build:css-min",
+    "build": "npm run build:js && npm run build:css && npm run autoprefix && npm run build:css-min && npm run bannerise",
     "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
     "watch:css": "npm run build:css | npm run autoprefix -- -w",
     "test": "node ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js",

@@ -484,7 +484,7 @@ var SmartBanner = function () {
     get: function get() {
       var URL = '#',
           o = this.options;
-      debugger;
+
       if (this.ignoreMainPlatformUrls) {
         o.buttonUrlGoogle = '';
         o.buttonUrlApple = '';
