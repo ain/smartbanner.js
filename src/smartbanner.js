@@ -109,7 +109,7 @@ export default class SmartBanner {
   get buttonUrl() {
     let URL = '#',
       o = this.options;
-    debugger;
+
     if (this.ignoreMainPlatformUrls) {
       o.buttonUrlGoogle = '';
       o.buttonUrlApple = '';
