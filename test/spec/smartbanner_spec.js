@@ -21,7 +21,11 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:icon-google" content="icon--google.jpg">
       <meta name="smartbanner:button" content="View">
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-apple-iphone" content="https://itunes.apple.com/iphonelink">
+      <meta name="smartbanner:button-url-apple-ipad" content="https://itunes.apple.com/ipadlink">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:button-url-google-phone" content="https://play.google.com/phonelink">
+      <meta name="smartbanner:button-url-google-tablet" content="https://play.google.com/tabletlink">
       <meta name="smartbanner:disable-positioning" content="false">
     </head>
     <body>
@@ -70,6 +74,32 @@ describe('SmartBanner', function() {
       <a href="https://itunes.apple.com/us/genre/ios/id36?mt=8" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
+  const IOS_BODY_IPHONE = `<div class="smartbanner smartbanner--ios js_smartbanner">
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
+      <div class="smartbanner__info">
+        <div>
+          <div class="smartbanner__info__title">Smart Application</div>
+          <div class="smartbanner__info__author">SmartBanner Contributors</div>
+          <div class="smartbanner__info__price">FREE - On the App Store</div>
+        </div>
+      </div>
+      <a href="https://itunes.apple.com/iphonelink" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
+    </div>`;
+
+  const IOS_BODY_IPAD = `<div class="smartbanner smartbanner--ios js_smartbanner">
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
+      <div class="smartbanner__info">
+        <div>
+          <div class="smartbanner__info__title">Smart Application</div>
+          <div class="smartbanner__info__author">SmartBanner Contributors</div>
+          <div class="smartbanner__info__price">FREE - On the App Store</div>
+        </div>
+      </div>
+      <a href="https://itunes.apple.com/ipadlink" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
+    </div>`;
+
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
@@ -83,16 +113,44 @@ describe('SmartBanner', function() {
       <a href="https://play.google.com/store" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
+  const ANDROID_BODY_PHONE = `<div class="smartbanner smartbanner--android js_smartbanner">
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
+      <div class="smartbanner__info">
+        <div>
+          <div class="smartbanner__info__title">Smart Application</div>
+          <div class="smartbanner__info__author">SmartBanner Contributors</div>
+          <div class="smartbanner__info__price">FREE - In Google Play</div>
+        </div>
+      </div>
+      <a href="https://play.google.com/phonelink" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
+    </div>`;
+
+  const ANDROID_BODY_TABLET = `<div class="smartbanner smartbanner--android js_smartbanner">
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
+      <div class="smartbanner__info">
+        <div>
+          <div class="smartbanner__info__title">Smart Application</div>
+          <div class="smartbanner__info__author">SmartBanner Contributors</div>
+          <div class="smartbanner__info__price">FREE - In Google Play</div>
+        </div>
+      </div>
+      <a href="https://play.google.com/tabletlink" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
+    </div>`;
+
   const USER_AGENT_IPHONE_IOS8 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A405 Safari/600.1.4';
   const USER_AGENT_IPHONE_IOS9 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
   const USER_AGENT_IPHONE_CUSTOM_WEBAPP = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1 My Example Webapp';
   const USER_AGENT_IPAD = 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
   const USER_AGENT_IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4';
   const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
+  const USER_AGENT_ANDROID_TABLET = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
   const USER_AGENT_ANDROID_CUSTOM_WEBAPP = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]  My Example Webapp';
   const USER_AGENT_DESKTOP = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7';
 
-  let smartbanner = null;
+  let smartbanner = null,
+      device = null;
 
   describe('publish', function() {
 
@@ -110,7 +168,7 @@ describe('SmartBanner', function() {
 
     });
 
-    context('with options', function() {
+    context('with options - Global links', function() {
 
       context('when on iPhone', function() {
 
@@ -188,6 +246,240 @@ describe('SmartBanner', function() {
           smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(ANDROID_BODY);
+        });
+
+      });
+
+      context('when on desktop', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_DESKTOP }).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+          smartbanner.publish();
+        });
+
+        it('expected to not add anything to body', function() {
+          expect(document.querySelector('.js_smartbanner')).to.be.null;
+        });
+
+      });
+
+    });
+
+    context('with options - device specific links with global links present', function() {
+
+      context('when on iPhone', function() {
+
+        beforeEach(function() {
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          global.$ = undefined;
+          smartbanner = new SmartBanner();
+        });
+
+        afterEach(function() {
+          smartbanner.exit();
+        });
+
+        it('expected to add iOS template to body', function() {
+          smartbanner.publish();
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY);
+        });
+
+        it('expected to store original top margin', function() {
+          let html = document.querySelector('html');
+          let margin = parseFloat(getComputedStyle(html).marginTop);
+          smartbanner.publish();
+          expect(smartbanner.originalTopMargin).to.eql(margin);
+        });
+
+      });
+
+      context('when on iPad', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPAD}).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add iOS template to body', function() {
+          smartbanner.publish();
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY);
+        });
+
+      });
+
+      context('when on iPod', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPOD}).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add iOS iPhone template to body', function() {
+          smartbanner.publish();
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY);
+        });
+
+      });
+
+      context('when on Android Phone', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add Android template to body', function() {
+          smartbanner.publish();
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(ANDROID_BODY);
+        });
+
+      });
+
+      context('when on Android Tablet', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID_TABLET }).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add Android template to body', function() {
+          smartbanner.publish();
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(ANDROID_BODY);
+        });
+
+      });
+
+      context('when on desktop', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_DESKTOP }).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+          smartbanner.publish();
+        });
+
+        it('expected to not add anything to body', function() {
+          expect(document.querySelector('.js_smartbanner')).to.be.null;
+        });
+
+      });
+
+    });
+
+    context('with options - device specific links with global links omitted', function() {
+
+      context('when on iPhone', function() {
+
+        beforeEach(function() {
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          global.$ = undefined;
+          smartbanner = new SmartBanner();
+        });
+
+        afterEach(function() {
+          smartbanner.exit();
+        });
+
+        it('expected to add iOS iPhone template to body', function() {
+          smartbanner.publish(true);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY_IPHONE);
+        });
+
+        it('expected to store original top margin', function() {
+          let html = document.querySelector('html');
+          let margin = parseFloat(getComputedStyle(html).marginTop);
+          smartbanner.publish();
+          expect(smartbanner.originalTopMargin).to.eql(margin);
+        });
+
+      });
+
+      context('when on iPad', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPAD}).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add iOS iPad template to body', function() {
+          smartbanner.publish(true);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY_IPAD);
+        });
+
+      });
+
+      context('when on iPod', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPOD}).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add iOS iPhone template to body', function() {
+          smartbanner.publish(true);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(IOS_BODY_IPHONE);
+        });
+
+      });
+
+      context('when on Android Phone', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add Android Phone template to body', function() {
+          smartbanner.publish(true);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(ANDROID_BODY_PHONE);
+        });
+
+      });
+
+      context('when on Android Tablet', function() {
+
+        before(function() {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID_TABLET }).defaultView;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to add Android Tablet template to body', function() {
+          smartbanner.publish(true);
+          let html = document.querySelector('.js_smartbanner').outerHTML;
+          expect(html).to.eql(ANDROID_BODY_TABLET);
         });
 
       });
@@ -428,6 +720,10 @@ describe('SmartBanner', function() {
         expect(smartbanner.buttonUrl).to.eql('https://itunes.apple.com/us/genre/ios/id36?mt=8');
       });
 
+      it('expected to have device as iphone', function() {
+        expect(smartbanner.device).to.eql('iphone');
+      });
+
     });
 
     context('when on iPad', function() {
@@ -457,6 +753,10 @@ describe('SmartBanner', function() {
 
       it('expected to have iOS button URL', function() {
         expect(smartbanner.buttonUrl).to.eql('https://itunes.apple.com/us/genre/ios/id36?mt=8');
+      });
+
+      it('expected to have device as ipad', function() {
+        expect(smartbanner.device).to.eql('ipad');
       });
 
     });
@@ -490,6 +790,10 @@ describe('SmartBanner', function() {
         expect(smartbanner.buttonUrl).to.eql('https://itunes.apple.com/us/genre/ios/id36?mt=8');
       });
 
+      it('expected to have device as iphone', function() {
+        expect(smartbanner.device).to.eql('iphone');
+      });
+
     });
 
     context('when on Android', function() {
@@ -519,6 +823,76 @@ describe('SmartBanner', function() {
 
       it('expected to have Android button URL', function() {
         expect(smartbanner.buttonUrl).to.eql('https://play.google.com/store');
+      });
+
+    });
+
+    context('when on Android Phone', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to work against Android platform', function() {
+        expect(smartbanner.platform).to.eql('android');
+      });
+
+      it('expected to have Android price suffix', function() {
+        expect(smartbanner.priceSuffix).to.eql(' - In Google Play');
+      });
+
+      it('expected to return Android template', function() {
+        expect(smartbanner.html).to.eql(ANDROID_BODY);
+      });
+
+      it('expected to have Android icon', function() {
+        expect(smartbanner.icon).to.eql('icon--google.jpg');
+      });
+
+      it('expected to have Android button URL', function() {
+        expect(smartbanner.buttonUrl).to.eql('https://play.google.com/store');
+      });
+
+      it('expected to have device as phone', function() {
+        expect(smartbanner.device).to.eql('phone');
+      });
+
+    });
+
+    context('when on Android Tablet', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID_TABLET }).defaultView;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to work against Android platform', function() {
+        expect(smartbanner.platform).to.eql('android');
+      });
+
+      it('expected to have Android price suffix', function() {
+        expect(smartbanner.priceSuffix).to.eql(' - In Google Play');
+      });
+
+      it('expected to return Android template', function() {
+        expect(smartbanner.html).to.eql(ANDROID_BODY);
+      });
+
+      it('expected to have Android icon', function() {
+        expect(smartbanner.icon).to.eql('icon--google.jpg');
+      });
+
+      it('expected to have Android button URL', function() {
+        expect(smartbanner.buttonUrl).to.eql('https://play.google.com/store');
+      });
+
+      it('expected to have device as tablet', function() {
+        expect(smartbanner.device).to.eql('tablet');
       });
 
     });

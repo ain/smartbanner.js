@@ -8,6 +8,18 @@ export default class Detector {
     }
   }
 
+  static device(){
+    if (/iPhone/i.test(window.navigator.userAgent) || /iPod/i.test(window.navigator.userAgent)) {
+      return 'iphone';
+    } else if (/iPad/i.test(window.navigator.userAgent)) {
+      return 'ipad';
+    } else if (/Android/i.test(window.navigator.userAgent) && /Mobile/i.test(window.navigator.userAgent)) {
+      return 'phone';
+    } else if (/Android/i.test(window.navigator.userAgent) && !/Mobile/i.test(window.navigator.userAgent)) {
+      return 'tablet';
+    }
+  }
+
   static userAgentMatchesRegex(regexString) {
     return new RegExp(regexString).test(window.navigator.userAgent);
   }

@@ -74,6 +74,7 @@ export default class SmartBanner {
     let parser = new OptionParser();
     this.options = parser.parse();
     this.platform = Detector.platform();
+    this.device = Detector.device();
   }
 
   // DEPRECATED. Will be removed.
@@ -106,11 +107,31 @@ export default class SmartBanner {
   }
 
   get buttonUrl() {
-    if (this.platform === 'android') {
-      return this.options.buttonUrlGoogle;
-    } else if (this.platform === 'ios') {
-      return this.options.buttonUrlApple;
+    let o = this.options;
+
+    if (this.ignoreMainPlatformUrls) {
+      o.buttonUrlApple = '';
+      o.buttonUrlGoogle = '';
     }
+
+    if (o.buttonUrlApple || o.buttonUrlGoogle) {
+      if (this.platform === 'android') {
+        return this.options.buttonUrlGoogle;
+      } else if (this.platform === 'ios') {
+        return this.options.buttonUrlApple;
+      }
+    } else if (o.buttonUrlAppleIpad || o.buttonUrlAppleIphone || o.buttonUrlGooglePhone || o.buttonUrlGoogleTablet) {
+      if (this.device === 'ipad') {
+        return this.options.buttonUrlAppleIpad;
+      } else if (this.device === 'iphone') {
+        return this.options.buttonUrlAppleIphone;
+      } else if (this.device === 'phone') {
+        return this.options.buttonUrlGooglePhone;
+      } else if (this.device === 'tablet') {
+        return this.options.buttonUrlGoogleTablet;
+      }
+    }
+
     return '#';
   }
 
@@ -157,7 +178,12 @@ export default class SmartBanner {
     return Detector.userAgentMatchesRegex(this.options.includeUserAgentRegex);
   }
 
-  publish() {
+  publish(ignoreMainPlatformUrls) {
+    //ignoreMainPlatformUrls is used for testing to simulate situation when user omits
+    //<meta name="smartbanner:button-url-apple"/> and <meta name="smartbanner:button-url-google"/>
+    //to use device related URLs instead
+    this.ignoreMainPlatformUrls = ignoreMainPlatformUrls;
+
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
     }

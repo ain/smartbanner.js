@@ -1,7 +1,3 @@
-/*!
- * smartbanner.js v1.5.0 <https://github.com/ain/smartbanner.js>
- * Copyright © 2017 Ain Tohvri, contributors. Licensed under GPL-3.0.
- */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -65,6 +61,19 @@ var Detector = function () {
         return 'ios';
       } else if (/Android/i.test(window.navigator.userAgent)) {
         return 'android';
+      }
+    }
+  }, {
+    key: 'device',
+    value: function device() {
+      if (/iPhone/i.test(window.navigator.userAgent) || /iPod/i.test(window.navigator.userAgent)) {
+        return 'iphone';
+      } else if (/iPad/i.test(window.navigator.userAgent)) {
+        return 'ipad';
+      } else if (/Android/i.test(window.navigator.userAgent) && /Mobile/i.test(window.navigator.userAgent)) {
+        return 'phone';
+      } else if (/Android/i.test(window.navigator.userAgent) && !/Mobile/i.test(window.navigator.userAgent)) {
+        return 'tablet';
       }
     }
   }, {
@@ -393,6 +402,7 @@ var SmartBanner = function () {
     var parser = new _optionparser2.default();
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
+    this.device = _detector2.default.device();
   }
 
   // DEPRECATED. Will be removed.
@@ -400,7 +410,12 @@ var SmartBanner = function () {
 
   _createClass(SmartBanner, [{
     key: 'publish',
-    value: function publish() {
+    value: function publish(ignoreMainPlatformUrls) {
+      //ignoreMainPlatformUrls is used for testing to simulate situation when user omits
+      //<meta name="smartbanner:button-url-apple"/> and <meta name="smartbanner:button-url-google"/>
+      //to use device related URLs instead
+      this.ignoreMainPlatformUrls = ignoreMainPlatformUrls;
+
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
       }
@@ -476,11 +491,31 @@ var SmartBanner = function () {
   }, {
     key: 'buttonUrl',
     get: function get() {
-      if (this.platform === 'android') {
-        return this.options.buttonUrlGoogle;
-      } else if (this.platform === 'ios') {
-        return this.options.buttonUrlApple;
+      var o = this.options;
+
+      if (this.ignoreMainPlatformUrls) {
+        o.buttonUrlApple = '';
+        o.buttonUrlGoogle = '';
       }
+
+      if (o.buttonUrlApple || o.buttonUrlGoogle) {
+        if (this.platform === 'android') {
+          return this.options.buttonUrlGoogle;
+        } else if (this.platform === 'ios') {
+          return this.options.buttonUrlApple;
+        }
+      } else if (o.buttonUrlAppleIpad || o.buttonUrlAppleIphone || o.buttonUrlGooglePhone || o.buttonUrlGoogleTablet) {
+        if (this.device === 'ipad') {
+          return this.options.buttonUrlAppleIpad;
+        } else if (this.device === 'iphone') {
+          return this.options.buttonUrlAppleIphone;
+        } else if (this.device === 'phone') {
+          return this.options.buttonUrlGooglePhone;
+        } else if (this.device === 'tablet') {
+          return this.options.buttonUrlGoogleTablet;
+        }
+      }
+
       return '#';
     }
   }, {
