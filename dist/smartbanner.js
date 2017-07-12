@@ -393,7 +393,7 @@ var SmartBanner = function () {
     var parser = new _optionparser2.default();
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
-    this.platformOS = this.platform.replace(' tablet', '').replace(' phone', '');
+    this.platformOS = this.platform && this.platform.replace(' tablet', '').replace(' phone', '');
   }
 
   // DEPRECATED. Will be removed.
@@ -401,7 +401,12 @@ var SmartBanner = function () {
 
   _createClass(SmartBanner, [{
     key: 'publish',
-    value: function publish() {
+    value: function publish(ignoreMainPlatformUrls) {
+      //ignoreMainPlatformUrls is used for testing to simulate situation when user omits
+      //<meta name="smartbanner:button-url-apple"/> and <meta name="smartbanner:button-url-google"/>
+      //to use device related URLs instead
+      this.ignoreMainPlatformUrls = ignoreMainPlatformUrls;
+
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
       }
@@ -477,20 +482,34 @@ var SmartBanner = function () {
   }, {
     key: 'buttonUrl',
     get: function get() {
-      var URL = '#';
+      var URL = '#',
+          o = this.options;
+      debugger;
+      if (this.ignoreMainPlatformUrls) {
+        o.buttonUrlGoogle = '';
+        o.buttonUrlApple = '';
+      }
 
       switch (this.platform) {
         case 'android phone':
-          URL = this.options.buttonUrlGoogle ? this.options.buttonUrlGoogle : this.options.buttonUrlGooglePhone;
+          if (o.buttonUrlGoogle || o.buttonUrlGooglePhone) {
+            URL = o.buttonUrlGoogle ? o.buttonUrlGoogle : o.buttonUrlGooglePhone;
+          }
           break;
         case 'android tablet':
-          URL = this.options.buttonUrlGoogle ? this.options.buttonUrlGoogle : this.options.buttonUrlGoogleTablet;
+          if (o.buttonUrlGoogle || o.buttonUrlGoogleTablet) {
+            URL = o.buttonUrlGoogle ? o.buttonUrlGoogle : o.buttonUrlGoogleTablet;
+          }
           break;
         case 'ios phone':
-          URL = this.options.buttonUrlApple ? this.options.buttonUrlApple : this.options.buttonUrlAppleIphone;
+          if (o.buttonUrlApple || o.buttonUrlAppleIphone) {
+            URL = o.buttonUrlApple ? o.buttonUrlApple : o.buttonUrlAppleIphone;
+          }
           break;
         case 'ios tablet':
-          URL = this.options.buttonUrlApple ? this.options.buttonUrlApple : this.options.buttonUrlAppleIpad;
+          if (o.buttonUrlApple || o.buttonUrlAppleIpad) {
+            URL = o.buttonUrlApple ? o.buttonUrlApple : o.buttonUrlAppleIpad;
+          }
           break;
       }
 
