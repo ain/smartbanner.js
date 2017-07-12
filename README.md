@@ -79,7 +79,7 @@ There are cases when there are separate applications meant for phone and tablet 
     <meta name="smartbanner:button-url-apple-ipad" content="https://itunes.apple.com/ipadlink">
 ```
 
-**Note:** Is is important that if <meta name="smartbanner:button-url-apple"/> or <meta name="smartbanner:button-url-google"/> will be set, device related app links will be omitted (-phone; -tablet).
+**Note:** Is is important that if 'global' links, like `<meta name="smartbanner:button-url-apple"/>` or `<meta name="smartbanner:button-url-google"/>` will be set, device related app links will be omitted (-phone; -tablet).
 
 ### Show the smartbanner for certain User Agents
 
