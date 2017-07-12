@@ -27,17 +27,18 @@ describe('Detector', function() {
 
   describe('platform', function() {
 
-    let platform = null;
+    let platform = null, platformOS = '';
 
     context('when on iPhone with iOS8', function() {
 
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS8 }).defaultView;
         platform = Detector.platform();
+        platformOS = platform.replace(' tablet','').replace(' phone','');
       });
 
       it('expected to return ios', function() {
-        expect(platform).to.eql('ios');
+        expect(platformOS).to.eql('ios');
       });
 
       it('expected exclude regex to not match', function() {
@@ -54,10 +55,11 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
         platform = Detector.platform();
+        platformOS = platform.replace(' tablet','').replace(' phone','');
       });
 
       it('expected to return ios', function() {
-        expect(platform).to.eql('ios');
+        expect(platformOS).to.eql('ios');
       });
 
       it('expected exclude regex to not match', function() {
@@ -74,10 +76,11 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP }).defaultView;
         platform = Detector.platform();
+        platformOS = platform.replace(' tablet','').replace(' phone','');
       });
 
       it('expected to return ios', function() {
-        expect(platform).to.eql('ios');
+        expect(platformOS).to.eql('ios');
       });
 
       it('expected exclude regex to match', function() {
@@ -95,10 +98,11 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
         platform = Detector.platform();
+        platformOS = platform.replace(' tablet','').replace(' phone','');
       });
 
       it('expected to return ios', function() {
-        expect(platform).to.eql('ios');
+        expect(platformOS).to.eql('ios');
       });
 
       it('expected exclude regex to not match', function() {
@@ -115,10 +119,11 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
         platform = Detector.platform();
+        platformOS = platform.replace(' tablet','').replace(' phone','');
       });
 
       it('expected to return ios', function() {
-        expect(platform).to.eql('ios');
+        expect(platformOS).to.eql('ios');
       });
 
       it('expected exclude regex to not match', function() {
@@ -135,10 +140,11 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
         platform = Detector.platform();
+        platformOS = platform.replace(' tablet','').replace(' phone','');
       });
 
       it('expected to return android', function() {
-        expect(platform).to.eql('android');
+        expect(platformOS).to.eql('android');
       });
 
       it('expected exclude regex to not match', function() {
@@ -155,10 +161,11 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID_CUSTOM_WEBAPP }).defaultView;
         platform = Detector.platform();
+        platformOS = platform.replace(' tablet','').replace(' phone','');
       });
 
       it('expected to return android', function() {
-        expect(platform).to.eql('android');
+        expect(platformOS).to.eql('android');
       });
 
       it('expected exclude regex to match', function() {

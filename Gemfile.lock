@@ -9,9 +9,10 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   scss_lint (~> 0.48.0)
 
 BUNDLED WITH
-   1.12.5
+   1.15.1

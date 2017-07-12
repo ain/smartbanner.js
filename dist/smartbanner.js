@@ -1,7 +1,3 @@
-/*!
- * smartbanner.js v1.5.0 <https://github.com/ain/smartbanner.js>
- * Copyright © 2017 Ain Tohvri, contributors. Licensed under GPL-3.0.
- */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -61,10 +57,14 @@ var Detector = function () {
   _createClass(Detector, null, [{
     key: 'platform',
     value: function platform() {
-      if (/iPhone|iPad|iPod/i.test(window.navigator.userAgent)) {
-        return 'ios';
-      } else if (/Android/i.test(window.navigator.userAgent)) {
-        return 'android';
+      if (/iPhone/i.test(window.navigator.userAgent) || /iPod/i.test(window.navigator.userAgent)) {
+        return 'ios phone';
+      } else if (/iPad/i.test(window.navigator.userAgent)) {
+        return 'ios tablet';
+      } else if (/Android/i.test(window.navigator.userAgent) && /Mobile/i.test(window.navigator.userAgent)) {
+        return 'android phone';
+      } else if (/Android/i.test(window.navigator.userAgent) && !/Mobile/i.test(window.navigator.userAgent)) {
+        return 'android tablet';
       }
     }
   }, {
@@ -393,6 +393,7 @@ var SmartBanner = function () {
     var parser = new _optionparser2.default();
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
+    this.platformOS = this.platform && this.platform.replace(' tablet', '').replace(' phone', '');
   }
 
   // DEPRECATED. Will be removed.
@@ -400,7 +401,12 @@ var SmartBanner = function () {
 
   _createClass(SmartBanner, [{
     key: 'publish',
-    value: function publish() {
+    value: function publish(ignoreMainPlatformUrls) {
+      //ignoreMainPlatformUrls is used for testing to simulate situation when user omits
+      //<meta name="smartbanner:button-url-apple"/> and <meta name="smartbanner:button-url-google"/>
+      //to use device related URLs instead
+      this.ignoreMainPlatformUrls = ignoreMainPlatformUrls;
+
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
       }
@@ -457,9 +463,9 @@ var SmartBanner = function () {
   }, {
     key: 'priceSuffix',
     get: function get() {
-      if (this.platform === 'ios') {
+      if (this.platformOS === 'ios') {
         return this.options.priceSuffixApple;
-      } else if (this.platform === 'android') {
+      } else if (this.platformOS === 'android') {
         return this.options.priceSuffixGoogle;
       }
       return '';
@@ -467,7 +473,7 @@ var SmartBanner = function () {
   }, {
     key: 'icon',
     get: function get() {
-      if (this.platform === 'android') {
+      if (this.platformOS === 'android') {
         return this.options.iconGoogle;
       } else {
         return this.options.iconApple;
@@ -476,17 +482,43 @@ var SmartBanner = function () {
   }, {
     key: 'buttonUrl',
     get: function get() {
-      if (this.platform === 'android') {
-        return this.options.buttonUrlGoogle;
-      } else if (this.platform === 'ios') {
-        return this.options.buttonUrlApple;
+      var URL = '#',
+          o = this.options;
+
+      if (this.ignoreMainPlatformUrls) {
+        o.buttonUrlGoogle = '';
+        o.buttonUrlApple = '';
       }
-      return '#';
+
+      switch (this.platform) {
+        case 'android phone':
+          if (o.buttonUrlGoogle || o.buttonUrlGooglePhone) {
+            URL = o.buttonUrlGoogle ? o.buttonUrlGoogle : o.buttonUrlGooglePhone;
+          }
+          break;
+        case 'android tablet':
+          if (o.buttonUrlGoogle || o.buttonUrlGoogleTablet) {
+            URL = o.buttonUrlGoogle ? o.buttonUrlGoogle : o.buttonUrlGoogleTablet;
+          }
+          break;
+        case 'ios phone':
+          if (o.buttonUrlApple || o.buttonUrlAppleIphone) {
+            URL = o.buttonUrlApple ? o.buttonUrlApple : o.buttonUrlAppleIphone;
+          }
+          break;
+        case 'ios tablet':
+          if (o.buttonUrlApple || o.buttonUrlAppleIpad) {
+            URL = o.buttonUrlApple ? o.buttonUrlApple : o.buttonUrlAppleIpad;
+          }
+          break;
+      }
+
+      return URL;
     }
   }, {
     key: 'html',
     get: function get() {
-      return '<div class="smartbanner smartbanner--' + this.platform + ' js_smartbanner">\n      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div>\n          <div class="smartbanner__info__title">' + this.options.title + '</div>\n          <div class="smartbanner__info__author">' + this.options.author + '</div>\n          <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n        </div>\n      </div>\n      <a href="' + this.buttonUrl + '" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
+      return '<div class="smartbanner smartbanner--' + this.platformOS + ' js_smartbanner">\n      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>\n      <div class="smartbanner__icon" style="background-image: url(' + this.icon + ');"></div>\n      <div class="smartbanner__info">\n        <div>\n          <div class="smartbanner__info__title">' + this.options.title + '</div>\n          <div class="smartbanner__info__author">' + this.options.author + '</div>\n          <div class="smartbanner__info__price">' + this.options.price + this.priceSuffix + '</div>\n        </div>\n      </div>\n      <a href="' + this.buttonUrl + '" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">' + this.options.button + '</span></a>\n    </div>';
     }
   }, {
     key: 'height',
@@ -498,7 +530,7 @@ var SmartBanner = function () {
     key: 'platformEnabled',
     get: function get() {
       var enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
-      return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
+      return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platformOS) !== -1;
     }
   }, {
     key: 'positioningDisabled',

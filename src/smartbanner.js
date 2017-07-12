@@ -74,6 +74,7 @@ export default class SmartBanner {
     let parser = new OptionParser();
     this.options = parser.parse();
     this.platform = Detector.platform();
+    this.platformOS = this.platform && this.platform.replace(' tablet','').replace(' phone','');
   }
 
   // DEPRECATED. Will be removed.
@@ -89,16 +90,16 @@ export default class SmartBanner {
   }
 
   get priceSuffix() {
-    if (this.platform === 'ios') {
+    if (this.platformOS === 'ios') {
       return this.options.priceSuffixApple;
-    } else if (this.platform === 'android') {
+    } else if (this.platformOS === 'android') {
       return this.options.priceSuffixGoogle;
     }
     return '';
   }
 
   get icon() {
-    if (this.platform === 'android') {
+    if (this.platformOS === 'android') {
       return this.options.iconGoogle;
     } else {
       return this.options.iconApple;
@@ -106,16 +107,42 @@ export default class SmartBanner {
   }
 
   get buttonUrl() {
-    if (this.platform === 'android') {
-      return this.options.buttonUrlGoogle;
-    } else if (this.platform === 'ios') {
-      return this.options.buttonUrlApple;
+    let URL = '#',
+      o = this.options;
+
+    if (this.ignoreMainPlatformUrls) {
+      o.buttonUrlGoogle = '';
+      o.buttonUrlApple = '';
     }
-    return '#';
+
+    switch(this.platform){
+    case 'android phone':
+      if(o.buttonUrlGoogle || o.buttonUrlGooglePhone){
+        URL = o.buttonUrlGoogle ? o.buttonUrlGoogle : o.buttonUrlGooglePhone;
+      }
+      break;
+    case 'android tablet':
+      if(o.buttonUrlGoogle || o.buttonUrlGoogleTablet){
+        URL = o.buttonUrlGoogle ? o.buttonUrlGoogle : o.buttonUrlGoogleTablet;
+      }
+      break;
+    case 'ios phone':
+      if(o.buttonUrlApple || o.buttonUrlAppleIphone){
+        URL = o.buttonUrlApple ? o.buttonUrlApple : o.buttonUrlAppleIphone;
+      }
+      break;
+    case 'ios tablet':
+      if(o.buttonUrlApple || o.buttonUrlAppleIpad){
+        URL = o.buttonUrlApple ? o.buttonUrlApple : o.buttonUrlAppleIpad;
+      }
+      break;
+    }
+
+    return URL;
   }
 
   get html() {
-    return `<div class="smartbanner smartbanner--${this.platform} js_smartbanner">
+    return `<div class="smartbanner smartbanner--${this.platformOS} js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
@@ -136,7 +163,7 @@ export default class SmartBanner {
 
   get platformEnabled() {
     let enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
-    return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
+    return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platformOS) !== -1;
   }
 
   get positioningDisabled() {
@@ -157,7 +184,12 @@ export default class SmartBanner {
     return Detector.userAgentMatchesRegex(this.options.includeUserAgentRegex);
   }
 
-  publish() {
+  publish(ignoreMainPlatformUrls) {
+    //ignoreMainPlatformUrls is used for testing to simulate situation when user omits
+    //<meta name="smartbanner:button-url-apple"/> and <meta name="smartbanner:button-url-google"/>
+    //to use device related URLs instead
+    this.ignoreMainPlatformUrls = ignoreMainPlatformUrls;
+
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
     }
