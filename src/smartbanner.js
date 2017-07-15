@@ -107,20 +107,20 @@ export default class SmartBanner {
   }
 
   get buttonUrl() {
-    let o = this.options;
+    let options = this.options;
 
     if (this.ignoreMainPlatformUrls) {
-      o.buttonUrlApple = '';
-      o.buttonUrlGoogle = '';
+      options.buttonUrlApple = '';
+      options.buttonUrlGoogle = '';
     }
 
-    if (o.buttonUrlApple || o.buttonUrlGoogle) {
+    if (options.buttonUrlApple || options.buttonUrlGoogle) {
       if (this.platform === 'android') {
         return this.options.buttonUrlGoogle;
       } else if (this.platform === 'ios') {
         return this.options.buttonUrlApple;
       }
-    } else if (o.buttonUrlAppleIpad || o.buttonUrlAppleIphone || o.buttonUrlGooglePhone || o.buttonUrlGoogleTablet) {
+    } else if (options.buttonUrlAppleIpad || options.buttonUrlAppleIphone || options.buttonUrlGooglePhone || options.buttonUrlGoogleTablet) {
       if (this.device === 'ipad') {
         return this.options.buttonUrlAppleIpad;
       } else if (this.device === 'iphone') {

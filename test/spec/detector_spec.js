@@ -28,8 +28,8 @@ describe('Detector', function() {
 
   describe('platform', function() {
 
-    let platform = null,
-        device = null;
+    let platform = null;
+    let device = null;
 
     context('when on iPhone with iOS8', function() {
 
