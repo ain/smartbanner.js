@@ -72,9 +72,13 @@ export default class SmartBanner {
 
   constructor() {
     let parser = new OptionParser();
+    let self = this;
     this.options = parser.parse();
     this.platform = Detector.platform();
     this.device = Detector.device();
+    this.ignoreDeviceMeta = function (ignoreDevice) {
+      self.ignoreDevice = Detector.ignoreDeviceMeta(ignoreDevice);
+    };
   }
 
   // DEPRECATED. Will be removed.
@@ -109,28 +113,19 @@ export default class SmartBanner {
   get buttonUrl() {
     let options = this.options;
     let device = this.device;
+    let ignoreDevice = this.ignoreDevice;
 
-    if (this.ignoreIOSGlobalLink === 'iosglobal') {
+    if (ignoreDevice === 'iosglobal') {
       options.buttonUrlApple = '';
-    }
-
-    if (this.ignoreAndroidGlobalLink === 'androidglobal') {
+    } else if (ignoreDevice === 'androidglobal') {
       options.buttonUrlGoogle = '';
-    }
-
-    if (this.ignoreButtonUrlAppleIpad === 'ipad') {
+    } else if (ignoreDevice === 'ipad') {
       options.buttonUrlAppleIpad = '';
-    }
-
-    if (this.ignoreButtonUrlAppleIphone === 'iphone' || this.ignoreButtonUrlAppleIpod === 'ipod') {
+    } else if (ignoreDevice === 'iphone' || ignoreDevice === 'ipod') {
       options.buttonUrlAppleIphone = '';
-    }
-
-    if (this.ignoreButtonUrlGooglePhone === 'phone') {
+    } else if (ignoreDevice === 'phone') {
       options.buttonUrlGooglePhone = '';
-    }
-
-    if (this.ignoreButtonUrlGoogleTablet === 'tablet') {
+    } else if (ignoreDevice === 'tablet') {
       options.buttonUrlGoogleTablet = '';
     }
 
@@ -190,16 +185,7 @@ export default class SmartBanner {
     return Detector.userAgentMatchesRegex(this.options.includeUserAgentRegex);
   }
 
-  publish(ignoreMetas) {
-    //ignoreMetas is used for testing to simulate situation when user omits few of the tags
-    //related to either Platform (ios, android) or Device
-    this.ignoreIOSGlobalLink = ignoreMetas === 'iosglobal' ? ignoreMetas : '';
-    this.ignoreAndroidGlobalLink = ignoreMetas === 'androidglobal' ? ignoreMetas : '';
-    this.ignoreButtonUrlAppleIpad = ignoreMetas === 'ipad' ? ignoreMetas : '';
-    this.ignoreButtonUrlAppleIpod = ignoreMetas === 'ipod' ? ignoreMetas : '';
-    this.ignoreButtonUrlAppleIphone = ignoreMetas === 'iphone' ? ignoreMetas : '';
-    this.ignoreButtonUrlGooglePhone = ignoreMetas === 'phone' ? ignoreMetas : '';
-    this.ignoreButtonUrlGoogleTablet = ignoreMetas === 'tablet' ? ignoreMetas : '';
+  publish() {
 
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');

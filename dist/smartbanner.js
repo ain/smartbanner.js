@@ -77,6 +77,30 @@ var Detector = function () {
       }
     }
   }, {
+    key: 'ignoreDeviceMeta',
+    value: function ignoreDeviceMeta(ignoreMeta) {
+      //ignoreMeta is used for testing to simulate situation when user omits few of the tags
+      //related to either Platform (ios, android) or Device
+
+      if (ignoreMeta === 'iosglobal') {
+        return 'iosglobal';
+      } else if (ignoreMeta === 'androidglobal') {
+        return 'androidglobal';
+      } else if (ignoreMeta === 'ipad') {
+        return 'ipad';
+      } else if (ignoreMeta === 'ipod') {
+        return 'ipod';
+      } else if (ignoreMeta === 'iphone') {
+        return 'iphone';
+      } else if (ignoreMeta === 'phone') {
+        return 'phone';
+      } else if (ignoreMeta === 'tablet') {
+        return 'tablet';
+      } else {
+        return '';
+      }
+    }
+  }, {
     key: 'userAgentMatchesRegex',
     value: function userAgentMatchesRegex(regexString) {
       return new RegExp(regexString).test(window.navigator.userAgent);
@@ -400,9 +424,13 @@ var SmartBanner = function () {
     _classCallCheck(this, SmartBanner);
 
     var parser = new _optionparser2.default();
+    var self = this;
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
     this.device = _detector2.default.device();
+    this.ignoreDeviceMeta = function (ignoreDevice) {
+      self.ignoreDevice = _detector2.default.ignoreDeviceMeta(ignoreDevice);
+    };
   }
 
   // DEPRECATED. Will be removed.
@@ -410,11 +438,7 @@ var SmartBanner = function () {
 
   _createClass(SmartBanner, [{
     key: 'publish',
-    value: function publish(ignoreMainPlatformUrls) {
-      //ignoreMainPlatformUrls is used for testing to simulate situation when user omits
-      //<meta name="smartbanner:button-url-apple"/> and <meta name="smartbanner:button-url-google"/>
-      //to use device related URLs instead
-      this.ignoreMainPlatformUrls = ignoreMainPlatformUrls;
+    value: function publish() {
 
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
@@ -491,29 +515,32 @@ var SmartBanner = function () {
   }, {
     key: 'buttonUrl',
     get: function get() {
-      var o = this.options;
+      var options = this.options;
+      var device = this.device;
+      var ignoreDevice = this.ignoreDevice;
 
-      if (this.ignoreMainPlatformUrls) {
-        o.buttonUrlApple = '';
-        o.buttonUrlGoogle = '';
+      if (ignoreDevice === 'iosglobal') {
+        options.buttonUrlApple = '';
+      } else if (ignoreDevice === 'androidglobal') {
+        options.buttonUrlGoogle = '';
+      } else if (ignoreDevice === 'ipad') {
+        options.buttonUrlAppleIpad = '';
+      } else if (ignoreDevice === 'iphone' || ignoreDevice === 'ipod') {
+        options.buttonUrlAppleIphone = '';
+      } else if (ignoreDevice === 'phone') {
+        options.buttonUrlGooglePhone = '';
+      } else if (ignoreDevice === 'tablet') {
+        options.buttonUrlGoogleTablet = '';
       }
 
-      if (o.buttonUrlApple || o.buttonUrlGoogle) {
-        if (this.platform === 'android') {
-          return this.options.buttonUrlGoogle;
-        } else if (this.platform === 'ios') {
-          return this.options.buttonUrlApple;
-        }
-      } else if (o.buttonUrlAppleIpad || o.buttonUrlAppleIphone || o.buttonUrlGooglePhone || o.buttonUrlGoogleTablet) {
-        if (this.device === 'ipad') {
-          return this.options.buttonUrlAppleIpad;
-        } else if (this.device === 'iphone') {
-          return this.options.buttonUrlAppleIphone;
-        } else if (this.device === 'phone') {
-          return this.options.buttonUrlGooglePhone;
-        } else if (this.device === 'tablet') {
-          return this.options.buttonUrlGoogleTablet;
-        }
+      if (device === 'ipad') {
+        return options.buttonUrlAppleIpad ? options.buttonUrlAppleIpad : options.buttonUrlApple;
+      } else if (device === 'iphone' || device === 'ipod') {
+        return options.buttonUrlAppleIphone ? options.buttonUrlAppleIphone : options.buttonUrlApple;
+      } else if (device === 'phone') {
+        return options.buttonUrlGooglePhone ? options.buttonUrlGooglePhone : options.buttonUrlGoogle;
+      } else if (device === 'tablet') {
+        return options.buttonUrlGoogleTablet ? options.buttonUrlGoogleTablet : options.buttonUrlGoogle;
       }
 
       return '#';

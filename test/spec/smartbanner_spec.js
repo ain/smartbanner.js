@@ -178,6 +178,7 @@ describe('SmartBanner', function() {
           global.getComputedStyle = window.getComputedStyle;
           global.$ = undefined;
           smartbanner = new SmartBanner();
+          smartbanner.ignoreDeviceMeta('iphone');
         });
 
         afterEach(function() {
@@ -185,7 +186,7 @@ describe('SmartBanner', function() {
         });
 
         it('expected to add iOS template to body', function() {
-          smartbanner.publish('iphone');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(IOS_BODY);
         });
@@ -206,10 +207,11 @@ describe('SmartBanner', function() {
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
+          smartbanner.ignoreDeviceMeta('ipad');
         });
 
         it('expected to add iOS template to body', function() {
-          smartbanner.publish('ipad');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(IOS_BODY);
         });
@@ -223,10 +225,11 @@ describe('SmartBanner', function() {
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
+          smartbanner.ignoreDeviceMeta('ipod');
         });
 
         it('expected to add iOS template to body', function() {
-          smartbanner.publish('ipod');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(IOS_BODY);
         });
@@ -240,10 +243,11 @@ describe('SmartBanner', function() {
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
+          smartbanner.ignoreDeviceMeta('phone');
         });
 
         it('expected to add Android template to body', function() {
-          smartbanner.publish('phone');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(ANDROID_BODY);
         });
@@ -402,7 +406,8 @@ describe('SmartBanner', function() {
         });
 
         it('expected to add iOS iPhone template to body', function() {
-          smartbanner.publish('iosglobal');
+          smartbanner.ignoreDeviceMeta('iosglobal');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(IOS_BODY_IPHONE);
         });
@@ -426,7 +431,8 @@ describe('SmartBanner', function() {
         });
 
         it('expected to add iOS iPad template to body', function() {
-          smartbanner.publish('iosglobal');
+          smartbanner.ignoreDeviceMeta('iosglobal');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(IOS_BODY_IPAD);
         });
@@ -443,7 +449,8 @@ describe('SmartBanner', function() {
         });
 
         it('expected to add iOS iPhone template to body', function() {
-          smartbanner.publish('iosglobal');
+          smartbanner.ignoreDeviceMeta('iosglobal');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(IOS_BODY_IPHONE);
         });
@@ -460,7 +467,8 @@ describe('SmartBanner', function() {
         });
 
         it('expected to add Android Phone template to body', function() {
-          smartbanner.publish('androidglobal');
+          smartbanner.ignoreDeviceMeta('androidglobal');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(ANDROID_BODY_PHONE);
         });
@@ -477,7 +485,8 @@ describe('SmartBanner', function() {
         });
 
         it('expected to add Android Tablet template to body', function() {
-          smartbanner.publish('androidglobal');
+          smartbanner.ignoreDeviceMeta('androidglobal');
+          smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(ANDROID_BODY_TABLET);
         });

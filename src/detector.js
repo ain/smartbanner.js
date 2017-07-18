@@ -20,6 +20,29 @@ export default class Detector {
     }
   }
 
+  static ignoreDeviceMeta(ignoreMeta){
+    //ignoreMeta is used for testing to simulate situation when user omits few of the tags
+    //related to either Platform (ios, android) or Device
+
+    if (ignoreMeta === 'iosglobal') {
+      return 'iosglobal';
+    } else if (ignoreMeta === 'androidglobal') {
+      return 'androidglobal';
+    } else if (ignoreMeta === 'ipad') {
+      return 'ipad';
+    } else if (ignoreMeta === 'ipod') {
+      return 'ipod';
+    } else if (ignoreMeta === 'iphone') {
+      return 'iphone';
+    } else if (ignoreMeta === 'phone') {
+      return 'phone';
+    } else if (ignoreMeta === 'tablet') {
+      return 'tablet';
+    } else {
+      return '';
+    }
+  }
+
   static userAgentMatchesRegex(regexString) {
     return new RegExp(regexString).test(window.navigator.userAgent);
   }
