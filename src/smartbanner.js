@@ -72,8 +72,13 @@ export default class SmartBanner {
 
   constructor() {
     let parser = new OptionParser();
+    let self = this;
     this.options = parser.parse();
     this.platform = Detector.platform();
+    this.device = Detector.device();
+    this.ignoreDeviceMeta = function (ignoreDevice) {
+      self.ignoreDevice = Detector.ignoreDeviceMeta(ignoreDevice);
+    };
   }
 
   // DEPRECATED. Will be removed.
@@ -106,11 +111,34 @@ export default class SmartBanner {
   }
 
   get buttonUrl() {
-    if (this.platform === 'android') {
-      return this.options.buttonUrlGoogle;
-    } else if (this.platform === 'ios') {
-      return this.options.buttonUrlApple;
+    let options = this.options;
+    let device = this.device;
+    let ignoreDevice = this.ignoreDevice;
+
+    if (ignoreDevice === 'iosglobal') {
+      options.buttonUrlApple = '';
+    } else if (ignoreDevice === 'androidglobal') {
+      options.buttonUrlGoogle = '';
+    } else if (ignoreDevice === 'ipad') {
+      options.buttonUrlAppleIpad = '';
+    } else if (ignoreDevice === 'iphone' || ignoreDevice === 'ipod') {
+      options.buttonUrlAppleIphone = '';
+    } else if (ignoreDevice === 'phone') {
+      options.buttonUrlGooglePhone = '';
+    } else if (ignoreDevice === 'tablet') {
+      options.buttonUrlGoogleTablet = '';
     }
+
+    if (device === 'ipad') {
+      return options.buttonUrlAppleIpad ? options.buttonUrlAppleIpad : options.buttonUrlApple;
+    } else if (device === 'iphone' || device === 'ipod') {
+      return options.buttonUrlAppleIphone ? options.buttonUrlAppleIphone : options.buttonUrlApple;
+    } else if (device === 'phone') {
+      return options.buttonUrlGooglePhone ? options.buttonUrlGooglePhone : options.buttonUrlGoogle;
+    } else if (device === 'tablet') {
+      return options.buttonUrlGoogleTablet ? options.buttonUrlGoogleTablet : options.buttonUrlGoogle;
+    }
+
     return '#';
   }
 
@@ -158,6 +186,7 @@ export default class SmartBanner {
   }
 
   publish() {
+
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
     }

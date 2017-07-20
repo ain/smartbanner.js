@@ -1,7 +1,3 @@
-/*!
- * smartbanner.js v1.5.0 <https://github.com/ain/smartbanner.js>
- * Copyright © 2017 Ain Tohvri, contributors. Licensed under GPL-3.0.
- */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -65,6 +61,43 @@ var Detector = function () {
         return 'ios';
       } else if (/Android/i.test(window.navigator.userAgent)) {
         return 'android';
+      }
+    }
+  }, {
+    key: 'device',
+    value: function device() {
+      if (/iPhone/i.test(window.navigator.userAgent) || /iPod/i.test(window.navigator.userAgent)) {
+        return 'iphone';
+      } else if (/iPad/i.test(window.navigator.userAgent)) {
+        return 'ipad';
+      } else if (/Android/i.test(window.navigator.userAgent) && /Mobile/i.test(window.navigator.userAgent)) {
+        return 'phone';
+      } else if (/Android/i.test(window.navigator.userAgent) && !/Mobile/i.test(window.navigator.userAgent)) {
+        return 'tablet';
+      }
+    }
+  }, {
+    key: 'ignoreDeviceMeta',
+    value: function ignoreDeviceMeta(ignoreMeta) {
+      //ignoreMeta is used for testing to simulate situation when user omits few of the tags
+      //related to either Platform (ios, android) or Device
+
+      if (ignoreMeta === 'iosglobal') {
+        return 'iosglobal';
+      } else if (ignoreMeta === 'androidglobal') {
+        return 'androidglobal';
+      } else if (ignoreMeta === 'ipad') {
+        return 'ipad';
+      } else if (ignoreMeta === 'ipod') {
+        return 'ipod';
+      } else if (ignoreMeta === 'iphone') {
+        return 'iphone';
+      } else if (ignoreMeta === 'phone') {
+        return 'phone';
+      } else if (ignoreMeta === 'tablet') {
+        return 'tablet';
+      } else {
+        return '';
       }
     }
   }, {
@@ -391,8 +424,13 @@ var SmartBanner = function () {
     _classCallCheck(this, SmartBanner);
 
     var parser = new _optionparser2.default();
+    var self = this;
     this.options = parser.parse();
     this.platform = _detector2.default.platform();
+    this.device = _detector2.default.device();
+    this.ignoreDeviceMeta = function (ignoreDevice) {
+      self.ignoreDevice = _detector2.default.ignoreDeviceMeta(ignoreDevice);
+    };
   }
 
   // DEPRECATED. Will be removed.
@@ -401,6 +439,7 @@ var SmartBanner = function () {
   _createClass(SmartBanner, [{
     key: 'publish',
     value: function publish() {
+
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
       }
@@ -476,11 +515,34 @@ var SmartBanner = function () {
   }, {
     key: 'buttonUrl',
     get: function get() {
-      if (this.platform === 'android') {
-        return this.options.buttonUrlGoogle;
-      } else if (this.platform === 'ios') {
-        return this.options.buttonUrlApple;
+      var options = this.options;
+      var device = this.device;
+      var ignoreDevice = this.ignoreDevice;
+
+      if (ignoreDevice === 'iosglobal') {
+        options.buttonUrlApple = '';
+      } else if (ignoreDevice === 'androidglobal') {
+        options.buttonUrlGoogle = '';
+      } else if (ignoreDevice === 'ipad') {
+        options.buttonUrlAppleIpad = '';
+      } else if (ignoreDevice === 'iphone' || ignoreDevice === 'ipod') {
+        options.buttonUrlAppleIphone = '';
+      } else if (ignoreDevice === 'phone') {
+        options.buttonUrlGooglePhone = '';
+      } else if (ignoreDevice === 'tablet') {
+        options.buttonUrlGoogleTablet = '';
       }
+
+      if (device === 'ipad') {
+        return options.buttonUrlAppleIpad ? options.buttonUrlAppleIpad : options.buttonUrlApple;
+      } else if (device === 'iphone' || device === 'ipod') {
+        return options.buttonUrlAppleIphone ? options.buttonUrlAppleIphone : options.buttonUrlApple;
+      } else if (device === 'phone') {
+        return options.buttonUrlGooglePhone ? options.buttonUrlGooglePhone : options.buttonUrlGoogle;
+      } else if (device === 'tablet') {
+        return options.buttonUrlGoogleTablet ? options.buttonUrlGoogleTablet : options.buttonUrlGoogle;
+      }
+
       return '#';
     }
   }, {

@@ -13,6 +13,7 @@ describe('Detector', function() {
   const USER_AGENT_IPAD = 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
   const USER_AGENT_IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4';
   const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
+  const USER_AGENT_ANDROID_TABLET = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
   const USER_AGENT_ANDROID_CUSTOM_WEBAPP = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]  My Example Webapp';
 
   const EXCLUDE_USER_AGENT_REGEX = '^.*My Example Webapp$';
@@ -28,16 +29,22 @@ describe('Detector', function() {
   describe('platform', function() {
 
     let platform = null;
+    let device = null;
 
     context('when on iPhone with iOS8', function() {
 
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS8 }).defaultView;
         platform = Detector.platform();
+        device = Detector.device();
       });
 
       it('expected to return ios', function() {
         expect(platform).to.eql('ios');
+      });
+
+      it('expected to return device as iphone', function() {
+        expect(device).to.eql('iphone');
       });
 
       it('expected exclude regex to not match', function() {
@@ -54,10 +61,15 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
         platform = Detector.platform();
+        device = Detector.device();
       });
 
       it('expected to return ios', function() {
         expect(platform).to.eql('ios');
+      });
+
+      it('expected to return device as iphone', function() {
+        expect(device).to.eql('iphone');
       });
 
       it('expected exclude regex to not match', function() {
@@ -74,10 +86,15 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP }).defaultView;
         platform = Detector.platform();
+        device = Detector.device();
       });
 
       it('expected to return ios', function() {
         expect(platform).to.eql('ios');
+      });
+
+      it('expected to return device as iphone', function() {
+        expect(device).to.eql('iphone');
       });
 
       it('expected exclude regex to match', function() {
@@ -95,10 +112,15 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
         platform = Detector.platform();
+        device = Detector.device();
       });
 
       it('expected to return ios', function() {
         expect(platform).to.eql('ios');
+      });
+
+      it('expected to return device as ipad', function() {
+        expect(device).to.eql('ipad');
       });
 
       it('expected exclude regex to not match', function() {
@@ -115,10 +137,15 @@ describe('Detector', function() {
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
         platform = Detector.platform();
+        device = Detector.device();
       });
 
       it('expected to return ios', function() {
         expect(platform).to.eql('ios');
+      });
+
+      it('expected to return device as iphone', function() {
+        expect(device).to.eql('iphone');
       });
 
       it('expected exclude regex to not match', function() {
@@ -130,15 +157,45 @@ describe('Detector', function() {
       });
     });
 
-    context('when on Android', function() {
+    context('when on Android Phone', function() {
 
       before(function() {
         global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
         platform = Detector.platform();
+        device = Detector.device();
       });
 
       it('expected to return android', function() {
         expect(platform).to.eql('android');
+      });
+
+      it('expected to return device as phone', function() {
+        expect(device).to.eql('phone');
+      });
+
+      it('expected exclude regex to not match', function() {
+        expect(Detector.userAgentMatchesRegex(EXCLUDE_USER_AGENT_REGEX)).to.be.false;
+      });
+
+      it('expected include regex to not match', function() {
+        expect(Detector.userAgentMatchesRegex(INCLUDE_USER_AGENT_REGEX)).to.be.false;
+      });
+    });
+
+    context('when on Android Tablet', function() {
+
+      before(function() {
+        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID_TABLET }).defaultView;
+        platform = Detector.platform();
+        device = Detector.device();
+      });
+
+      it('expected to return android', function() {
+        expect(platform).to.eql('android');
+      });
+
+      it('expected to return device as tablet', function() {
+        expect(device).to.eql('tablet');
       });
 
       it('expected exclude regex to not match', function() {

@@ -15,6 +15,7 @@ Customisable smart app banner for iOS and Android.
   - sets cookie to keep banner closed for current session
 - Platform-specific app icon URL
 - Platform-specific URL for _View_ button
+- Device-specific URL for _VIEW_ button
 - jQuery Mobile and AngularJS compliance
 - User Agent specific targeting
 
@@ -82,6 +83,33 @@ If you want to prevent smartbanner rendering in some html pages, you can add opt
 ```html
 <meta name="smartbanner:enabled-platforms" content="none">
 ```
+
+### Add a separate links specific to some device/platform
+
+There are cases when there are separate applications meant for phone and tablet of the same OS. For this purpose you can use the OS related metatag with platform-device suffix, e.g.
+
+#### iOS - iPhone app link can be set with the following metatag:
+```html
+  <meta name="smartbanner:button-url-apple-iphone" content="https://itunes.apple.com/iphonelink">
+```
+
+#### iOS - iPad app link can be set with the following metatag:
+```html
+    <meta name="smartbanner:button-url-apple-ipad" content="https://itunes.apple.com/ipadlink">
+```
+
+#### Android - Phone app link can be set with the following metatag:
+```html
+    <meta name="smartbanner:button-url-google-phone" content="https://android-phone/application-url">
+```
+
+#### Android - Tablet app link can be set with the following metatag:
+```html
+    <meta name="smartbanner:button-url-google-tablet" content="https://android-tablet/application-url">
+```
+
+**Note:** Is is important that 'global' link will work as fallback for related os device specific links in case if for some reason it will not be possible to identify you Android or iOS device userAgent.
+
 
 ## Contributing
 
