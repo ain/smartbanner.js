@@ -19,9 +19,16 @@ var Bakery = function () {
   }
 
   _createClass(Bakery, null, [{
+    key: 'getCookieExpiresString',
+    value: function getCookieExpiresString(hideTtl) {
+      var now = new Date();
+      var expireTime = new Date(now.getTime() + hideTtl);
+      return 'expires=' + expireTime.toGMTString() + ';';
+    }
+  }, {
     key: 'bake',
-    value: function bake() {
-      document.cookie = 'smartbanner_exited=1';
+    value: function bake(hideTtl) {
+      document.cookie = 'smartbanner_exited=1; ' + (hideTtl ? Bakery.getCookieExpiresString(hideTtl) : '');
     }
   }, {
     key: 'unbake',
@@ -437,7 +444,7 @@ var SmartBanner = function () {
       }
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
-      _bakery2.default.bake();
+      _bakery2.default.bake(this.hideTtl);
     }
   }, {
     key: 'originalTop',
@@ -520,6 +527,11 @@ var SmartBanner = function () {
         return false;
       }
       return _detector2.default.userAgentMatchesRegex(this.options.includeUserAgentRegex);
+    }
+  }, {
+    key: 'hideTtl',
+    get: function get() {
+      return this.options.hideTtl ? parseInt(this.options.hideTtl) : false;
     }
   }]);
 

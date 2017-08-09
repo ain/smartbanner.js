@@ -157,6 +157,10 @@ export default class SmartBanner {
     return Detector.userAgentMatchesRegex(this.options.includeUserAgentRegex);
   }
 
+  get hideTtl() {
+    return this.options.hideTtl ? parseInt(this.options.hideTtl) : false;
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
@@ -193,6 +197,6 @@ export default class SmartBanner {
     }
     let banner = document.querySelector('.js_smartbanner');
     document.querySelector('body').removeChild(banner);
-    Bakery.bake();
+    Bakery.bake(this.hideTtl);
   }
 }

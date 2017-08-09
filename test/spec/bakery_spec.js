@@ -7,10 +7,20 @@ import Bakery from '../../src/bakery.js';
 
 describe('Bakery', function() {
 
-  const HTML = `<!doctype html><html><head></head><body></body></html>`;
+  const HTML = '<!doctype html><html><head></head><body></body></html>';
 
   before(function() {
     global.document = jsdom.jsdom(HTML);
+  });
+
+  describe('getCookieExpiresString', function () {
+    const hideTtl = 2629746000;
+    const now = new Date();
+    const expireTime = new Date(now.getTime() + hideTtl);
+
+    it('expected to return valid expire string', function () {
+      expect(Bakery.getCookieExpiresString(hideTtl)).to.eql(`expires=${expireTime.toGMTString()};`);
+    });
   });
 
   describe('bake', function() {
