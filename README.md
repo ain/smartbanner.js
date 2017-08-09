@@ -12,7 +12,7 @@ Customisable smart app banner for iOS and Android.
 - Fully customisable info
 - Close button that
   - closes the banner
-  - sets cookie to keep banner closed for current session
+  - sets cookie to keep banner closed for current session or [for defined time](#time-limited-close)
 - Platform-specific app icon URL
 - Platform-specific URL for _View_ button
 - jQuery Mobile and AngularJS compliance
@@ -35,7 +35,6 @@ Customisable smart app banner for iOS and Android.
 <meta name="smartbanner:button-url-apple" content="https://ios/application-url">
 <meta name="smartbanner:button-url-google" content="https://android/application-url">
 <meta name="smartbanner:enabled-platforms" content="android,ios">
-<meta name="smartbanner:hide-ttl" content="2629746000">
 <!-- End SmartBanner configuration -->
 ```
 
@@ -82,6 +81,14 @@ If you want to prevent smartbanner rendering in some html pages, you can add opt
 
 ```html
 <meta name="smartbanner:enabled-platforms" content="none">
+```
+
+### Time-limited close
+
+By default smartbanner would not reappear if closed. This can be prevented with `hide-ttl` option. Following example would keep smartbanner closed for 10 seconds (10000 ms):
+
+```html
+<meta name="smartbanner:hide-ttl" content="10000">
 ```
 
 ## Contributing
