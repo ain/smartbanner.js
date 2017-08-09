@@ -14,12 +14,13 @@ describe('Bakery', function() {
   });
 
   describe('getCookieExpiresString', function () {
-    const hideTtl = 2629746000;
-    const now = new Date();
-    const expireTime = new Date(now.getTime() + hideTtl);
+    let hideTtl = 2629746000;
+    let now = new Date();
+    let expireTime = new Date(now.getTime() + hideTtl);
+    let expectation = Bakery.getCookieExpiresString(hideTtl);
 
     it('expected to return valid expire string', function () {
-      expect(Bakery.getCookieExpiresString(hideTtl)).to.eql(`expires=${expireTime.toGMTString()};`);
+      expect(expectation).to.eql(`expires=${expireTime.toGMTString()};`);
     });
   });
 
