@@ -107,10 +107,10 @@ var _smartbanner2 = _interopRequireDefault(_smartbanner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var smartbanner = void 0;
+window.SmartBanner = _smartbanner2.default;
 
 window.addEventListener('load', function () {
-  smartbanner = new _smartbanner2.default();
+  var smartbanner = new window.SmartBanner();
   smartbanner.publish();
 });
 
@@ -394,11 +394,19 @@ function restoreContentPosition() {
 }
 
 var SmartBanner = function () {
-  function SmartBanner() {
+  function SmartBanner(options) {
     _classCallCheck(this, SmartBanner);
 
-    var parser = new _optionparser2.default();
-    this.options = parser.parse();
+    // DEPRECATED. Will be removed in a future major version
+    if (!options) {
+      var parser = new _optionparser2.default();
+      options = parser.parse();
+      if (options.api) {
+        throw new Error('No options detected in constructor with api enabled');
+      }
+    }
+
+    this.options = options;
     this.platform = _detector2.default.platform();
   }
 

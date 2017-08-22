@@ -120,6 +120,26 @@ describe('OptionParser', function() {
 
     });
 
+    context('without meta api enabled', function() {
+
+      before(function() {
+        global.document = jsdom.jsdom(`<!doctype html>
+          <html>
+          <head>
+            <meta name="smartbanner:api" content="1">
+          </head>
+          <body>
+          </body>
+          </html>`);
+        options = parser.parse();
+      });
+
+      it('expected to return empty object', function() {
+        expect(options.api).to.eql('1');
+      });
+
+    });
+
   });
 
 });
