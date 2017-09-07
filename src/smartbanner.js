@@ -163,7 +163,10 @@ export default class SmartBanner {
 
   publish() {
     if (Object.keys(this.options).length === 0) {
-      throw new Error('No options detected. Please consult documentation.');
+      if (console) {
+        console.warn('smartbanner.js: No options detected. Please consult documentation.');
+      }
+      return false;
     }
 
     if (Bakery.baked) {
