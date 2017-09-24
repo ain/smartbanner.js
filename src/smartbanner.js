@@ -70,9 +70,17 @@ function restoreContentPosition() {
 
 export default class SmartBanner {
 
-  constructor() {
-    let parser = new OptionParser();
-    this.options = parser.parse();
+  constructor(options) {
+    // DEPRECATED. Will be removed in a future major version
+    if (!options) {
+      let parser = new OptionParser();
+      options = parser.parse();
+      if (options.api) {
+        throw new Error('No options detected in constructor with api enabled');
+      }
+    }
+
+    this.options = options;
     this.platform = Detector.platform();
   }
 
