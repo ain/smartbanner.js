@@ -1,9 +1,12 @@
 # smartbanner.js [![Build Status](https://travis-ci.org/ain/smartbanner.js.svg?branch=master)](https://travis-ci.org/ain/smartbanner.js) [![npm version](https://badge.fury.io/js/smartbanner.js.svg)](https://badge.fury.io/js/smartbanner.js) [![Bower version](https://badge.fury.io/bo/smartbanner.js.svg)](https://badge.fury.io/bo/smartbanner.js)
 Customisable smart app banner for iOS and Android.
 
-| | |
-| -- | -- |
-| ![smartbanner.js iOS screenshot](https://github.com/ain/smartbanner.js/raw/master/screenshot-ios.png) | ![smartbanner.js Android screenshot](https://github.com/ain/smartbanner.js/raw/master/screenshot-android.png) |
+<table>
+<tr>
+<td><img src="https://github.com/ain/smartbanner.js/raw/master/screenshot-ios.png" alt="smartbanner.js Android screenshot"></td>
+<td><img src="https://github.com/ain/smartbanner.js/raw/master/screenshot-android.png" alt="smartbanner.js iOS screenshot"></td>
+</tr>
+</table>
 
 ## Features
 
