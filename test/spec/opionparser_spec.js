@@ -30,6 +30,7 @@ describe('OptionParser', function() {
             <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
             <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
             <meta name="smartbanner:enabled-platforms" content="android">
+            <meta name="smartbanner:custom-design-modifier" content="tekkie.flashbit.net">
           </head>
           <body>
           </body>
@@ -77,8 +78,12 @@ describe('OptionParser', function() {
         expect(options.buttonUrlGoogle).to.eql('https://play.google.com/store');
       });
 
-      it('expected to parse enabledPlatforms option', function() {
+      it('expected to parse enabled platforms option', function() {
         expect(options.enabledPlatforms).to.eql('android');
+      });
+
+      it('expected to parse custom design modifier option', function() {
+        expect(options.customDesignModifier).to.eql('tekkie.flashbit.net');
       });
     });
 
