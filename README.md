@@ -96,7 +96,7 @@ By default smartbanner would not reappear if closed. This can be prevented with 
 
 ### Custom design modifier
 
-smartbanner uses built-in iOS or Android styles, but this behaviour can be altered by adding custom design modifier on wrapper that allows use of:
+smartbanner uses built-in iOS or Android styles, but this behaviour can be altered by adding custom design modifier that allows use of:
 
 - externally defined styles
 
