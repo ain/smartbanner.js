@@ -52,6 +52,28 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
+  const HTML_CUSTOM_DESIGN_MODIFIER = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="FREE">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:custom-design-modifier" content="custom-design">
+    </head>
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
   const SCRIPTS = [
     'https://code.jquery.com/jquery-3.1.1.min.js',
     'https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'
@@ -71,6 +93,19 @@ describe('SmartBanner', function() {
     </div>`;
 
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android js_smartbanner">
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
+      <div class="smartbanner__info">
+        <div>
+          <div class="smartbanner__info__title">Smart Application</div>
+          <div class="smartbanner__info__author">SmartBanner Contributors</div>
+          <div class="smartbanner__info__price">FREE - In Google Play</div>
+        </div>
+      </div>
+      <a href="https://play.google.com/store" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">View</span></a>
+    </div>`;
+
+  const ANDROID_CUSTOM_DESIGN_BODY = `<div class="smartbanner smartbanner--custom-design js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
@@ -177,17 +212,34 @@ describe('SmartBanner', function() {
 
       context('when on Android', function() {
 
-        before(function() {
-          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
-          global.document = window.document;
-          global.getComputedStyle = window.getComputedStyle;
-          smartbanner = new SmartBanner();
+        context('without custom design modifier', function() {
+          before(function() {
+            global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+            global.document = window.document;
+            global.getComputedStyle = window.getComputedStyle;
+            smartbanner = new SmartBanner();
+          });
+
+          it('expected to add Android template to body', function() {
+            smartbanner.publish();
+            let html = document.querySelector('.js_smartbanner').outerHTML;
+            expect(html).to.eql(ANDROID_BODY);
+          });
         });
 
-        it('expected to add Android template to body', function() {
-          smartbanner.publish();
-          let html = document.querySelector('.js_smartbanner').outerHTML;
-          expect(html).to.eql(ANDROID_BODY);
+        context('with custom design modifier', function() {
+          before(function() {
+            global.window = jsdom.jsdom(HTML_CUSTOM_DESIGN_MODIFIER, { userAgent: USER_AGENT_ANDROID }).defaultView;
+            global.document = window.document;
+            global.getComputedStyle = window.getComputedStyle;
+            smartbanner = new SmartBanner();
+          });
+
+          it('expected to add Android template to body', function() {
+            smartbanner.publish();
+            let html = document.querySelector('.js_smartbanner').outerHTML;
+            expect(html).to.eql(ANDROID_CUSTOM_DESIGN_BODY);
+          });
         });
 
       });
