@@ -104,7 +104,7 @@ smartbanner uses built-in iOS or Android styles, but this behaviour can be alter
     <meta name="smartbanner:custom-design-modifier" content="mysite.com">
     ```
 
-    which would add `smartbanner--mysite.com` modifier on wrapper.
+    which would add `smartbanner--mysite.com` class on wrapper.
 
 - iOS styles on Android (or vice-versa)
 
@@ -112,7 +112,7 @@ smartbanner uses built-in iOS or Android styles, but this behaviour can be alter
     <meta name="smartbanner:custom-design-modifier" content="ios">
     ```
 
-    which would add `smartbanner--ios` modifier on wrapper regardless of actual platform.
+    which would add `smartbanner--ios` class on wrapper regardless of actual platform.
 
 ## Contributing
 
