@@ -10,7 +10,7 @@ Customisable smart app banner for iOS and Android.
 - Default [Smart App Banner](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html) like design
 - Customisable design by using
   - automatically generated `smartbanner--<platform>` class on wrapper
-  - [custom design modifier](#custom-design-modifier), e.g. for externally defined styles
+  - [custom design modifier](#custom-design-modifier) for externally defined styles or same design on all platforms
 - Fully customisable info
 - Close button that
   - closes the banner
