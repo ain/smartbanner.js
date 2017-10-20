@@ -88,7 +88,7 @@ or:
 <meta name="smartbanner:append-target" content=".custom_target">
 ```
 
-Both previous options take a standard selector as content value and automatically disables positioning.
+Both previous options take a standard selector as content value and automatically disable positioning.
 
 ### Hide the smartbanner completely
 
