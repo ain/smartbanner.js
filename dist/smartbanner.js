@@ -1,7 +1,3 @@
-/*!
- * smartbanner.js v1.7.0 <https://github.com/ain/smartbanner.js>
- * Copyright © 2017 Ain Tohvri, contributors. Licensed under GPL-3.0.
- */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -428,7 +424,15 @@ var SmartBanner = function () {
       }
 
       var bannerDiv = document.createElement('div');
-      document.querySelector('body').appendChild(bannerDiv);
+      if (this.options.prependTarget !== undefined) {
+        var parent = this.options.prependTarget;
+        document.querySelector(parent).insertBefore(bannerDiv, parent.firstChild);
+      } else if (this.options.appendTarget !== undefined) {
+        document.querySelector(this.options.appendTarget).appendChild(bannerDiv);
+      } else {
+        document.querySelector('body').appendChild(bannerDiv);
+      }
+
       bannerDiv.outerHTML = this.html;
       if (!this.positioningDisabled) {
         setContentPosition(this.height);
@@ -510,7 +514,7 @@ var SmartBanner = function () {
   }, {
     key: 'positioningDisabled',
     get: function get() {
-      return this.options.disablePositioning === 'true';
+      return this.options.disablePositioning === 'true' || this.options.appendTarget !== undefined || this.options.prependTarget !== undefined;
     }
   }, {
     key: 'userAgentExcluded',
