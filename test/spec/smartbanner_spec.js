@@ -847,6 +847,12 @@ describe('SmartBanner', function() {
         done();
       });
 
+      it('expected banner to be removed on exit', function(done) {
+        smartbanner.exit();
+        let element = document.querySelector('.js_smartbanner');
+        expect(element).not.to.exist;
+        done();
+      });
     });
 
     context('appending to specific target', function() {
@@ -896,6 +902,12 @@ describe('SmartBanner', function() {
         done();
       });
 
+      it('expected banner to be removed on exit', function(done) {
+        smartbanner.exit();
+        let element = document.querySelector('.js_smartbanner');
+        expect(element).not.to.exist;
+        done();
+      });
     });
 
     context('append-target not specified', function() {
@@ -924,6 +936,12 @@ describe('SmartBanner', function() {
         done();
       });
 
+      it('expected banner to be removed on exit', function(done) {
+        smartbanner.exit();
+        let element = document.querySelector('.js_smartbanner');
+        expect(element).not.to.exist;
+        done();
+      });
     });
   });
 
@@ -974,5 +992,11 @@ describe('SmartBanner', function() {
       done();
     });
 
+    it('expected banner to be removed on exit', function(done) {
+      smartbanner.exit();
+      let element = document.querySelector('.js_smartbanner');
+      expect(element).not.to.exist;
+      done();
+    });
   });
 });

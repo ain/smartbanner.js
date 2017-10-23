@@ -205,7 +205,13 @@ export default class SmartBanner {
       restoreContentPosition();
     }
     let banner = document.querySelector('.js_smartbanner');
-    document.querySelector('body').removeChild(banner);
+    if (this.options.prependTarget !== undefined) {
+      document.querySelector(this.options.prependTarget).removeChild(banner);
+    } else if (this.options.appendTarget !== undefined) {
+      document.querySelector(this.options.appendTarget).removeChild(banner);
+    } else {
+      document.querySelector('body').removeChild(banner);
+    }
     Bakery.bake(this.hideTtl);
   }
 }
