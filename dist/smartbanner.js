@@ -428,7 +428,15 @@ var SmartBanner = function () {
       }
 
       var bannerDiv = document.createElement('div');
-      document.querySelector('body').appendChild(bannerDiv);
+      if (this.options.prependTarget !== undefined) {
+        var parent = this.options.prependTarget;
+        document.querySelector(parent).insertBefore(bannerDiv, parent.firstChild);
+      } else if (this.options.appendTarget !== undefined) {
+        document.querySelector(this.options.appendTarget).appendChild(bannerDiv);
+      } else {
+        document.querySelector('body').appendChild(bannerDiv);
+      }
+
       bannerDiv.outerHTML = this.html;
       if (!this.positioningDisabled) {
         setContentPosition(this.height);
@@ -443,7 +451,13 @@ var SmartBanner = function () {
         restoreContentPosition();
       }
       var banner = document.querySelector('.js_smartbanner');
-      document.querySelector('body').removeChild(banner);
+      if (this.options.prependTarget !== undefined) {
+        document.querySelector(this.options.prependTarget).removeChild(banner);
+      } else if (this.options.appendTarget !== undefined) {
+        document.querySelector(this.options.appendTarget).removeChild(banner);
+      } else {
+        document.querySelector('body').removeChild(banner);
+      }
       _bakery2.default.bake(this.hideTtl);
     }
   }, {
@@ -510,7 +524,7 @@ var SmartBanner = function () {
   }, {
     key: 'positioningDisabled',
     get: function get() {
-      return this.options.disablePositioning === 'true';
+      return this.options.disablePositioning === 'true' || this.options.appendTarget !== undefined || this.options.prependTarget !== undefined;
     }
   }, {
     key: 'userAgentExcluded',

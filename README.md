@@ -75,6 +75,21 @@ If you want to position smart app banner yourself (e.g. in CSS), you can disable
 ```html
 <meta name="smartbanner:disable-positioning" content="true">
 ```
+
+### Appending or prepending the smart app banner to a particular element
+
+If you want to position the smart app banner yourself and need to append or prepend the smart app banner to a particular element, you can do this with either:
+```html
+<meta name="smartbanner:prepend-target" content=".custom_target">
+```
+
+or:
+```html
+<meta name="smartbanner:append-target" content=".custom_target">
+```
+
+Both previous options take a standard selector as content value and automatically disable positioning.
+
 ### Hide the smartbanner completely
 
 If you want to prevent smartbanner rendering in some html pages, you can add optional `meta` tag:
