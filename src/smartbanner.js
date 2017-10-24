@@ -140,8 +140,7 @@ export default class SmartBanner {
   }
 
   get positioningDisabled() {
-    return this.options.disablePositioning === 'true' || this.options.appendTarget !== undefined || this.options.prependTarget !==
-      undefined;
+    return this.options.disablePositioning === 'true' || this.options.appendTarget !== undefined || this.options.prependTarget !== undefined;
   }
 
   get userAgentExcluded() {
