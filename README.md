@@ -90,6 +90,9 @@ or:
 
 Both previous options take a standard selector as content value and automatically disable positioning.
 
+### Event emission
+When the user clicks on the close button or the install button, the respective smartbanner.exit and smartbanner.view events will be dispatched on the container of the smartbanner. If an option was added to append or prepend the smart app banner to a specific target, the events will be dispatched to this target
+
 ### Hide the smartbanner completely
 
 If you want to prevent smartbanner rendering in some html pages, you can add optional `meta` tag:
