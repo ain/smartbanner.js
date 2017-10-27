@@ -52,6 +52,74 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
+  const HTML_PREPEND_TO_SPECIFIC_TARGET = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="FREE">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:prepend-target" content="#js_target">
+    </head>
+    <body>
+      <div id="js_target"></div>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
+  const HTML_APPEND_TO_BODY = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="FREE">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:append-target" content="body">
+    </head>
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
+  const HTML_APPEND_TO_SPECIFIC_TARGET = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="FREE">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:append-target" content="#js_target">
+    </head>
+    <body>
+      <div id="js_target"></div>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
   const SCRIPTS = [
     'https://code.jquery.com/jquery-3.1.1.min.js',
     'https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'
@@ -667,6 +735,198 @@ describe('SmartBanner', function() {
       expect(top).to.eql(12);
       done();
     });
+  });
+
+  describe('append-target', function() {
+    context('appending to body', function() {
+      before(function(done) {
+        jsdom.env({
+          html: HTML_APPEND_TO_BODY,
+          scripts: SCRIPTS,
+          done: function(err, window) {
+			global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+			global.document = window.document;
+			global.getComputedStyle = window.getComputedStyle;
+			smartbanner = new SmartBanner();
+			smartbanner.publish();
+			done();
+          }
+        });
+      });
+
+      it('expect to disable positionning', function(done) {
+        let height = document.querySelector('.js_smartbanner').offsetHeight;
+        height = height !== undefined ? height : 0;
+        expect(smartbanner.height).to.eql(height);
+
+        let html = document.querySelector('html');
+        let margin = parseFloat(getComputedStyle(html).marginTop);
+        if (isNaN(margin)) {
+          margin = 0;
+        }
+        expect(margin).to.eql(10);
+
+        let page = document.querySelector('.ui-page');
+        let top = parseFloat(getComputedStyle(page).top);
+        if (isNaN(top)) {
+          top = 0;
+        }
+        expect(top).to.eql(12);
+        done();
+      });
+
+      it('expected to be appended to body', function(done) {
+        let element = document.querySelector('body');
+        let children = element.children;
+        let lastChild = children[children.length - 1];
+        expect(lastChild.outerHTML).to.eql(IOS_BODY);
+        done();
+      });
+
+      it('expected banner to be removed on exit', function(done) {
+        smartbanner.exit();
+        let element = document.querySelector('.js_smartbanner');
+        expect(element).not.to.exist;
+        done();
+      });
+    });
+
+    context('appending to specific target', function() {
+      before(function(done) {
+        jsdom.env({
+          html: HTML_APPEND_TO_SPECIFIC_TARGET,
+          scripts: SCRIPTS,
+          done: function(err, window) {
+            global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+			global.document = window.document;
+			global.getComputedStyle = window.getComputedStyle;
+			smartbanner = new SmartBanner();
+			smartbanner.publish();
+			done();
+          }
+        });
+      });
+
+      it('expect to disable positionning', function(done) {
+        let height = document.querySelector('.js_smartbanner').offsetHeight;
+        height = height !== undefined ? height : 0;
+        expect(smartbanner.height).to.eql(height);
+
+        let html = document.querySelector('html');
+        let margin = parseFloat(getComputedStyle(html).marginTop);
+        if (isNaN(margin)) {
+          margin = 0;
+        }
+        expect(margin).to.eql(10);
+
+        let page = document.querySelector('.ui-page');
+        let top = parseFloat(getComputedStyle(page).top);
+        if (isNaN(top)) {
+          top = 0;
+        }
+        expect(top).to.eql(12);
+        done();
+      });
+
+      it('expected to be appended to specific target', function(done) {
+        let element = document.querySelector('#js_target');
+        let children = element.children;
+        let lastChild = children[children.length - 1];
+        expect(lastChild.outerHTML).to.eql(IOS_BODY);
+        done();
+      });
+
+      it('expected banner to be removed on exit', function(done) {
+        smartbanner.exit();
+        let element = document.querySelector('.js_smartbanner');
+        expect(element).not.to.exist;
+        done();
+      });
+    });
+
+    context('append-target not specified', function() {
+      before(function(done) {
+        jsdom.env({
+          html: HTML,
+          scripts: SCRIPTS,
+          done: function(err, window) {
+            global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+			global.document = window.document;
+			global.getComputedStyle = window.getComputedStyle;
+			smartbanner = new SmartBanner();
+			smartbanner.publish();
+			done();
+          }
+        });
+      });
+
+      it('expected to append to body', function(done) {
+        let element = document.querySelector('body');
+        let children = element.children;
+        let lastChild = children[children.length - 1];
+        expect(lastChild.outerHTML).to.eql(IOS_BODY);
+        done();
+      });
+
+      it('expected banner to be removed on exit', function(done) {
+        smartbanner.exit();
+        let element = document.querySelector('.js_smartbanner');
+        expect(element).not.to.exist;
+        done();
+      });
+    });
+  });
+
+  describe('prepend-target', function() {
+    before(function(done) {
+      jsdom.env({
+        html: HTML_PREPEND_TO_SPECIFIC_TARGET,
+        scripts: SCRIPTS,
+        done: function(err, window) {
+          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+			global.document = window.document;
+			global.getComputedStyle = window.getComputedStyle;
+			smartbanner = new SmartBanner();
+			smartbanner.publish();
+			done();
+        }
+      });
+    });
+
+    it('expect to disable positionning', function(done) {
+      let height = document.querySelector('.js_smartbanner').offsetHeight;
+      height = height !== undefined ? height : 0;
+      expect(smartbanner.height).to.eql(height);
+
+      let html = document.querySelector('html');
+      let margin = parseFloat(getComputedStyle(html).marginTop);
+      if (isNaN(margin)) {
+        margin = 0;
+      }
+      expect(margin).to.eql(10);
+
+      let page = document.querySelector('.ui-page');
+      let top = parseFloat(getComputedStyle(page).top);
+      if (isNaN(top)) {
+        top = 0;
+      }
+      expect(top).to.eql(12);
+      done();
+    });
+
+    it('expected to be prepend to specific target', function(done) {
+      let element = document.querySelector('#js_target');
+      let children = element.children;
+      let firstChild = children[0];
+      expect(firstChild.outerHTML).to.eql(IOS_BODY);
+      done();
+    });
+
+    it('expected banner to be removed on exit', function(done) {
+      smartbanner.exit();
+      let element = document.querySelector('.js_smartbanner');
+      expect(element).not.to.exist;
+      done();
   });
 
 });

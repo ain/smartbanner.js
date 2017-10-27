@@ -3,7 +3,7 @@
  * Copyright © 2017 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 .smartbanner {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   overflow-x: hidden;
@@ -50,7 +50,7 @@
     display: -ms-flexbox;
     display: flex;
     overflow-y: hidden;
-    width: 60%;
+    width: 45%;
     height: 64px;
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -68,7 +68,6 @@
     padding: 0 10px;
     min-width: 10%;
     border-radius: 5px;
-    background: #f3f3f3;
     color: #1474fc;
     font-size: 18px;
     text-align: center;
