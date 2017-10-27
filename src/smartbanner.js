@@ -9,7 +9,29 @@ let datas = {
   originalMarginTop: 'data-smartbanner-original-margin-top'
 };
 
+function dispatchSmartBannerEvent(event, name, self) {
+  var exitEvent;
+  if (window.CustomEvent) {
+    exitEvent = new CustomEvent(name);
+  } else {
+    exitEvent = document.createEvent('CustomEvent');
+    exitEvent.initCustomEvent(name, true, true);
+  }
+
+  var parent;
+  if (self.options.prependTarget !== undefined) {
+    parent = document.querySelector(self.options.prependTarget);
+  } else if (self.options.appendTarget !== undefined) {
+    parent = document.querySelector(self.options.appendTarget);
+  } else {
+    parent = document.querySelector('body');
+  }
+
+  parent.dispatchEvent(exitEvent);
+}
+
 function handleExitClick(event, self) {
+  dispatchSmartBannerEvent(event, 'smartbanner.exit', self);
   self.exit();
   event.preventDefault();
 }
@@ -21,8 +43,16 @@ function handleJQueryMobilePageLoad(event) {
 }
 
 function addEventListeners(self) {
-  let closeIcon = document.querySelector('.js_smartbanner__exit');
-  closeIcon.addEventListener('click', (event) => handleExitClick(event, self));
+  var closeIcon = document.querySelector('.js_smartbanner__exit');
+  closeIcon.addEventListener('click', function(event) {
+    return handleExitClick(event, self);
+  });
+
+  var installButton = document.querySelector('.smartbanner__button');
+  installButton.addEventListener('click', function(event) {
+    dispatchSmartBannerEvent(event, 'smartbanner.view', self);
+  });
+
   if (Detector.jQueryMobilePage()) {
     $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
   }

@@ -3,7 +3,7 @@ $grey: #767676;
 $blue: #1474fc;
 
 .smartbanner {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
 
@@ -75,7 +75,7 @@ $blue: #1474fc;
 
     display: flex;
     overflow-y: hidden;
-    width: 60%;
+    width: 45%;
     height: 64px;
 
     align-items: center;
@@ -102,8 +102,6 @@ $blue: #1474fc;
     min-width: 10%;
 
     border-radius: 5px;
-
-    background: $light-grey;
 
     color: $blue;
     font-size: 18px;

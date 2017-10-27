@@ -776,8 +776,8 @@ describe('SmartBanner', function() {
       });
 
       it('expected to be appended to body', function(done) {
-        let selector = document.querySelector('body');
-        let children = selector.children;
+        let element = document.querySelector('body');
+        let children = element.children;
         let lastChild = children[children.length - 1];
         expect(lastChild.outerHTML).to.eql(IOS_BODY);
         done();
@@ -829,8 +829,8 @@ describe('SmartBanner', function() {
       });
 
       it('expected to be appended to specific target', function(done) {
-        let selector = document.querySelector('#js_target');
-        let children = selector.children;
+        let element = document.querySelector('#js_target');
+        let children = element.children;
         let lastChild = children[children.length - 1];
         expect(lastChild.outerHTML).to.eql(IOS_BODY);
         done();
@@ -861,8 +861,8 @@ describe('SmartBanner', function() {
       });
 
       it('expected to append to body', function(done) {
-        let selector = document.querySelector('body');
-        let children = selector.children;
+        let element = document.querySelector('body');
+        let children = element.children;
         let lastChild = children[children.length - 1];
         expect(lastChild.outerHTML).to.eql(IOS_BODY);
         done();
@@ -915,8 +915,8 @@ describe('SmartBanner', function() {
     });
 
     it('expected to be prepend to specific target', function(done) {
-      let selector = document.querySelector('#js_target');
-      let children = selector.children;
+      let element = document.querySelector('#js_target');
+      let children = element.children;
       let firstChild = children[0];
       expect(firstChild.outerHTML).to.eql(IOS_BODY);
       done();
