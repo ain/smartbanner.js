@@ -31,3 +31,14 @@ To lint an SCSS file, run:
 ```
 npm run scsslint
 ```
+
+## Running locally
+
+To run `smartbanner.js` locally, e.g. for testing:
+
+1. Start server
+
+        $ npm start
+
+2. Access at http://127.0.0.1:8080
+3. Switch browser to mobile User Agent
