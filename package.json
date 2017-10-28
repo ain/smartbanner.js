@@ -48,7 +48,8 @@
     "watch:css": "npm run build:css | npm run autoprefix -- -w",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js",
     "test:watch": "npm run test -- -w",
-    "server": "http-server dist/ -o"
+    "server": "http-server dist/ -o",
+    "start": "npm run server"
   },
   "keywords": [
     "javascript",
