@@ -198,6 +198,6 @@ export default class SmartBanner {
     }
     let banner = document.querySelector('.js_smartbanner');
     document.querySelector('body').removeChild(banner);
-    Bakery.bake(this.hideTtl);
+    Bakery.bake(this.hideTtl, this.hidePath);
   }
 }

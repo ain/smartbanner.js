@@ -31,6 +31,7 @@ describe('OptionParser', function() {
             <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
             <meta name="smartbanner:enabled-platforms" content="android">
             <meta name="smartbanner:custom-design-modifier" content="tekkie.flashbit.net">
+            <meta name="smartbanner:hide-path" content="/smartbanner">
           </head>
           <body>
           </body>
@@ -84,6 +85,10 @@ describe('OptionParser', function() {
 
       it('expected to parse custom design modifier option', function() {
         expect(options.customDesignModifier).to.eql('tekkie.flashbit.net');
+      });
+
+      it('expected to parse hide path option', function() {
+        expect(options.hidePath).to.eql('/smartbanner');
       });
     });
 

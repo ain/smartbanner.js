@@ -94,6 +94,16 @@ By default smartbanner would not reappear if closed. This can be prevented with 
 <meta name="smartbanner:hide-ttl" content="10000">
 ```
 
+### Path-designated close
+
+By default smartbanner would reappear if site path changes. Following example would keep smartbanner closed site-wide:
+
+```html
+<meta name="smartbanner:hide-path" content="/">
+```
+
+__Attention:__ keeping smartbanner closed site-wide once closed will become default behaviour as of `2.0.0`.
+
 ### Custom design modifier
 
 smartbanner uses built-in platform-specific styles (e.g. `smartbanner--ios` or `smartbanner--android`), but this behaviour can be altered by adding custom design modifier that allows use of:

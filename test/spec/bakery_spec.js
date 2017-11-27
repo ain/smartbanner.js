@@ -24,6 +24,15 @@ describe('Bakery', function() {
     });
   });
 
+  describe('getPathString', function () {
+    let path = '/smartbanner';
+    let expectation = Bakery.getPathString(path);
+
+    it('expected to return valid cookie path', function () {
+      expect(expectation).to.eql(`path=${path};`);
+    });
+  });
+
   describe('bake', function() {
 
     before(function() {

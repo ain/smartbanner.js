@@ -26,9 +26,16 @@ var Bakery = function () {
       return 'expires=' + expireTime.toGMTString() + ';';
     }
   }, {
+    key: 'getPathString',
+    value: function getPathString(path) {
+      return 'path=' + path + ';';
+    }
+  }, {
     key: 'bake',
     value: function bake(hideTtl) {
-      document.cookie = 'smartbanner_exited=1; ' + (hideTtl ? Bakery.getCookieExpiresString(hideTtl) : '');
+      var hidePath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      document.cookie = 'smartbanner_exited=1; ' + (hideTtl ? Bakery.getCookieExpiresString(hideTtl) : '') + ' ' + (hidePath ? Bakery.getPathString(hidePath) : '');
     }
   }, {
     key: 'unbake',
@@ -444,7 +451,7 @@ var SmartBanner = function () {
       }
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
-      _bakery2.default.bake(this.hideTtl);
+      _bakery2.default.bake(this.hideTtl, this.hidePath);
     }
   }, {
     key: 'originalTop',
