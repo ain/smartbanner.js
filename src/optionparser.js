@@ -1,6 +1,3 @@
-import './polyfills/array/from.js';
-import './polyfills/array/includes.js';
-
 function valid(name) {
   // TODO: validate against options dictionary
   return name.indexOf('smartbanner:') !== -1 && name.split(':')[1].length > 0;
