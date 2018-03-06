@@ -20,7 +20,7 @@
     "mocha": "^2.5.3",
     "node-sass": "^4.5.3",
     "uglify-js": "^2.6.2",
-    "add-banner": "ain/add-banner#121b56d",
+    "add-banner": "jonschlinkert/add-banner#b2a824c",
     "watchify": "^3.7.0",
     "autoprefixer": "^6.4.0",
     "postcss-cli": "^2.4.1"
