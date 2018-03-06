@@ -46,7 +46,7 @@
     "build": "npm run build:js && npm run build:css && npm run autoprefix && npm run build:css-min && npm run bannerise",
     "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
     "watch:css": "npm run build:css | npm run autoprefix -- -w",
-    "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register test/spec/*.js",
+    "test": "mocha --compilers js:babel-core/register test/spec/*.js",
     "test:watch": "npm run test -- -w",
     "start": "http-server dist/ -o"
   },
