@@ -9,6 +9,7 @@ before_install:
 install:
   - npm run install-deps
 script:
+  - npm audit
   - npm run eslint
   - npm run scsslint
   - npm test
