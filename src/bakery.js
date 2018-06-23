@@ -19,7 +19,7 @@ export default class Bakery {
   }
 
   static get baked() {
-    let value = document.cookie.replace(/(?:(?:^|.*;\s*)smartbanner_exited\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+    let value = document.cookie.replace(/(?:(?:^|.*;\s*)smartbanner_exited\s*=\s*([^;]*).*$)|^.*$/, '$1');
     return value === '1';
   }
 
