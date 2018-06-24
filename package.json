@@ -38,7 +38,7 @@
   "scripts": {
     "install-deps": "npm install && bundle install",
     "bannerise": "add-banner --template=banner.tmpl dist/*.*s",
-    "browserify": "browserify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ env ] ]",
+    "browserify": "browserify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ @babel/preset-env ] ]",
     "uglify": "uglifyjs dist/smartbanner.js -o dist/smartbanner.min.js",
     "eslint": "eslint src/*.js",
     "scsslint": "scss-lint src/smartbanner.scss",
@@ -47,7 +47,7 @@
     "autoprefix": "postcss --use autoprefixer --local-plugins --replace dist/smartbanner.css",
     "build:css-min": "node-sass --output-style=compressed src/smartbanner.scss dist/smartbanner.min.css",
     "build": "npm run build:js && npm run build:css && npm run autoprefix && npm run build:css-min && npm run bannerise",
-    "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ env ] ] -v",
+    "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ @babel/preset-env ] ] -v",
     "watch:css": "npm run build:css | npm run autoprefix -- -w",
     "test": "mocha --require @babel/register test/spec/*.js",
     "test:watch": "npm run test -- -w",
