@@ -19,12 +19,14 @@
     "mocha": "^5.2.0",
     "node-sass": "^4.9.0",
     "uglify-js": "^3.3.28",
-    "add-banner": "jonschlinkert/add-banner#b2a824c",
+    "add-banner": "ain/add-banner#356f1e9",
     "watchify": "^3.11.0",
     "autoprefixer": "^8.5.2",
     "postcss-cli": "^5.0.0",
     "@babel/core": "^7.0.0-beta.51",
-    "babel-preset-env": "^1.7.0"
+    "@babel/register": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "browserify": "^16.2.2"
   },
   "engines": {
     "node": ">=8.11.3 <11.0.0"
@@ -45,9 +47,9 @@
     "autoprefix": "postcss --use autoprefixer --local-plugins --replace dist/smartbanner.css",
     "build:css-min": "node-sass --output-style=compressed src/smartbanner.scss dist/smartbanner.min.css",
     "build": "npm run build:js && npm run build:css && npm run autoprefix && npm run build:css-min && npm run bannerise",
-    "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ es2015 ] ] -v",
+    "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ env ] ] -v",
     "watch:css": "npm run build:css | npm run autoprefix -- -w",
-    "test": "mocha --require babel-core/register test/spec/*.js",
+    "test": "mocha --require @babel/register test/spec/*.js",
     "test:watch": "npm run test -- -w",
     "start": "http-server dist/ -o"
   },
