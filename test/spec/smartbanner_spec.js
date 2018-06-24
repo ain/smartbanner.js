@@ -8,9 +8,8 @@ import Bakery from '../../src/bakery.js';
 
 describe('SmartBanner', function() {
 
-  const HTML = `<!doctype html>
-    <html style="margin-top:10px;">
-    <head>
+  const { JSDOM } = jsdom;
+  const HEAD = `<head>
       <meta charset="utf-8">
       <meta name="smartbanner:title" content="Smart Application">
       <meta name="smartbanner:author" content="SmartBanner Contributors">
@@ -23,10 +22,24 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
       <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
       <meta name="smartbanner:disable-positioning" content="false">
-    </head>
+    </head>`;
+
+  const HTML = `<!doctype html>
+    <html style="margin-top:10px;">
+    ${HEAD}
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
       <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
+  const HTML_WITH_CONCLUDE = `<!doctype html>
+    <html style="margin-top:10px;">
+      ${HEAD}
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+      ${SCRIPTS}
     </body>
   </html>`;
 
@@ -74,10 +87,12 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
-  const SCRIPTS = [
-    'https://code.jquery.com/jquery-3.1.1.min.js',
-    'https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'
-  ];
+  const SCRIPTS = `<script>window.conclude();</script>`;
+  const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script>window.conclude();</script>`;
+  const HTML_WITH_JQUERY_MOBILE = `<!doctype html><html><head></head><body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
+  const HTML_WITH_JQUERY_MOBILE_AND_META = `<!doctype html><html>${HEAD}<body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
@@ -134,8 +149,9 @@ describe('SmartBanner', function() {
     context('without options', function() {
 
       before(function() {
-        global.document = jsdom.jsdom('<html></html>', { userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.getComputedStyle = document.defaultView.getComputedStyle;
+        global.window = new JSDOM('<html></html>', { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
+        global.document = window.document;
+        global.getComputedStyle = global.document.defaultView.getComputedStyle;
         smartbanner = new SmartBanner();
       });
 
@@ -150,7 +166,7 @@ describe('SmartBanner', function() {
       context('when on iPhone', function() {
 
         beforeEach(function() {
-          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).defaultView;
+          global.window = new JSDOM(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.$ = undefined;
@@ -179,7 +195,7 @@ describe('SmartBanner', function() {
       context('when on iPad', function() {
 
         before(function() {
-          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPAD}).defaultView;
+          global.window = new JSDOM(HTML, {userAgent: USER_AGENT_IPAD}).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
@@ -196,7 +212,7 @@ describe('SmartBanner', function() {
       context('when on iPod', function() {
 
         before(function() {
-          global.window = jsdom.jsdom(HTML, {userAgent: USER_AGENT_IPOD}).defaultView;
+          global.window = new JSDOM(HTML, {userAgent: USER_AGENT_IPOD}).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
@@ -214,7 +230,7 @@ describe('SmartBanner', function() {
 
         context('without custom design modifier', function() {
           before(function() {
-            global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+            global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             smartbanner = new SmartBanner();
@@ -229,7 +245,7 @@ describe('SmartBanner', function() {
 
         context('with custom design modifier', function() {
           before(function() {
-            global.window = jsdom.jsdom(HTML_CUSTOM_DESIGN_MODIFIER, { userAgent: USER_AGENT_ANDROID }).defaultView;
+            global.window = new JSDOM(HTML_CUSTOM_DESIGN_MODIFIER, { userAgent: USER_AGENT_ANDROID }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             smartbanner = new SmartBanner();
@@ -247,7 +263,7 @@ describe('SmartBanner', function() {
       context('when on desktop', function() {
 
         before(function() {
-          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_DESKTOP }).defaultView;
+          global.window = new JSDOM(HTML, { userAgent: USER_AGENT_DESKTOP }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           smartbanner = new SmartBanner();
@@ -265,7 +281,7 @@ describe('SmartBanner', function() {
     context('when has been closed within current session', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -283,7 +299,7 @@ describe('SmartBanner', function() {
     context('when has been closed, but is reopened in new session', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -292,7 +308,7 @@ describe('SmartBanner', function() {
       });
 
       it('expected to add to body', function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -324,7 +340,7 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_ANDROID, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -360,7 +376,7 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -399,7 +415,7 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9_EXCLUDE_WEBAPP, { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP }).defaultView;
+        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9_EXCLUDE_WEBAPP, { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -434,7 +450,7 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        global.window = jsdom.jsdom(HTML_WITH_PLATFROM_OPTION_IOS, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_IOS, { userAgent: USER_AGENT_ANDROID }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -454,7 +470,7 @@ describe('SmartBanner', function() {
     context('when on iPhone', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -485,7 +501,7 @@ describe('SmartBanner', function() {
     context('when on iPad', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPAD }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -516,7 +532,7 @@ describe('SmartBanner', function() {
     context('when on iPod', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPOD }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -547,7 +563,7 @@ describe('SmartBanner', function() {
     context('when on Android', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -579,27 +595,19 @@ describe('SmartBanner', function() {
 
   describe('exit', function() {
 
-    context('without jQuery Mobile', function(done) {
+    context('without jQuery Mobile', function() {
 
-      beforeEach(function(done) {
-        jsdom.env({
-          html: HTML,
-          userAgent: USER_AGENT_IPHONE_IOS9,
-          done: function(err, window) {
-            global.document = window.document;
-            global.window = window;
-            global.getComputedStyle = window.getComputedStyle;
-            smartbanner = new SmartBanner();
-            smartbanner.publish();
-            done();
-          }
-        });
+      beforeEach(function() {
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
       });
 
-      it('expected to set cookie', function(done) {
+      it('expected to set cookie', function() {
         smartbanner.exit();
         expect(Bakery.baked).to.be.true;
-        done();
       });
 
       it('expected to remove component markup', function(done) {
@@ -622,82 +630,61 @@ describe('SmartBanner', function() {
     });
 
     context('with jQuery Mobile', function(done) {
+
       before(function(done) {
-        jsdom.env({
-          html: HTML,
-          scripts: SCRIPTS,
-          userAgent: USER_AGENT_IPHONE_IOS9,
-          done: function(err, window) {
-            global.document = window.document;
-            global.window = window;
-            global.$ = window.jQuery;
-            global.getComputedStyle = window.getComputedStyle;
-            smartbanner = new SmartBanner();
-            smartbanner.publish();
-            done();
-          }
-        });
+        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE_AND_META, { runScripts: 'dangerously', resources: 'usable', userAgent: USER_AGENT_IPHONE_IOS9 }).window;
+        global.window.conclude = () => {
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          global.$ = window.jQuery;
+          smartbanner = new SmartBanner();
+          smartbanner.publish();
+          done();
+        };
       });
 
-      it('expected to restore top distance', function(done) {
+      it('expected to restore top distance', function() {
         smartbanner.exit();
-        let page = document.querySelector('.ui-page');
+        let page = global.document.querySelector('.ui-page');
         let top = parseFloat(getComputedStyle(page).top);
         if (isNaN(top)) {
           top = 0;
         }
         expect(top).to.eql(smartbanner.originalTop);
-        done();
       });
     });
 
   });
 
   describe('height', function() {
-    before(function(done) {
-      jsdom.env({
-        html: HTML,
-        scripts: SCRIPTS,
-        done: function(err, window) {
-          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
-          global.document = window.document;
-          global.getComputedStyle = window.getComputedStyle;
-          smartbanner = new SmartBanner();
-          smartbanner.publish();
-          done();
-        }
-      });
+    before(function() {
+      global.window = new JSDOM(HTML_WITH_CONCLUDE, { userAgent: USER_AGENT_IPHONE_IOS9, runScripts: 'dangerously', resources: 'usable' }).window;
+      global.document = window.document;
+      global.getComputedStyle = window.getComputedStyle;
+      smartbanner = new SmartBanner();
+      smartbanner.publish();
     });
 
-    it('expected to match component offset height', function(done) {
+    it('expected to match component offset height', function() {
       let height = document.querySelector('.js_smartbanner').offsetHeight;
       height = height !== undefined ? height : 0;
       expect(smartbanner.height).to.eql(height);
-      done();
     });
   });
 
   describe('disable-positioning', function() {
-    before(function(done) {
-      jsdom.env({
-        html: HTML_DISABLED_POSITIONING,
-        scripts: SCRIPTS,
-        done: function(err, window) {
-          global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
-          global.document = window.document;
-          global.getComputedStyle = window.getComputedStyle;
-          smartbanner = new SmartBanner();
-          smartbanner.publish();
-          done();
-        }
-      });
+    before(function() {
+      global.window = new JSDOM(HTML_DISABLED_POSITIONING, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
+      global.document = window.document;
+      global.getComputedStyle = window.getComputedStyle;
+      smartbanner = new SmartBanner();
+      smartbanner.publish();
     });
 
-    it('expected to match component offset height', function(done) {
+    it('expected to match component offset height', function() {
       let height = document.querySelector('.js_smartbanner').offsetHeight;
       height = height !== undefined ? height : 0;
       expect(smartbanner.height).to.eql(height);
-      done();
     });
 
     it('expected to not alter <html> top margin', function(done) {

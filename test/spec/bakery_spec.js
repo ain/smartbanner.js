@@ -7,10 +7,11 @@ import Bakery from '../../src/bakery.js';
 
 describe('Bakery', function() {
 
+  const { JSDOM } = jsdom;
   const HTML = '<!doctype html><html><head></head><body></body></html>';
 
   before(function() {
-    global.document = jsdom.jsdom(HTML);
+    global.document = (new JSDOM(HTML)).window;
   });
 
   describe('getCookieExpiresString', function () {

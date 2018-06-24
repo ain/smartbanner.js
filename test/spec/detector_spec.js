@@ -18,12 +18,12 @@ describe('Detector', function() {
   const EXCLUDE_USER_AGENT_REGEX = '^.*My Example Webapp$';
   const INCLUDE_USER_AGENT_REGEX = '.*iPhone OS [9\\-10].*';
 
+  const { JSDOM } = jsdom;
+  const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script>window.conclude();</script>`;
   const HTML = `<!doctype html><html><head></head><body></body></html>`;
-
-  const SCRIPTS = [
-    'https://code.jquery.com/jquery-3.1.1.min.js',
-    'https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'
-  ];
+  const HTML_WITH_JQUERY_MOBILE = `<!doctype html><html><head></head><body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
 
   describe('platform', function() {
 
@@ -32,7 +32,7 @@ describe('Detector', function() {
     context('when on iPhone with iOS8', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS8 }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_IOS8 }).window;
         platform = Detector.platform();
       });
 
@@ -52,7 +52,7 @@ describe('Detector', function() {
     context('when on iPhone with iOS9', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
         platform = Detector.platform();
       });
 
@@ -72,7 +72,7 @@ describe('Detector', function() {
     context('when on iPhone with Custom Web App', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP }).window;
         platform = Detector.platform();
       });
 
@@ -93,7 +93,7 @@ describe('Detector', function() {
     context('when on iPad', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPAD }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPAD }).window;
         platform = Detector.platform();
       });
 
@@ -113,7 +113,7 @@ describe('Detector', function() {
     context('when on iPod', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_IPOD }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPOD }).window;
         platform = Detector.platform();
       });
 
@@ -133,7 +133,7 @@ describe('Detector', function() {
     context('when on Android', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
         platform = Detector.platform();
       });
 
@@ -153,7 +153,7 @@ describe('Detector', function() {
     context('when on Android with Custom Web App', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(HTML, { userAgent: USER_AGENT_ANDROID_CUSTOM_WEBAPP }).defaultView;
+        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID_CUSTOM_WEBAPP }).window;
         platform = Detector.platform();
       });
 
@@ -176,7 +176,7 @@ describe('Detector', function() {
     context('without jQuery Mobile', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(`<!doctype html><html><head></head><body></body></html>`).defaultView;
+        global.window = new JSDOM(HTML).window;
         global.document = window.document;
       });
 
@@ -189,16 +189,13 @@ describe('Detector', function() {
     context('with jQuery Mobile', function() {
 
       before(function(done) {
-        jsdom.env({
-          html: `<!doctype html><html><head></head><body class="ui-page"></body></html>`,
-          scripts: SCRIPTS,
-          done: function(err, window) {
-            global.document = window.document;
-            global.window = window;
-            global.$ = window.jQuery;
-            done();
-          }
-        });
+        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: 'usable' }).window;
+        global.window.conclude = function() {
+          global.document = window.document;
+          global.window = window;
+          global.$ = window.jQuery;
+          done();
+        };
       });
 
       it('expected to return true', function(done) {
@@ -214,7 +211,7 @@ describe('Detector', function() {
     context('without jQuery Mobile', function() {
 
       before(function() {
-        global.window = jsdom.jsdom(`<!doctype html><html><head></head><body></body></html>`).defaultView;
+        global.window = new JSDOM(HTML).window;
         global.document = window.document;
       });
 
@@ -227,15 +224,13 @@ describe('Detector', function() {
     context('with jQuery Mobile', function() {
 
       before(function(done) {
-        jsdom.env({
-          html: `<!doctype html><html><head></head><body class="ui-page"></body></html>`,
-          scripts: SCRIPTS,
-          done: function(err, window) {
-            global.document = window.document;
-            global.window = window;
-            done();
-          }
-        });
+        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: 'usable' }).window;
+        global.window.conclude = () => {
+          global.document = window.document;
+          global.window = window;
+          global.$ = window.jQuery;
+          done();
+        };
       });
 
       it('expected to return ui-page element as first item of array', function() {
