@@ -412,6 +412,11 @@ var SmartBanner = function () {
     get: function get() {
       return this.options.hideTtl ? parseInt(this.options.hideTtl) : false;
     }
+  }, {
+    key: 'hidePath',
+    get: function get() {
+      return this.options.hidePath;
+  }
   }]);
 
   return SmartBanner;

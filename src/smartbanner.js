@@ -162,6 +162,10 @@ export default class SmartBanner {
     return this.options.hideTtl ? parseInt(this.options.hideTtl) : false;
   }
 
+  get hidePath() {
+    return this.options.hidePath;
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
