@@ -6,12 +6,8 @@ export default class Bakery {
     return `expires=${expireTime.toGMTString()};`;
   }
 
-  static getPathString(path) {
-    return `path=${path};`;
-  }
-
-  static bake(hideTtl, hidePath = null) {
-    document.cookie = `smartbanner_exited=1; ${hideTtl ? Bakery.getCookieExpiresString(hideTtl) : ''} ${hidePath ? Bakery.getPathString(hidePath) : ''}`;
+  static bake(hideTtl, hidePath) {
+    document.cookie = `smartbanner_exited=1; ${hideTtl ? Bakery.getCookieExpiresString(hideTtl) : ''} path=${hidePath}`;
   }
 
   static unbake() {
