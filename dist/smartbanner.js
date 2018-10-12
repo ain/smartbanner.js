@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.10.0 <https://github.com/ain/smartbanner.js>
+ * smartbanner.js v1.10.1 <https://github.com/ain/smartbanner.js>
  * Copyright © 2018 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -31,15 +31,9 @@ function () {
       return "expires=".concat(expireTime.toGMTString(), ";");
     }
   }, {
-    key: "getPathString",
-    value: function getPathString(path) {
-      return "path=".concat(path, ";");
-    }
-  }, {
     key: "bake",
-    value: function bake(hideTtl) {
-      var hidePath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      document.cookie = "smartbanner_exited=1; ".concat(hideTtl ? Bakery.getCookieExpiresString(hideTtl) : '', " ").concat(hidePath ? Bakery.getPathString(hidePath) : '');
+    value: function bake(hideTtl, hidePath) {
+      document.cookie = "smartbanner_exited=1; ".concat(hideTtl ? Bakery.getCookieExpiresString(hideTtl) : '', " path=").concat(hidePath);
     }
   }, {
     key: "unbake",
@@ -437,6 +431,11 @@ function () {
     key: "hideTtl",
     get: function get() {
       return this.options.hideTtl ? parseInt(this.options.hideTtl) : false;
+    }
+  }, {
+    key: "hidePath",
+    get: function get() {
+      return this.options.hidePath ? this.options.hidePath : '/';
     }
   }]);
 
