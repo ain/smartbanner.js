@@ -215,8 +215,8 @@ describe('Detector', function() {
         global.document = window.document;
       });
 
-      it('expected to return html element as first item of array', function() {
-        expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('html'));
+      it('expected to return body element as first item of array', function() {
+        expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('body'));
       });
 
     });
