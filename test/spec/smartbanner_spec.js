@@ -184,8 +184,8 @@ describe('SmartBanner', function() {
         });
 
         it('expected to store original top margin', function() {
-          let html = document.querySelector('html');
-          let margin = parseFloat(getComputedStyle(html).marginTop);
+          let body = document.querySelector('body');
+          let margin = parseFloat(getComputedStyle(body).marginTop);
           smartbanner.publish();
           expect(smartbanner.originalTopMargin).to.eql(margin);
         });
@@ -619,8 +619,8 @@ describe('SmartBanner', function() {
 
       it('expected to restore HTML margin', function(done) {
         smartbanner.exit();
-        let html = document.querySelector('html');
-        let margin = parseFloat(getComputedStyle(html).marginTop);
+        let body = document.querySelector('body');
+        let margin = parseFloat(getComputedStyle(body).marginTop);
         if (isNaN(margin)) {
           margin = 0;
         }
