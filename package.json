@@ -29,7 +29,7 @@
     "browserify": "^16.2.2"
   },
   "engines": {
-    "node": ">=8.11.3 <11.0.0"
+    "node": ">=8.11.3 <=11.0.0"
   },
   "repository": {
     "type": "git",
