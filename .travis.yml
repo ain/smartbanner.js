@@ -3,8 +3,9 @@ node_js:
   - 8
   - 9
   - 10
+  - 11
 before_install:
-  - rvm install 2.5.1
+  - rvm install 2.5.3
   - gem install bundler
 install:
   - npm run install-deps
