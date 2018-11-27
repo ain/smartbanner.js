@@ -135,6 +135,13 @@ export default class SmartBanner {
     return height !== undefined ? height : 0;
   }
 
+  get startOnLoad() {
+    if(this.options.startOnLoad === undefined) {
+      this.options.startOnLoad = 'true';
+    }
+    return this.options.startOnLoad === 'true';
+  }
+
   get platformEnabled() {
     let enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
     return enabledPlatforms && enabledPlatforms.replace(/\s+/g, '').split(',').indexOf(this.platform) !== -1;
@@ -142,6 +149,10 @@ export default class SmartBanner {
 
   get positioningDisabled() {
     return this.options.disablePositioning === 'true';
+  }
+
+  get apiEnabled() {
+    return this.options.api === 'true';
   }
 
   get userAgentExcluded() {

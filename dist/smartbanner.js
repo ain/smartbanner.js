@@ -118,7 +118,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var smartbanner;
 window.addEventListener('load', function () {
   smartbanner = new _smartbanner.default();
-  smartbanner.publish();
+
+  if (smartbanner.apiEnabled) {
+    window.smartbanner = smartbanner;
+  }
+
+  if (smartbanner.startOnLoad) {
+    smartbanner.publish();
+  }
 });
 
 },{"./smartbanner.js":5}],4:[function(require,module,exports){
@@ -399,6 +406,15 @@ function () {
       return height !== undefined ? height : 0;
     }
   }, {
+    key: "startOnLoad",
+    get: function get() {
+      if (this.options.startOnLoad === undefined) {
+        this.options.startOnLoad = 'true';
+      }
+
+      return this.options.startOnLoad === 'true';
+    }
+  }, {
     key: "platformEnabled",
     get: function get() {
       var enabledPlatforms = this.options.enabledPlatforms || DEFAULT_PLATFORMS;
@@ -408,6 +424,11 @@ function () {
     key: "positioningDisabled",
     get: function get() {
       return this.options.disablePositioning === 'true';
+    }
+  }, {
+    key: "apiEnabled",
+    get: function get() {
+      return this.options.api === 'true';
     }
   }, {
     key: "userAgentExcluded",
