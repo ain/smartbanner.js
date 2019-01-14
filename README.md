@@ -51,14 +51,6 @@ Additionally, JavaScript and CSS has to be included:
 
 ## Advanced usage
 
-### Don't initialise smartbanner on window load
-
-By default smartbanner initialise on window load. You can change it.
-
-```html
-<meta name="smartbanner:start-on-load" content="false">
-```
-
 ### Hide the smartbanner for certain User Agents
 
 There are cases where you do not want to show the smart app banner on all Android and/or all iOS devices. For example:
@@ -118,6 +110,12 @@ By default smartbanner not support manual construction. You can enable it and us
 
 ```html
 <meta name="smartbanner:api" content="true">
+```
+
+**Note:** By default smartbanner initialise on window load. But when used option *api* you should initialise smartbanner manually 
+
+```js
+smartbanner.publish()
 ```
 
 ### Custom design modifier

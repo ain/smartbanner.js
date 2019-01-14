@@ -6,8 +6,7 @@ window.addEventListener('load', function() {
   smartbanner = new SmartBanner();
   if(smartbanner.apiEnabled) {
     window.smartbanner = smartbanner;
-  }
-  if(smartbanner.startOnLoad) {
+  } else {
     smartbanner.publish();
   }
 });
