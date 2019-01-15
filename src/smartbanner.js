@@ -189,6 +189,8 @@ export default class SmartBanner {
     let bannerDiv = document.createElement('div');
     document.querySelector('body').appendChild(bannerDiv);
     bannerDiv.outerHTML = this.html;
+    let event = new Event('smartbanner.view');
+    document.dispatchEvent(event);
     if (!this.positioningDisabled) {
       setContentPosition(this.height);
     }
@@ -202,6 +204,8 @@ export default class SmartBanner {
     }
     let banner = document.querySelector('.js_smartbanner');
     document.querySelector('body').removeChild(banner);
+    let event = new Event('smartbanner.exit');
+    document.dispatchEvent(event);
     Bakery.bake(this.hideTtl, this.hidePath);
   }
 }
