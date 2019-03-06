@@ -193,6 +193,9 @@ export default class SmartBanner {
       setContentPosition(this.height);
     }
     addEventListeners(this);
+
+    const event = new window.Event('SmartBannerPublish');
+    window.dispatchEvent(event);
   }
 
   exit() {
@@ -203,5 +206,8 @@ export default class SmartBanner {
     let banner = document.querySelector('.js_smartbanner');
     document.querySelector('body').removeChild(banner);
     Bakery.bake(this.hideTtl, this.hidePath);
+
+    const event = new window.Event('SmartBannerExit');
+    window.dispatchEvent(event);
   }
 }

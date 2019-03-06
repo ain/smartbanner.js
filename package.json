@@ -11,22 +11,23 @@
   "bugs": "https://github.com/ain/smartbanner.js/issues",
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/register": "^7.0.0-beta.51",
+    "add-banner": "ain/add-banner#0667ab6",
+    "autoprefixer": "^8.5.2",
     "babelify": "^9.0.0",
+    "browserify": "^16.2.2",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "http-server": "^0.11.1",
     "jsdom": "^11.11.0",
     "mocha": "^5.2.0",
     "node-sass": "^4.9.0",
-    "uglify-js": "^3.3.28",
-    "add-banner": "ain/add-banner#0667ab6",
-    "watchify": "^3.11.0",
-    "autoprefixer": "^8.5.2",
     "postcss-cli": "^5.0.0",
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/register": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
-    "browserify": "^16.2.2"
+    "sinon": "^7.2.7",
+    "uglify-js": "^3.3.28",
+    "watchify": "^3.11.0"
   },
   "engines": {
     "node": ">=8.11.3 <12.0.0"

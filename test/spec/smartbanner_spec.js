@@ -1,6 +1,7 @@
 let jsdom = require('jsdom');
 let path = require('path');
 let chai = require('chai');
+let sinon = require('sinon');
 let expect = chai.expect;
 
 import SmartBanner from '../../src/smartbanner.js';
@@ -177,6 +178,13 @@ describe('SmartBanner', function() {
           smartbanner.exit();
         });
 
+        it('fires the publish event', function() {
+          let spy = sinon.spy(global.window, 'dispatchEvent');
+          smartbanner.publish();
+          expect(spy.getCall(0).args[0].type).to.eql('SmartBannerPublish');
+          sinon.assert.calledOnce(spy);
+        })
+
         it('expected to add iOS template to body', function() {
           smartbanner.publish();
           let html = document.querySelector('.js_smartbanner').outerHTML;
@@ -207,6 +215,13 @@ describe('SmartBanner', function() {
           expect(html).to.eql(IOS_BODY);
         });
 
+        it('fires the publish event', function () {
+          let spy = sinon.spy(global.window, 'dispatchEvent');
+          smartbanner.publish();
+          expect(spy.getCall(0).args[0].type).to.eql('SmartBannerPublish');
+          sinon.assert.calledOnce(spy);
+        })
+
       });
 
       context('when on iPod', function() {
@@ -223,6 +238,13 @@ describe('SmartBanner', function() {
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(IOS_BODY);
         });
+
+        it('fires the publish event', function () {
+          let spy = sinon.spy(global.window, 'dispatchEvent');
+          smartbanner.publish();
+          expect(spy.getCall(0).args[0].type).to.eql('SmartBannerPublish');
+          sinon.assert.calledOnce(spy);
+        })
 
       });
 
@@ -241,6 +263,13 @@ describe('SmartBanner', function() {
             let html = document.querySelector('.js_smartbanner').outerHTML;
             expect(html).to.eql(ANDROID_BODY);
           });
+
+          it('fires the publish event', function () {
+            let spy = sinon.spy(global.window, 'dispatchEvent');
+            smartbanner.publish();
+            expect(spy.getCall(0).args[0].type).to.eql('SmartBannerPublish');
+            sinon.assert.calledOnce(spy);
+          })
         });
 
         context('with custom design modifier', function() {
@@ -627,6 +656,14 @@ describe('SmartBanner', function() {
         expect(margin).to.eql(smartbanner.originalTopMargin);
         done();
       });
+
+      it('fires the exit event', function (done) {
+        let spy = sinon.spy(global.window, 'dispatchEvent');
+        smartbanner.exit();
+        expect(spy.getCall(0).args[0].type).to.eql('SmartBannerExit');
+        sinon.assert.calledOnce(spy);
+        done();
+      })
     });
 
     context('with jQuery Mobile', function(done) {
