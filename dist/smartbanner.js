@@ -1,6 +1,6 @@
 /*!
  * smartbanner.js v1.10.1 <https://github.com/ain/smartbanner.js>
- * Copyright © 2018 Ain Tohvri, contributors. Licensed under GPL-3.0.
+ * Copyright © 2019 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
@@ -319,6 +319,8 @@ function () {
       var bannerDiv = document.createElement('div');
       document.querySelector('body').appendChild(bannerDiv);
       bannerDiv.outerHTML = this.html;
+      var event = new Event('smartbanner.view');
+      document.dispatchEvent(event);
 
       if (!this.positioningDisabled) {
         setContentPosition(this.height);
@@ -337,6 +339,8 @@ function () {
 
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
+      var event = new Event('smartbanner.exit');
+      document.dispatchEvent(event);
 
       _bakery.default.bake(this.hideTtl, this.hidePath);
     }
