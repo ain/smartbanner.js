@@ -162,8 +162,8 @@ function () {
     value: function parse() {
       var metas = document.getElementsByTagName('meta');
       var options = {};
-      var optionName = null;
-      Array.from(metas).forEach(function (meta) {
+      Array.apply(null, metas).forEach(function (meta) {
+        var optionName = null;
         var name = meta.getAttribute('name');
         var content = meta.getAttribute('content');
 
