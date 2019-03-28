@@ -124,6 +124,15 @@ smartbanner uses built-in platform-specific styles (e.g. `smartbanner--ios` or `
 
     which would add `smartbanner--ios` class on wrapper regardless of actual platform.
 
+### Events
+
+Following events are being dispatched:
+
+| Event              | Description                                     |
+| -----              | -----------                                     |
+| `smartbanner.view` | Dispatched when smartbanner is added to display |
+| `smartbanner.exit` | Dispatched when smartbanner is closed           |
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
