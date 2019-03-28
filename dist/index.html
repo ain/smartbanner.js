@@ -28,6 +28,8 @@
   <script>
     var onLoadHandlerForConflictTesting = function() {};
     window.onload = onLoadHandlerForConflictTesting;
+    document.addEventListener('smartbanner.view', function() { console.log('smartbanner.view'); });
+    document.addEventListener('smartbanner.exit', function() { console.log('smartbanner.exit'); });
   </script>
 </body>
 </html>
