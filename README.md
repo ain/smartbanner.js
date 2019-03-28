@@ -133,6 +133,14 @@ Following events are being dispatched:
 | `smartbanner.view` | Dispatched when smartbanner is added to display |
 | `smartbanner.exit` | Dispatched when smartbanner is closed           |
 
+Example handler:
+
+```js
+document.addEventListener('smartbanner.exit', function() {
+  console.log('smartbanner.exit');
+});
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
