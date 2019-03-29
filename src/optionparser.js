@@ -18,8 +18,8 @@ export default class OptionParser {
   parse() {
     let metas = document.getElementsByTagName('meta');
     let options = {};
-    let optionName = null;
-    Array.from(metas).forEach(function(meta) {
+    Array.apply(null, metas).forEach(function(meta) {
+      let optionName = null;
       let name = meta.getAttribute('name');
       let content = meta.getAttribute('content');
       if (name && content && valid(name) && content.length > 0) {

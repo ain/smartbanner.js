@@ -1,8 +1,8 @@
 /*!
- * smartbanner.js v1.10.1 <https://github.com/ain/smartbanner.js>
+ * smartbanner.js v1.11.0 <https://github.com/ain/smartbanner.js>
  * Copyright © 2019 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -167,8 +167,8 @@ function () {
     value: function parse() {
       var metas = document.getElementsByTagName('meta');
       var options = {};
-      var optionName = null;
-      Array.from(metas).forEach(function (meta) {
+      Array.apply(null, metas).forEach(function (meta) {
+        var optionName = null;
         var name = meta.getAttribute('name');
         var content = meta.getAttribute('content');
 
@@ -324,6 +324,8 @@ function () {
       var bannerDiv = document.createElement('div');
       document.querySelector('body').appendChild(bannerDiv);
       bannerDiv.outerHTML = this.html;
+      var event = new Event('smartbanner.view');
+      document.dispatchEvent(event);
 
       if (!this.positioningDisabled) {
         setContentPosition(this.height);
@@ -342,6 +344,8 @@ function () {
 
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
+      var event = new Event('smartbanner.exit');
+      document.dispatchEvent(event);
 
       _bakery.default.bake(this.hideTtl, this.hidePath);
     }

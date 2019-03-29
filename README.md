@@ -138,6 +138,23 @@ smartbanner uses built-in platform-specific styles (e.g. `smartbanner--ios` or `
 
     which would add `smartbanner--ios` class on wrapper regardless of actual platform.
 
+### Events
+
+Following events are being dispatched:
+
+| Event              | Description                                     |
+| -----              | -----------                                     |
+| `smartbanner.view` | Dispatched when smartbanner is added to display |
+| `smartbanner.exit` | Dispatched when smartbanner is closed           |
+
+Example handler:
+
+```js
+document.addEventListener('smartbanner.exit', function() {
+  console.log('smartbanner.exit');
+});
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -150,4 +167,4 @@ Cross-browser testing across all mobile platforms is powered by
 
 ## Licence
 
-Copyright © 2016-2018 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/master/LICENSE).
+Copyright © 2016-2019 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/master/LICENSE).
