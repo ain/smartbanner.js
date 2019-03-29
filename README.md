@@ -104,7 +104,7 @@ By default smartbanner would reappear if site path changes. Following example wo
 <meta name="smartbanner:hide-path" content="/">
 ```
 
-### Set "smartbanner" as global variable
+### smartbanner API use
 
 By default smartbanner is added to DOM automatically. You can disable it with
 
