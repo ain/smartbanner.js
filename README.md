@@ -115,7 +115,7 @@ By default smartbanner is added to DOM automatically. You can disable it with
 and add smartbanner to DOM manually:
 
 ```js
-smartbanner.publish()
+smartbanner.publish();
 ```
 
 ### Custom design modifier
