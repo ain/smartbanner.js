@@ -106,7 +106,7 @@ By default smartbanner would reappear if site path changes. Following example wo
 
 ### Set "smartbanner" as global variable
 
-By default smartbanner not support manual construction. You can enable it and use "window.smartbanner" variable
+By default smartbanner is added to DOM automatically. You can disable it with
 
 ```html
 <meta name="smartbanner:api" content="true">
