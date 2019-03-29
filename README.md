@@ -112,7 +112,7 @@ By default smartbanner is added to DOM automatically. You can disable it with
 <meta name="smartbanner:api" content="true">
 ```
 
-**Note:** By default smartbanner initialise on window load. But when used option *api* you should initialise smartbanner manually 
+and add smartbanner to DOM manually:
 
 ```js
 smartbanner.publish()
