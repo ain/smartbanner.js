@@ -32,3 +32,5 @@ bower_components
 
 # IDE
 .idea
+
+.nyc_output
