@@ -18,6 +18,8 @@ To run the unit tests, just execute:
 
     $ npm test
 
+__ATTENTION:__ in order to get Pull Requests merged and released faster, please ensure [Code Coverage of smartbanner.js](https://coveralls.io/github/ain/smartbanner.js) remains positive and does not drop!
+
 ## Linting the SCSS files
 
 To lint an SCSS file, run:
