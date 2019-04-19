@@ -43,12 +43,19 @@ describe('Bakery', function() {
 
   describe('baked', function() {
 
+    let cookieTtl = 3600;
+    let cookiePath = '/cookiepath';
+
     before(function() {
-      Bakery.bake();
+      Bakery.bake(cookieTtl, cookiePath);
     });
 
     after(function() {
       Bakery.unbake();
+    });
+
+    it('expected to set correct cookie TTL and path', function() {
+      expect(document.cookie).to.eql('smartbanner_exited=1; ' + Bakery.getCookieExpiresString(cookieTtl) + ' path=' + cookiePath);
     });
 
     it('expected to return true if cookie is set', function() {
