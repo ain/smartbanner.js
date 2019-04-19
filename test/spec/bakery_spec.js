@@ -27,35 +27,75 @@ describe('Bakery', function() {
 
   describe('bake', function() {
 
-    before(function() {
-      Bakery.bake();
+    let cookieTtl = 3600;
+    let cookiePath = '/cookiepath';
+
+    context('when TTL and path unset', function() {
+      before(function() {
+        Bakery.bake();
+      });
+
+      after(function() {
+        Bakery.unbake();
+      });
+
+      it('expected to set correct cookie TTL and path', function() {
+        expect(document.cookie).to.eql('smartbanner_exited=1;  path=undefined');
+      });
     });
 
-    after(function() {
-      Bakery.unbake();
+    context('when TTL and path set', function() {
+      before(function() {
+        Bakery.bake(cookieTtl, cookiePath);
+      });
+
+      after(function() {
+        Bakery.unbake();
+      });
+
+      it('expected to set correct cookie TTL and path', function() {
+        expect(document.cookie).to.eql('smartbanner_exited=1; ' + Bakery.getCookieExpiresString(cookieTtl) + ' path=' + cookiePath);
+      });
     });
 
-    it('expected to set cookie', function() {
-      expect(Bakery.baked).to.be.true;
+    context('when TTL set and path unset', function() {
+      before(function() {
+        Bakery.bake(cookieTtl);
+      });
+
+      after(function() {
+        Bakery.unbake();
+      });
+
+      it('expected to set correct cookie TTL and path', function() {
+        expect(document.cookie).to.eql('smartbanner_exited=1; ' + Bakery.getCookieExpiresString(cookieTtl) + ' path=undefined');
+      });
+    });
+
+    context('when TTL unset and path set', function() {
+      before(function() {
+        Bakery.bake(null, cookiePath);
+      });
+
+      after(function() {
+        Bakery.unbake();
+      });
+
+      it('expected to set correct cookie TTL and path', function() {
+        expect(document.cookie).to.eql('smartbanner_exited=1;  path=' + cookiePath);
+      });
     });
 
   });
 
   describe('baked', function() {
 
-    let cookieTtl = 3600;
-    let cookiePath = '/cookiepath';
-
     before(function() {
-      Bakery.bake(cookieTtl, cookiePath);
+      Bakery.bake();
     });
 
     after(function() {
       Bakery.unbake();
-    });
-
-    it('expected to set correct cookie TTL and path', function() {
-      expect(document.cookie).to.eql('smartbanner_exited=1; ' + Bakery.getCookieExpiresString(cookieTtl) + ' path=' + cookiePath);
     });
 
     it('expected to return true if cookie is set', function() {
