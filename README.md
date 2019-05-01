@@ -17,6 +17,7 @@ Customisable smart app banner for iOS and Android.
   - sets cookie to keep banner closed
     - for current session or [for defined time](#time-limited-close)
     - at current path or [site-wide](#path-designated-close)
+  - emits [exit event](#events)
 - Platform-specific app icon URL
 - Platform-specific URL for _View_ button
 - jQuery Mobile and AngularJS compliance
