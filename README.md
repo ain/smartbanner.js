@@ -46,8 +46,8 @@ Customisable smart app banner for iOS and Android.
 Additionally, JavaScript and CSS has to be included:
 
 ```html
-<link rel="stylesheet" href="path/to/component/dist/smartbanner.min.css">
-<script src="path/to/component/dist/smartbanner.min.js"></script>
+<link rel="stylesheet" href="node_modules/smartbanner.js/dist/smartbanner.min.css">
+<script src="node_modules/smartbanner.js/dist/smartbanner.min.js"></script>
 ```
 
 ## Advanced usage
