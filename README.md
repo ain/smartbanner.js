@@ -99,7 +99,9 @@ By default smartbanner would not reappear if closed. This can be prevented with 
 
 ### Path-designated close
 
-By default smartbanner would reappear if site path changes. Following example would keep smartbanner closed site-wide:
+Once closed smartbanner would reappear if site path changes. It is default behaviour.
+
+Following example would keep smartbanner closed site-wide (but only when user has actually closed it):
 
 ```html
 <meta name="smartbanner:hide-path" content="/">
