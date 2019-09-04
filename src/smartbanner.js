@@ -144,6 +144,10 @@ export default class SmartBanner {
     return this.options.disablePositioning === 'true';
   }
 
+  get apiEnabled() {
+    return this.options.api === 'true';
+  }
+
   get userAgentExcluded() {
     if (!this.options.excludeUserAgentRegex) {
       return false;

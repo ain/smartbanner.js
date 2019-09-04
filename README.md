@@ -107,6 +107,20 @@ Following example would keep smartbanner closed site-wide (but only when user ha
 <meta name="smartbanner:hide-path" content="/">
 ```
 
+### smartbanner API use
+
+By default smartbanner is added to DOM automatically. You can disable it with
+
+```html
+<meta name="smartbanner:api" content="true">
+```
+
+and add smartbanner to DOM manually:
+
+```js
+smartbanner.publish();
+```
+
 ### Custom design modifier
 
 smartbanner uses built-in platform-specific styles (e.g. `smartbanner--ios` or `smartbanner--android`), but this behaviour can be altered by adding custom design modifier that allows use of:

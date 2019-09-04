@@ -24,6 +24,7 @@ describe('OptionParser', function() {
       <meta name="smartbanner:enabled-platforms" content="android">
       <meta name="smartbanner:custom-design-modifier" content="tekkie.flashbit.net">
       <meta name="smartbanner:hide-path" content="/smartbanner">
+      <meta name="smartbanner:api" content="true">
     </head>
     <body>
     </body>
@@ -107,6 +108,10 @@ describe('OptionParser', function() {
 
       it('expected to parse hide path option', function() {
         expect(options.hidePath).to.eql('/smartbanner');
+      });
+
+      it('expected to parse api option', function() {
+        expect(options.api).to.eql('true');
       });
     });
 

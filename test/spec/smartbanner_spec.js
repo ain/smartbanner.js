@@ -87,6 +87,28 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
+  const HTML_API = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="FREE">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:api" content="true">
+    </head>
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
   const SCRIPTS = `<script>window.conclude();</script>`;
   const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -728,6 +750,36 @@ describe('SmartBanner', function() {
       expect(top).to.eql(12);
       done();
     });
+  });
+
+  context('when api not set', function() {
+
+    before(function() {
+      global.window = new JSDOM(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).window;
+      global.document = window.document;
+      global.getComputedStyle = window.getComputedStyle;
+      smartbanner = new SmartBanner();
+    });
+
+    it('expected to smartbanner.apiEnabled is false ', function() {
+      expect(smartbanner.apiEnabled).to.be.false;
+    });
+
+  });
+
+  context('when api enabled', function() {
+
+    before(function() {
+      global.window = new JSDOM(HTML_API, {userAgent: USER_AGENT_IPHONE_IOS9}).window;
+      global.document = window.document;
+      global.getComputedStyle = window.getComputedStyle;
+      smartbanner = new SmartBanner();
+    });
+
+    it('expected to smartbanner.apiEnabled is true ', function() {
+      expect(smartbanner.apiEnabled).to.be.true;
+    });
+
   });
 
 });

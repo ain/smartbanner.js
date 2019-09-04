@@ -8,12 +8,13 @@
   <meta name="smartbanner:price" content="FREE">
   <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
   <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
-  <meta name="smartbanner:icon-apple" content="http://a3.mzstatic.com/us/r30/Purple60/v4/c1/3b/b0/c13bb085-64c0-cc90-f97a-521b96963986/icon350x350.jpeg">
+  <meta name="smartbanner:icon-apple" content="https://is4-ssl.mzstatic.com/image/thumb/Purple123/v4/17/96/c5/1796c5bb-fd24-d656-81e9-1819879a6053/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-6.png/230x0w.jpg">
   <meta name="smartbanner:icon-google" content="http://lh3.ggpht.com/f4oX61ljZ6x8aYDELZOgxlvdUEu73-wSQ4fy5bx6fCRISnZP8T353wdaM43RO_DbGg=w300">
   <meta name="smartbanner:button" content="View">
   <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
   <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
   <meta name="smartbanner:enabled-platforms" content="android,ios">
+  <!--<meta name="smartbanner:api" content="true">-->
   <!--<meta name="smartbanner:hide-ttl" content="2629746000">-->
   <!--<meta name="smartbanner:hide-path" content="/">-->
   <!--<meta name="smartbanner:disable-positioning" content="true">-->
@@ -26,10 +27,16 @@
 <body>
   <h1>&nbsp;</h1>
   <script>
-    var onLoadHandlerForConflictTesting = function() {};
+    let onLoadHandlerForConflictTesting = function() {};
     window.onload = onLoadHandlerForConflictTesting;
     document.addEventListener('smartbanner.view', function() { console.log('smartbanner.view'); });
     document.addEventListener('smartbanner.exit', function() { console.log('smartbanner.exit'); });
+
+    // Manual smartbanner population:
+    //   1) set smartbanner:api meta tag to true above for manual smartbanner population
+    //   2) Uncomment below
+    //let apiHandler = function() { smartbanner.publish(); };
+    //window.onload = apiHandler;
   </script>
 </body>
 </html>

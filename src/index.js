@@ -4,5 +4,9 @@ let smartbanner;
 
 window.addEventListener('load', function() {
   smartbanner = new SmartBanner();
-  smartbanner.publish();
+  if (smartbanner.apiEnabled) {
+    window.smartbanner = smartbanner;
+  } else {
+    smartbanner.publish();
+  }
 });
