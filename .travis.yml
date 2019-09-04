@@ -5,9 +5,10 @@ node_js:
   - 9
   - 10
   - 11
+  - 12
 
 before_install:
-  - rvm install 2.5.3
+  - rvm install 2.6.3
   - gem install bundler
 
 install:

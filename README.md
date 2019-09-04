@@ -1,4 +1,4 @@
-# smartbanner.js [![Build Status](https://travis-ci.org/ain/smartbanner.js.svg?branch=master)](https://travis-ci.org/ain/smartbanner.js) [![npm version](https://badge.fury.io/js/smartbanner.js.svg)](https://badge.fury.io/js/smartbanner.js) [![Bower version](https://badge.fury.io/bo/smartbanner.js.svg)](https://badge.fury.io/bo/smartbanner.js)
+# smartbanner.js [![Build Status](https://travis-ci.org/ain/smartbanner.js.svg?branch=master)](https://travis-ci.org/ain/smartbanner.js) [![npm version](https://badge.fury.io/js/smartbanner.js.svg)](https://badge.fury.io/js/smartbanner.js) [![Bower version](https://badge.fury.io/bo/smartbanner.js.svg)](https://badge.fury.io/bo/smartbanner.js) [![Coverage Status](https://coveralls.io/repos/github/ain/smartbanner.js/badge.svg?branch=master)](https://coveralls.io/github/ain/smartbanner.js?branch=master)
 Customisable smart app banner for iOS and Android.
 
 ![smartbanner.js iOS screenshot](https://github.com/ain/smartbanner.js/raw/master/screenshot-ios.png) &nbsp; ![smartbanner.js Android screenshot](https://github.com/ain/smartbanner.js/raw/master/screenshot-android.png)
@@ -17,6 +17,7 @@ Customisable smart app banner for iOS and Android.
   - sets cookie to keep banner closed
     - for current session or [for defined time](#time-limited-close)
     - at current path or [site-wide](#path-designated-close)
+  - emits [exit event](#events)
 - Platform-specific app icon URL
 - Platform-specific URL for _View_ button
 - jQuery Mobile and AngularJS compliance
@@ -45,8 +46,8 @@ Customisable smart app banner for iOS and Android.
 Additionally, JavaScript and CSS has to be included:
 
 ```html
-<link rel="stylesheet" href="path/to/component/dist/smartbanner.min.css">
-<script src="path/to/component/dist/smartbanner.min.js"></script>
+<link rel="stylesheet" href="node_modules/smartbanner.js/dist/smartbanner.min.css">
+<script src="node_modules/smartbanner.js/dist/smartbanner.min.js"></script>
 ```
 
 ## Advanced usage
@@ -98,7 +99,9 @@ By default smartbanner would not reappear if closed. This can be prevented with 
 
 ### Path-designated close
 
-By default smartbanner would reappear if site path changes. Following example would keep smartbanner closed site-wide:
+Once closed smartbanner would reappear if site path changes. It is default behaviour.
+
+Following example would keep smartbanner closed site-wide (but only when user has actually closed it):
 
 ```html
 <meta name="smartbanner:hide-path" content="/">

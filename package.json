@@ -1,12 +1,14 @@
 {
   "name": "smartbanner.js",
-  "version": "1.11.0",
+  "version": "1.13.0",
   "description": "Customisable smart app banner for iOS and Android",
   "homepage": "https://github.com/ain/smartbanner.js",
   "author": {
     "name": "Ain Tohvri",
     "email": "ain@flashbit.net"
   },
+  "main": "dist/smartbanner.js",
+  "style": "dist/smartbanner.css",
   "license": "GPL-3.0",
   "bugs": "https://github.com/ain/smartbanner.js/issues",
   "dependencies": {},
@@ -17,7 +19,7 @@
     "http-server": "^0.11.1",
     "jsdom": "^11.11.0",
     "mocha": "^5.2.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.12.0",
     "uglify-js": "^3.3.28",
     "add-banner": "ain/add-banner#0667ab6",
     "watchify": "^3.11.0",
@@ -26,10 +28,12 @@
     "@babel/core": "^7.0.0-beta.51",
     "@babel/register": "^7.0.0-beta.51",
     "@babel/preset-env": "^7.0.0-beta.51",
-    "browserify": "^16.2.2"
+    "browserify": "^16.2.2",
+    "coveralls": "^3.0.3",
+    "nyc": "^14.0.0"
   },
   "engines": {
-    "node": ">=8.11.3 <12.0.0"
+    "node": ">=8.11.3 <13.0.0"
   },
   "repository": {
     "type": "git",
@@ -49,7 +53,7 @@
     "build": "npm run build:js && npm run build:css && npm run autoprefix && npm run build:css-min && npm run bannerise",
     "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ @babel/preset-env ] ] -v",
     "watch:css": "npm run build:css | npm run autoprefix -- -w",
-    "test": "mocha --require @babel/register test/spec/*.js",
+    "test": "nyc mocha --require @babel/register test/spec/*.js && nyc report --reporter=text-lcov | coveralls",
     "test:watch": "npm run test -- -w",
     "start": "http-server dist/ -o"
   },
