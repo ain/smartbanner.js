@@ -14,6 +14,7 @@
   <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
   <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
   <meta name="smartbanner:enabled-platforms" content="android,ios">
+  <!--<meta name="smartbanner:api" content="true">-->
   <!--<meta name="smartbanner:hide-ttl" content="2629746000">-->
   <!--<meta name="smartbanner:hide-path" content="/">-->
   <!--<meta name="smartbanner:disable-positioning" content="true">-->
@@ -26,10 +27,16 @@
 <body>
   <h1>&nbsp;</h1>
   <script>
-    var onLoadHandlerForConflictTesting = function() {};
+    let onLoadHandlerForConflictTesting = function() {};
     window.onload = onLoadHandlerForConflictTesting;
     document.addEventListener('smartbanner.view', function() { console.log('smartbanner.view'); });
     document.addEventListener('smartbanner.exit', function() { console.log('smartbanner.exit'); });
+
+    // Manual smartbanner population:
+    //   1) set smartbanner:api meta tag to true above for manual smartbanner population
+    //   2) Uncomment below
+    //let apiHandler = function() { smartbanner.publish(); };
+    //window.onload = apiHandler;
   </script>
 </body>
 </html>
