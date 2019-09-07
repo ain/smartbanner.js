@@ -5,7 +5,7 @@ Customisable smart app banner for iOS and Android.
 
 ## Features
 
-- Pure JavaScript, no jQuery (12 KB in size)
+- Pure JavaScript, no jQuery (13 KB in minified size)
 - ECMAScript 6 source
 - Default [Smart App Banner](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html) like design
 - Customisable design by using
