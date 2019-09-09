@@ -126,7 +126,7 @@ export default class SmartBanner {
           <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
         </div>
       </div>
-      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button"><span class="smartbanner__button__label">${this.options.button}</span></a>
+      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button" rel="noopener"><span class="smartbanner__button__label">${this.options.button}</span></a>
     </div>`;
   }
 
