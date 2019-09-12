@@ -117,7 +117,7 @@ export default class SmartBanner {
   get html() {
     let modifier = !this.options.customDesignModifier ? this.platform : this.options.customDesignModifier;
     return `<div class="smartbanner smartbanner--${modifier} js_smartbanner">
-      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></a>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
         <div>
@@ -126,7 +126,7 @@ export default class SmartBanner {
           <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
         </div>
       </div>
-      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button" rel="noopener"><span class="smartbanner__button__label">${this.options.button}</span></a>
+      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button" rel="noopener" aria-label="${this.options.button}"><span class="smartbanner__button__label">${this.options.button}</span></a>
     </div>`;
   }
 

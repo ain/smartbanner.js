@@ -117,7 +117,7 @@ describe('SmartBanner', function() {
   const HTML_WITH_JQUERY_MOBILE_AND_META = `<!doctype html><html>${HEAD}<body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios js_smartbanner">
-      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
       <div class="smartbanner__info">
         <div>
@@ -126,11 +126,11 @@ describe('SmartBanner', function() {
           <div class="smartbanner__info__price">FREE - On the App Store</div>
         </div>
       </div>
-      <a href="https://itunes.apple.com/us/genre/ios/id36?mt=8" target="_blank" class="smartbanner__button" rel="noopener"><span class="smartbanner__button__label">View</span></a>
+      <a href="https://itunes.apple.com/us/genre/ios/id36?mt=8" target="_blank" class="smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android js_smartbanner">
-      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
         <div>
@@ -139,11 +139,11 @@ describe('SmartBanner', function() {
           <div class="smartbanner__info__price">FREE - In Google Play</div>
         </div>
       </div>
-      <a href="https://play.google.com/store" target="_blank" class="smartbanner__button" rel="noopener"><span class="smartbanner__button__label">View</span></a>
+      <a href="https://play.google.com/store" target="_blank" class="smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
   const ANDROID_CUSTOM_DESIGN_BODY = `<div class="smartbanner smartbanner--custom-design js_smartbanner">
-      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit"></a>
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
         <div>
@@ -152,7 +152,7 @@ describe('SmartBanner', function() {
           <div class="smartbanner__info__price">FREE - In Google Play</div>
         </div>
       </div>
-      <a href="https://play.google.com/store" target="_blank" class="smartbanner__button" rel="noopener"><span class="smartbanner__button__label">View</span></a>
+      <a href="https://play.google.com/store" target="_blank" class="smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
   const USER_AGENT_IPHONE_IOS8 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A405 Safari/600.1.4';
