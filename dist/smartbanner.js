@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.14.1 <https://github.com/ain/smartbanner.js>
+ * smartbanner.js v1.14.2 <https://github.com/ain/smartbanner.js>
  * Copyright © 2019 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -8,7 +8,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -51,7 +51,7 @@ function () {
   return Bakery;
 }();
 
-exports.default = Bakery;
+exports["default"] = Bakery;
 
 },{}],2:[function(require,module,exports){
 (function (global){
@@ -60,7 +60,7 @@ exports.default = Bakery;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -105,7 +105,7 @@ function () {
   return Detector;
 }();
 
-exports.default = Detector;
+exports["default"] = Detector;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
@@ -113,11 +113,11 @@ exports.default = Detector;
 
 var _smartbanner = _interopRequireDefault(require("./smartbanner.js"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var smartbanner;
 window.addEventListener('load', function () {
-  smartbanner = new _smartbanner.default();
+  smartbanner = new _smartbanner["default"]();
 
   if (smartbanner.apiEnabled) {
     window.smartbanner = smartbanner;
@@ -132,7 +132,7 @@ window.addEventListener('load', function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -189,7 +189,7 @@ function () {
   return OptionParser;
 }();
 
-exports.default = OptionParser;
+exports["default"] = OptionParser;
 
 },{}],5:[function(require,module,exports){
 "use strict";
@@ -197,7 +197,7 @@ exports.default = OptionParser;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _optionparser = _interopRequireDefault(require("./optionparser.js"));
 
@@ -205,7 +205,7 @@ var _detector = _interopRequireDefault(require("./detector.js"));
 
 var _bakery = _interopRequireDefault(require("./bakery.js"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -236,24 +236,24 @@ function addEventListeners(self) {
     return handleExitClick(event, self);
   });
 
-  if (_detector.default.jQueryMobilePage()) {
+  if (_detector["default"].jQueryMobilePage()) {
     $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
   }
 }
 
 function removeEventListeners() {
-  if (_detector.default.jQueryMobilePage()) {
+  if (_detector["default"].jQueryMobilePage()) {
     $(document).off('pagebeforeshow', handleJQueryMobilePageLoad);
   }
 }
 
 function setContentPosition(value) {
-  var wrappers = _detector.default.wrapperElement();
+  var wrappers = _detector["default"].wrapperElement();
 
   for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
     wrapper = wrappers[i];
 
-    if (_detector.default.jQueryMobilePage()) {
+    if (_detector["default"].jQueryMobilePage()) {
       if (wrapper.getAttribute(datas.originalTop)) {
         continue;
       }
@@ -274,12 +274,12 @@ function setContentPosition(value) {
 }
 
 function restoreContentPosition() {
-  var wrappers = _detector.default.wrapperElement();
+  var wrappers = _detector["default"].wrapperElement();
 
   for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
     wrapper = wrappers[i];
 
-    if (_detector.default.jQueryMobilePage() && wrapper.getAttribute(datas.originalTop)) {
+    if (_detector["default"].jQueryMobilePage() && wrapper.getAttribute(datas.originalTop)) {
       wrapper.style.top = wrapper.getAttribute(datas.originalTop) + 'px';
     } else if (wrapper.getAttribute(datas.originalMarginTop)) {
       wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
@@ -293,9 +293,9 @@ function () {
   function SmartBanner() {
     _classCallCheck(this, SmartBanner);
 
-    var parser = new _optionparser.default();
+    var parser = new _optionparser["default"]();
     this.options = parser.parse();
-    this.platform = _detector.default.platform();
+    this.platform = _detector["default"].platform();
   } // DEPRECATED. Will be removed.
 
 
@@ -306,7 +306,7 @@ function () {
         throw new Error('No options detected. Please consult documentation.');
       }
 
-      if (_bakery.default.baked) {
+      if (_bakery["default"].baked) {
         return false;
       } // User Agent was explicetely excluded by defined excludeUserAgentRegex
 
@@ -347,12 +347,12 @@ function () {
       var event = new Event('smartbanner.exit');
       document.dispatchEvent(event);
 
-      _bakery.default.bake(this.hideTtl, this.hidePath);
+      _bakery["default"].bake(this.hideTtl, this.hidePath);
     }
   }, {
     key: "originalTop",
     get: function get() {
-      var wrapper = _detector.default.wrapperElement()[0];
+      var wrapper = _detector["default"].wrapperElement()[0];
 
       return parseFloat(wrapper.getAttribute(datas.originalTop));
     } // DEPRECATED. Will be removed.
@@ -360,7 +360,7 @@ function () {
   }, {
     key: "originalTopMargin",
     get: function get() {
-      var wrapper = _detector.default.wrapperElement()[0];
+      var wrapper = _detector["default"].wrapperElement()[0];
 
       return parseFloat(wrapper.getAttribute(datas.originalMarginTop));
     }
@@ -399,7 +399,7 @@ function () {
     key: "html",
     get: function get() {
       var modifier = !this.options.customDesignModifier ? this.platform : this.options.customDesignModifier;
-      return "<div class=\"smartbanner smartbanner--".concat(modifier, " js_smartbanner\">\n      <a href=\"javascript:void();\" class=\"smartbanner__exit js_smartbanner__exit\"></a>\n      <div class=\"smartbanner__icon\" style=\"background-image: url(").concat(this.icon, ");\"></div>\n      <div class=\"smartbanner__info\">\n        <div>\n          <div class=\"smartbanner__info__title\">").concat(this.options.title, "</div>\n          <div class=\"smartbanner__info__author\">").concat(this.options.author, "</div>\n          <div class=\"smartbanner__info__price\">").concat(this.options.price).concat(this.priceSuffix, "</div>\n        </div>\n      </div>\n      <a href=\"").concat(this.buttonUrl, "\" target=\"_blank\" class=\"smartbanner__button\" rel=\"noopener\"><span class=\"smartbanner__button__label\">").concat(this.options.button, "</span></a>\n    </div>");
+      return "<div class=\"smartbanner smartbanner--".concat(modifier, " js_smartbanner\">\n      <a href=\"javascript:void();\" class=\"smartbanner__exit js_smartbanner__exit\" aria-label=\"Close banner\"></a>\n      <div class=\"smartbanner__icon\" style=\"background-image: url(").concat(this.icon, ");\"></div>\n      <div class=\"smartbanner__info\">\n        <div>\n          <div class=\"smartbanner__info__title\">").concat(this.options.title, "</div>\n          <div class=\"smartbanner__info__author\">").concat(this.options.author, "</div>\n          <div class=\"smartbanner__info__price\">").concat(this.options.price).concat(this.priceSuffix, "</div>\n        </div>\n      </div>\n      <a href=\"").concat(this.buttonUrl, "\" target=\"_blank\" class=\"smartbanner__button\" rel=\"noopener\" aria-label=\"").concat(this.options.button, "\"><span class=\"smartbanner__button__label\">").concat(this.options.button, "</span></a>\n    </div>");
     }
   }, {
     key: "height",
@@ -430,7 +430,7 @@ function () {
         return false;
       }
 
-      return _detector.default.userAgentMatchesRegex(this.options.excludeUserAgentRegex);
+      return _detector["default"].userAgentMatchesRegex(this.options.excludeUserAgentRegex);
     }
   }, {
     key: "userAgentIncluded",
@@ -439,7 +439,7 @@ function () {
         return false;
       }
 
-      return _detector.default.userAgentMatchesRegex(this.options.includeUserAgentRegex);
+      return _detector["default"].userAgentMatchesRegex(this.options.includeUserAgentRegex);
     }
   }, {
     key: "hideTtl",
@@ -456,6 +456,6 @@ function () {
   return SmartBanner;
 }();
 
-exports.default = SmartBanner;
+exports["default"] = SmartBanner;
 
 },{"./bakery.js":1,"./detector.js":2,"./optionparser.js":4}]},{},[3]);
