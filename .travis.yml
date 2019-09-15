@@ -16,7 +16,7 @@ install:
 
 script:
   - npm run eslint
-  - npm run scsslint
+  - npm run sasslint
   - npm test
   - npm run build
 
