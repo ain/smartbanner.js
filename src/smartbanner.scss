@@ -120,7 +120,7 @@ $black: #000;
 
   /** Android styles **/
   &.smartbanner--android {
-    background: #3d3d3d url(data:image/gif;base64,R0lGODlhCAAIAIABAFVVVf///yH5BAEHAAEALAAAAAAIAAgAAAINRG4XudroGJBRsYcxKAA7);
+    background: #3d3d3d url('data:image/gif;base64,R0lGODlhCAAIAIABAFVVVf///yH5BAEHAAEALAAAAAAIAAgAAAINRG4XudroGJBRsYcxKAA7');
     box-shadow: inset 0 4px 0 #88b131;
 
     .smartbanner__exit {
@@ -137,7 +137,6 @@ $black: #000;
       color: #b1b1b3;
       font-family: 'ArialRoundedMTBold', Arial;
       font-size: 20px;
-      -webkit-font-smoothing: subpixel-antialiased;
       line-height: 17px;
       text-shadow: 0 1px 1px #000;
 
