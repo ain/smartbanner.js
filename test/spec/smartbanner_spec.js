@@ -9,8 +9,7 @@ import Bakery from '../../src/bakery.js';
 describe('SmartBanner', function() {
 
   const { JSDOM } = jsdom;
-  const HEAD = `<head>
-      <meta charset="utf-8">
+  const HEAD = `<meta charset="utf-8">
       <meta name="smartbanner:title" content="Smart Application">
       <meta name="smartbanner:author" content="SmartBanner Contributors">
       <meta name="smartbanner:price" content="FREE">
@@ -20,13 +19,14 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:icon-google" content="icon--google.jpg">
       <meta name="smartbanner:button" content="View">
       <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
-      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
-      <meta name="smartbanner:disable-positioning" content="false">
-    </head>`;
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">`;
 
   const HTML = `<!doctype html>
     <html style="margin-top:10px;">
-    ${HEAD}
+    <head>
+      ${HEAD}
+      <meta name="smartbanner:disable-positioning" content="false">
+    </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
       <div class="ui-page" style="position:absolute; top:13px;"></div>
@@ -35,7 +35,10 @@ describe('SmartBanner', function() {
 
   const HTML_WITH_CONCLUDE = `<!doctype html>
     <html style="margin-top:10px;">
+    <head>
       ${HEAD}
+      <meta name="smartbanner:disable-positioning" content="false">
+    </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
       <div class="ui-page" style="position:absolute; top:13px;"></div>
@@ -46,17 +49,7 @@ describe('SmartBanner', function() {
   const HTML_DISABLED_POSITIONING = `<!doctype html>
     <html style="margin-top:10px;">
     <head>
-      <meta charset="utf-8">
-      <meta name="smartbanner:title" content="Smart Application">
-      <meta name="smartbanner:author" content="SmartBanner Contributors">
-      <meta name="smartbanner:price" content="FREE">
-      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
-      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
-      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
-      <meta name="smartbanner:icon-google" content="icon--google.jpg">
-      <meta name="smartbanner:button" content="View">
-      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
-      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      ${HEAD}
       <meta name="smartbanner:disable-positioning" content="true">
     </head>
     <body>
@@ -68,18 +61,9 @@ describe('SmartBanner', function() {
   const HTML_CUSTOM_DESIGN_MODIFIER = `<!doctype html>
     <html style="margin-top:10px;">
     <head>
-      <meta charset="utf-8">
-      <meta name="smartbanner:title" content="Smart Application">
-      <meta name="smartbanner:author" content="SmartBanner Contributors">
-      <meta name="smartbanner:price" content="FREE">
-      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
-      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
-      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
-      <meta name="smartbanner:icon-google" content="icon--google.jpg">
-      <meta name="smartbanner:button" content="View">
-      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
-      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      ${HEAD}
       <meta name="smartbanner:custom-design-modifier" content="custom-design">
+      <meta name="smartbanner:close-label" content="Close banner">
     </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
@@ -90,18 +74,32 @@ describe('SmartBanner', function() {
   const HTML_API = `<!doctype html>
     <html style="margin-top:10px;">
     <head>
-      <meta charset="utf-8">
-      <meta name="smartbanner:title" content="Smart Application">
-      <meta name="smartbanner:author" content="SmartBanner Contributors">
-      <meta name="smartbanner:price" content="FREE">
-      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
-      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
-      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
-      <meta name="smartbanner:icon-google" content="icon--google.jpg">
-      <meta name="smartbanner:button" content="View">
-      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
-      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      ${HEAD}
       <meta name="smartbanner:api" content="true">
+    </head>
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
+  const HTML_IOS = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      ${HEAD}
+      <meta name="smartbanner:close-label" content="Close iOS Smart App Banner">
+    </head>
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
+  const HTML_ANDROID = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      ${HEAD}
+      <meta name="smartbanner:close-label" content="Close Android Smart App Banner">
     </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
@@ -117,7 +115,7 @@ describe('SmartBanner', function() {
   const HTML_WITH_JQUERY_MOBILE_AND_META = `<!doctype html><html>${HEAD}<body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios js_smartbanner">
-      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></a>
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close iOS Smart App Banner"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
       <div class="smartbanner__info">
         <div>
@@ -130,7 +128,7 @@ describe('SmartBanner', function() {
     </div>`;
 
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android js_smartbanner">
-      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></a>
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close Android Smart App Banner"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
         <div>
@@ -188,7 +186,7 @@ describe('SmartBanner', function() {
       context('when on iPhone', function() {
 
         beforeEach(function() {
-          global.window = new JSDOM(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).window;
+          global.window = new JSDOM(HTML_IOS, {userAgent: USER_AGENT_IPHONE_IOS9}).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.$ = undefined;
@@ -218,7 +216,7 @@ describe('SmartBanner', function() {
       context('when on iPad', function() {
 
         before(function() {
-          global.window = new JSDOM(HTML, {userAgent: USER_AGENT_IPAD}).window;
+          global.window = new JSDOM(HTML_IOS, {userAgent: USER_AGENT_IPAD}).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.Event = window.Event;
@@ -236,7 +234,7 @@ describe('SmartBanner', function() {
       context('when on iPod', function() {
 
         before(function() {
-          global.window = new JSDOM(HTML, {userAgent: USER_AGENT_IPOD}).window;
+          global.window = new JSDOM(HTML_IOS, {userAgent: USER_AGENT_IPOD}).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.Event = window.Event;
@@ -255,7 +253,7 @@ describe('SmartBanner', function() {
 
         context('without custom design modifier', function() {
           before(function() {
-            global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
+            global.window = new JSDOM(HTML_ANDROID, { userAgent: USER_AGENT_ANDROID }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -403,6 +401,7 @@ describe('SmartBanner', function() {
           <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
           <meta name="smartbanner:enabled-platforms" content="android">
           <meta name="smartbanner:include-user-agent-regex" content=".*iPhone OS [9\\-10].*">
+          <meta name="smartbanner:close-label" content="Close iOS Smart App Banner">
         </head>
         <body>
         </body>
@@ -506,7 +505,7 @@ describe('SmartBanner', function() {
     context('when on iPhone', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
+        global.window = new JSDOM(HTML_IOS, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -538,7 +537,7 @@ describe('SmartBanner', function() {
     context('when on iPad', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPAD }).window;
+        global.window = new JSDOM(HTML_IOS, { userAgent: USER_AGENT_IPAD }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -570,7 +569,7 @@ describe('SmartBanner', function() {
     context('when on iPod', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPOD }).window;
+        global.window = new JSDOM(HTML_IOS, { userAgent: USER_AGENT_IPOD }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -602,7 +601,7 @@ describe('SmartBanner', function() {
     context('when on Android', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
+        global.window = new JSDOM(HTML_ANDROID, { userAgent: USER_AGENT_ANDROID }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;

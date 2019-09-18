@@ -3,6 +3,7 @@ import Detector from './detector.js';
 import Bakery from './bakery.js';
 
 const DEFAULT_PLATFORMS = 'android,ios';
+const DEFAULT_CLOSE_LABEL = 'Close';
 
 let datas = {
   originalTop: 'data-smartbanner-original-top',
@@ -114,10 +115,14 @@ export default class SmartBanner {
     return '#';
   }
 
+  get closeLabel() {
+    return this.options.closeLabel !== undefined ? this.options.closeLabel : DEFAULT_CLOSE_LABEL;
+  }
+
   get html() {
     let modifier = !this.options.customDesignModifier ? this.platform : this.options.customDesignModifier;
     return `<div class="smartbanner smartbanner--${modifier} js_smartbanner">
-      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></a>
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="${this.closeLabel}"></a>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
         <div>
