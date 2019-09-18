@@ -25,10 +25,31 @@ describe('OptionParser', function() {
       <meta name="smartbanner:custom-design-modifier" content="tekkie.flashbit.net">
       <meta name="smartbanner:hide-path" content="/smartbanner">
       <meta name="smartbanner:api" content="true">
+      <meta name="smartbanner:close-label" content="Close">
     </head>
     <body>
     </body>
     </html>`;
+
+  const HTML_WITHOUT_OPTIONALS = `<!doctype html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="FREE">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="VIEW">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+    </head>
+    <body>
+    </body>
+    </html>`;
+
   const HTML_WITHOUT_SMARTBANNER_META = `<!doctype html>
     <html>
     <head>
@@ -37,6 +58,7 @@ describe('OptionParser', function() {
     <body>
     </body>
     </html>`;
+
   const HTML_WITHOUT_META = `<!doctype html>
     <html>
     <head></head>
@@ -113,6 +135,10 @@ describe('OptionParser', function() {
       it('expected to parse api option', function() {
         expect(options.api).to.eql('true');
       });
+
+      it('expected to parse close label', function() {
+        expect(options.closeLabel).to.eql('Close');
+      });
     });
 
     context('without smartbanner meta tags', function() {
@@ -137,6 +163,35 @@ describe('OptionParser', function() {
 
       it('expected to return empty object', function() {
         expect(options).to.be.empty;
+      });
+
+    });
+
+    context('with optional meta tags', function() {
+
+      before(function() {
+        global.document = new JSDOM(HTML_WITHOUT_OPTIONALS).window.document;
+        options = parser.parse();
+      });
+
+      it('expected to return undefined API option', function() {
+        expect(options.api).to.be.undefined;
+      });
+
+      it('expected to return undefined close label option', function() {
+        expect(options.closeLabel).to.be.undefined;
+      });
+
+      it('expected to return undefined enabled platforms option', function() {
+        expect(options.enabledPlatforms).to.be.undefined;
+      });
+
+      it('expected to return undefined custom design modifier option', function() {
+        expect(options.customDesignModifier).to.be.undefined;
+      });
+
+      it('expected to return undefined hide path option', function() {
+        expect(options.hidePath).to.be.undefined;
       });
 
     });
