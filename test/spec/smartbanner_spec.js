@@ -781,4 +781,25 @@ describe('SmartBanner', function() {
 
   });
 
+  describe('handleExitClick', function() {
+
+    before(function() {
+      global.window = new JSDOM(HTML_API, {userAgent: USER_AGENT_IPHONE_IOS9}).window;
+      global.document = window.document;
+      global.getComputedStyle = window.getComputedStyle;
+      smartbanner = new SmartBanner();
+      smartbanner.publish();
+    });
+
+    it('expected to handle exit', function(done) {
+      document.addEventListener('smartbanner.exit', function () {
+        done();
+      });
+      let clickEvent = document.createEvent("HTMLEvents");
+      clickEvent.initEvent("click", false, true);
+      document.querySelector('.js_smartbanner__exit').dispatchEvent(clickEvent);
+    });
+
+  });
+
 });
