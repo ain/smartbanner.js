@@ -18,6 +18,7 @@ Customisable smart app banner for iOS and Android.
     - for current session or [for defined time](#time-limited-close)
     - at current path or [site-wide](#path-designated-close)
   - emits [exit event](#events)
+  - has translatable label
 - Platform-specific app icon URL
 - Platform-specific URL for _View_ button
 - jQuery Mobile and AngularJS compliance
@@ -40,6 +41,7 @@ Customisable smart app banner for iOS and Android.
 <meta name="smartbanner:button-url-apple" content="https://ios/application-url">
 <meta name="smartbanner:button-url-google" content="https://android/application-url">
 <meta name="smartbanner:enabled-platforms" content="android,ios">
+<meta name="smartbanner:close-label" content="Close">
 <!-- End SmartBanner configuration -->
 ```
 
