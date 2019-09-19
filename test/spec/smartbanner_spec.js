@@ -751,7 +751,7 @@ describe('SmartBanner', function() {
     });
   });
 
-  context('when api not set', function() {
+  context('when API not set', function() {
 
     before(function() {
       global.window = new JSDOM(HTML, {userAgent: USER_AGENT_IPHONE_IOS9}).window;
@@ -766,7 +766,7 @@ describe('SmartBanner', function() {
 
   });
 
-  context('when api enabled', function() {
+  context('when API enabled', function() {
 
     before(function() {
       global.window = new JSDOM(HTML_API, {userAgent: USER_AGENT_IPHONE_IOS9}).window;
