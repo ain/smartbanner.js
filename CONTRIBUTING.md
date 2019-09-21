@@ -12,9 +12,13 @@ Afterwards, you can generate distribution files in `dist/` from source by runnin
 
 ## Unit tests
 
-To run the unit tests, just execute:
+To run all unit tests, execute:
 
     $ npm test
+
+To run single specs, execute as per file, e.g.:
+
+    $ npm run mocha test/spec/smartbanner_spec.js
 
 __ATTENTION:__ in order to get Pull Requests merged and released faster, please ensure [Code Coverage of smartbanner.js](https://coveralls.io/github/ain/smartbanner.js) remains positive and does not drop!
 
