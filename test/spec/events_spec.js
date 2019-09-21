@@ -127,7 +127,8 @@ describe('SmartBanner', function() {
     context('when on iPhone', function() {
 
       beforeEach(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -146,7 +147,8 @@ describe('SmartBanner', function() {
     context('when on iPad', function() {
 
       beforeEach(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPAD }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPAD });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -165,7 +167,8 @@ describe('SmartBanner', function() {
     context('when on iPod', function() {
 
       beforeEach(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPOD }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPOD });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
@@ -184,7 +187,8 @@ describe('SmartBanner', function() {
     context('when on Android', function() {
 
       beforeEach(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
