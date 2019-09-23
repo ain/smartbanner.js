@@ -160,7 +160,7 @@ describe('Detector', function() {
 
       before(function() {
         const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID_CUSTOM_WEBAPP });
-        global.window = new JSDOM(HTML, { resources: ResourceLoader }).window;
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         platform = Detector.platform();
       });
 
@@ -196,7 +196,7 @@ describe('Detector', function() {
     context('with jQuery Mobile', function() {
 
       before(function(done) {
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously' }).window;
+        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
         global.window.conclude = function() {
           global.document = window.document;
           global.window = window;
@@ -231,7 +231,7 @@ describe('Detector', function() {
     context('with jQuery Mobile', function() {
 
       before(function(done) {
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously' }).window;
+        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
         global.window.conclude = () => {
           global.document = window.document;
           global.window = window;
@@ -240,8 +240,9 @@ describe('Detector', function() {
         };
       });
 
-      it('expected to return ui-page element as first item of array', function() {
+      it('expected to return ui-page element as first item of array', function(done) {
         expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('.ui-page'));
+        done();
       });
 
     });
