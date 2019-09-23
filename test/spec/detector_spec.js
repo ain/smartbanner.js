@@ -32,7 +32,8 @@ describe('Detector', function() {
     context('when on iPhone with iOS8', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_IOS8 }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS8 });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         platform = Detector.platform();
       });
 
@@ -52,7 +53,8 @@ describe('Detector', function() {
     context('when on iPhone with iOS9', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_IOS9 }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         platform = Detector.platform();
       });
 
@@ -72,7 +74,8 @@ describe('Detector', function() {
     context('when on iPhone with Custom Web App', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         platform = Detector.platform();
       });
 
@@ -93,7 +96,8 @@ describe('Detector', function() {
     context('when on iPad', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPAD }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPAD });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         platform = Detector.platform();
       });
 
@@ -113,7 +117,8 @@ describe('Detector', function() {
     context('when on iPod', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_IPOD }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPOD });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         platform = Detector.platform();
       });
 
@@ -133,7 +138,8 @@ describe('Detector', function() {
     context('when on Android', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         platform = Detector.platform();
       });
 
@@ -153,7 +159,8 @@ describe('Detector', function() {
     context('when on Android with Custom Web App', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { userAgent: USER_AGENT_ANDROID_CUSTOM_WEBAPP }).window;
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID_CUSTOM_WEBAPP });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         platform = Detector.platform();
       });
 
@@ -189,10 +196,9 @@ describe('Detector', function() {
     context('with jQuery Mobile', function() {
 
       before(function(done) {
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: 'usable' }).window;
+        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
         global.window.conclude = function() {
           global.document = window.document;
-          global.window = window;
           global.$ = window.jQuery;
           done();
         };
@@ -224,17 +230,17 @@ describe('Detector', function() {
     context('with jQuery Mobile', function() {
 
       before(function(done) {
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: 'usable' }).window;
+        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
         global.window.conclude = () => {
           global.document = window.document;
-          global.window = window;
           global.$ = window.jQuery;
           done();
         };
       });
 
-      it('expected to return ui-page element as first item of array', function() {
+      it('expected to return ui-page element as first item of array', function(done) {
         expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('.ui-page'));
+        done();
       });
 
     });
