@@ -199,7 +199,6 @@ describe('Detector', function() {
         global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
         global.window.conclude = function() {
           global.document = window.document;
-          global.window = window;
           global.$ = window.jQuery;
           done();
         };
@@ -234,7 +233,6 @@ describe('Detector', function() {
         global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
         global.window.conclude = () => {
           global.document = window.document;
-          global.window = window;
           global.$ = window.jQuery;
           done();
         };
