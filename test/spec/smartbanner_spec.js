@@ -188,7 +188,7 @@ describe('SmartBanner', function() {
 
         beforeEach(function() {
           const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-          global.window = new JSDOM(HTML_IOS, { resource: resourceLoader }).window;
+          global.window = new JSDOM(HTML_IOS, { resources: resourceLoader }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.$ = undefined;
