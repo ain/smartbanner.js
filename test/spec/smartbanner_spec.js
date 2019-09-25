@@ -773,34 +773,38 @@ describe('SmartBanner', function() {
     });
   });
 
-  context('when API not set', function() {
+  describe('apiEnabled', function() {
 
-    before(function() {
-      const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-      global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
-      global.document = window.document;
-      global.getComputedStyle = window.getComputedStyle;
-      smartbanner = new SmartBanner();
+    context('when API option not set', function() {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to return false ', function() {
+        expect(smartbanner.apiEnabled).to.be.false;
+      });
+
     });
 
-    it('expected to smartbanner.apiEnabled is false ', function() {
-      expect(smartbanner.apiEnabled).to.be.false;
-    });
+    context('when API option set', function() {
 
-  });
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+        global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        smartbanner = new SmartBanner();
+      });
 
-  context('when API enabled', function() {
+      it('expected to return true ', function() {
+        expect(smartbanner.apiEnabled).to.be.true;
+      });
 
-    before(function() {
-      const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-      global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
-      global.document = window.document;
-      global.getComputedStyle = window.getComputedStyle;
-      smartbanner = new SmartBanner();
-    });
-
-    it('expected to smartbanner.apiEnabled is true ', function() {
-      expect(smartbanner.apiEnabled).to.be.true;
     });
 
   });
