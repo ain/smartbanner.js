@@ -775,13 +775,13 @@ describe('SmartBanner', function() {
 
   describe('apiEnabled', function() {
 
+    const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+
     context('when API option not set', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
         global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
         global.document = window.document;
-        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
       });
 
@@ -794,10 +794,8 @@ describe('SmartBanner', function() {
     context('when API option set', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
         global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
         global.document = window.document;
-        global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
       });
 
