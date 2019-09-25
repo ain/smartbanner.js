@@ -24,6 +24,7 @@
     "test",
     "Gemfile*",
     "banner.tmpl",
-    "*.png"
+    "*.png",
+    "*.svg"
   ]
 }
