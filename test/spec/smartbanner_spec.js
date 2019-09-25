@@ -828,4 +828,50 @@ describe('SmartBanner', function() {
 
   });
 
+  describe('hidePath', function() {
+
+    const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+
+
+    context('when option is not set', function() {
+
+      before(function() {
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.document = window.document;
+        smartbanner = new SmartBanner();
+      });
+
+      it('returns default hide path', function() {
+        expect(smartbanner.hidePath).to.eql('/');
+      });
+    });
+
+    context('when option is set', function() {
+
+      const HTML_WITH_HIDE_PATH = `<!doctype html>
+        <html style="margin-top:10px;">
+        <head>
+          ${HEAD}
+          <meta name="smartbanner:hide-path" content="/smartbannerjs">
+        </head>
+        <body>
+          <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+          <div class="ui-page" style="position:absolute; top:13px;"></div>
+        </body>
+      </html>`;
+
+
+      before(function() {
+        global.window = new JSDOM(HTML_WITH_HIDE_PATH, { resources: resourceLoader }).window;
+        global.document = window.document;
+        smartbanner = new SmartBanner();
+      });
+
+      it('returns option value', function() {
+        expect(smartbanner.hidePath).to.eql('/smartbannerjs');
+      });
+    });
+
+  });
+
 });
