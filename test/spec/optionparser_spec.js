@@ -194,6 +194,10 @@ describe('OptionParser', function() {
         expect(options.hidePath).to.be.undefined;
       });
 
+      it('expected to return undefined hide time to live option', function() {
+        expect(options.hideTtl).to.be.undefined;
+      });
+
     });
 
   });
