@@ -107,6 +107,18 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
+  const HTML_UNKNOWN = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      ${HEAD}
+      <meta name="smartbanner:close-label" content="Close Smart App Banner">
+    </head>
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
   const SCRIPTS = `<script>window.conclude();</script>`;
   const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -140,6 +152,19 @@ describe('SmartBanner', function() {
       <a href="https://play.google.com/store" target="_blank" class="smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button__label">View</span></a>
     </div>`;
 
+  const UNDEFINED_BODY = `<div class="smartbanner smartbanner--undefined js_smartbanner">
+      <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close Smart App Banner"></a>
+      <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
+      <div class="smartbanner__info">
+        <div>
+          <div class="smartbanner__info__title">Smart Application</div>
+          <div class="smartbanner__info__author">SmartBanner Contributors</div>
+          <div class="smartbanner__info__price">FREE</div>
+        </div>
+      </div>
+      <a href="#" target="_blank" class="smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button__label">View</span></a>
+    </div>`;
+
   const ANDROID_CUSTOM_DESIGN_BODY = `<div class="smartbanner smartbanner--custom-design js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
@@ -161,6 +186,7 @@ describe('SmartBanner', function() {
   const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
   const USER_AGENT_ANDROID_CUSTOM_WEBAPP = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]  My Example Webapp';
   const USER_AGENT_DESKTOP = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7';
+  const USER_AGENT_UNKNOWN = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/0.0.1 Unknown/0.0.1';
 
   let smartbanner = null;
 
@@ -644,6 +670,39 @@ describe('SmartBanner', function() {
 
       it('expected to have Android button URL', function() {
         expect(smartbanner.buttonUrl).to.eql('https://play.google.com/store');
+      });
+
+    });
+
+    context('when on unidentified platform', function() {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
+        global.window = new JSDOM(HTML_UNKNOWN, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        global.Event = window.Event;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to work against no platform', function() {
+        expect(smartbanner.platform).to.be.undefined;
+      });
+
+      it('expected to have no price suffix', function() {
+        expect(smartbanner.priceSuffix).to.be.empty;
+      });
+
+      it('expected to return undefined (broken) template', function() {
+        expect(smartbanner.html).to.eql(UNDEFINED_BODY);
+      });
+
+      it('expected to have Apple icon as fallback', function() {
+        expect(smartbanner.icon).to.eql('icon--apple.jpg');
+      });
+
+      it('expected to have empty button URL', function() {
+        expect(smartbanner.buttonUrl).to.eql('#');
       });
 
     });
