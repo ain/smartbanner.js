@@ -787,9 +787,20 @@ describe('SmartBanner', function() {
       smartbanner.publish();
     });
 
-    it('expected to match component offset height', function() {
-      let height = document.querySelector('.js_smartbanner').offsetHeight;
-      expect(smartbanner.height).to.eql(height);
+    context('when offset height available', function() {
+      it('expected to match component offset height', function() {
+        let height = document.querySelector('.js_smartbanner').offsetHeight;
+        expect(smartbanner.height).to.eql(height);
+      });
+    });
+
+    context('when offset height N/A', function() {
+      before(function() {
+        smartbanner.exit();
+      });
+      it('expected to return default height', function() {
+        expect(smartbanner.height).to.eql(0);
+      });
     });
   });
 
