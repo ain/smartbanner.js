@@ -136,10 +136,9 @@ export default class SmartBanner {
   }
 
   get height() {
-    let banner = document.querySelector('.js_smartbanner');
-    if (banner && banner.offsetHeight) {
-      return offsetHeight;
-    } else {
+    try {
+      return document.querySelector('.js_smartbanner').offsetHeight;
+    } catch(error) {
       return 0;
     }
   }
