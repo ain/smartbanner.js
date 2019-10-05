@@ -779,7 +779,7 @@ describe('SmartBanner', function() {
   describe('height', function() {
     before(function() {
       const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-      global.window = new JSDOM(HTML_WITH_CONCLUDE, { runScripts: 'dangerously', resources: resourceLoader }).window;
+      global.window = new JSDOM(HTML, { runScripts: 'dangerously', resources: resourceLoader }).window;
       global.document = window.document;
       global.getComputedStyle = window.getComputedStyle;
       global.Event = window.Event;
