@@ -789,7 +789,6 @@ describe('SmartBanner', function() {
 
     it('expected to match component offset height', function() {
       let height = document.querySelector('.js_smartbanner').offsetHeight;
-      height = height !== undefined ? height : 0;
       expect(smartbanner.height).to.eql(height);
     });
   });
