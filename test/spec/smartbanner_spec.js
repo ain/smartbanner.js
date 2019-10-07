@@ -27,8 +27,6 @@ describe('SmartBanner', function() {
       ${HEAD}
     </head>
     <body>
-      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
-      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
 
@@ -38,8 +36,6 @@ describe('SmartBanner', function() {
       ${HEAD}
     </head>
     <body>
-      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
-      <div class="ui-page" style="position:absolute; top:13px;"></div>
       ${SCRIPTS}
     </body>
   </html>`;
@@ -64,8 +60,6 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:close-label" content="Close banner">
     </head>
     <body>
-      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
-      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
 
@@ -76,8 +70,6 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:api" content="true">
     </head>
     <body>
-      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
-      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
 
@@ -88,8 +80,6 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:close-label" content="Close iOS Smart App Banner">
     </head>
     <body>
-      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
-      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
 
@@ -100,8 +90,6 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:close-label" content="Close Android Smart App Banner">
     </head>
     <body>
-      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
-      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
 
@@ -112,8 +100,6 @@ describe('SmartBanner', function() {
       <meta name="smartbanner:close-label" content="Close Smart App Banner">
     </head>
     <body>
-      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
-      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
 
