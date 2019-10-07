@@ -25,7 +25,6 @@ describe('SmartBanner', function() {
     <html style="margin-top:10px;">
     <head>
       ${HEAD}
-      <meta name="smartbanner:disable-positioning" content="false">
     </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
@@ -37,7 +36,6 @@ describe('SmartBanner', function() {
     <html style="margin-top:10px;">
     <head>
       ${HEAD}
-      <meta name="smartbanner:disable-positioning" content="false">
     </head>
     <body>
       <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
