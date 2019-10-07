@@ -24,8 +24,6 @@ describe('SmartBanner', function() {
     <html style="margin-top:10px;">
     ${HEAD}
     <body>
-      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
-      <div class="ui-page" style="position:absolute; top:13px;"></div>
     </body>
   </html>`;
 
