@@ -899,7 +899,6 @@ describe('SmartBanner', function() {
 
     const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
 
-
     context('when option is not set', function() {
 
       before(function() {
@@ -927,7 +926,6 @@ describe('SmartBanner', function() {
         </body>
       </html>`;
 
-
       before(function() {
         global.window = new JSDOM(HTML_WITH_HIDE_PATH, { resources: resourceLoader }).window;
         global.document = window.document;
@@ -944,7 +942,6 @@ describe('SmartBanner', function() {
   describe('hideTtl', function() {
 
     const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-
 
     context('when option is not set', function() {
 
@@ -972,7 +969,6 @@ describe('SmartBanner', function() {
           <div class="ui-page" style="position:absolute; top:13px;"></div>
         </body>
       </html>`;
-
 
       before(function() {
         global.window = new JSDOM(HTML_WITH_HIDE_TTL, { resources: resourceLoader }).window;
