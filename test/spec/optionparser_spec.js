@@ -7,44 +7,36 @@ import OptionParser from '../../src/optionparser.js';
 
 describe('OptionParser', function() {
 
-  const HTML_WITH_FULL_OPTIONS = `<!doctype html>
+  const HEAD = `<meta charset="utf-8">
+    <meta name="smartbanner:title" content="Smart Application">
+    <meta name="smartbanner:author" content="SmartBanner Contributors">
+    <meta name="smartbanner:price" content="FREE">
+    <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+    <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+    <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+    <meta name="smartbanner:icon-google" content="icon--google.jpg">
+    <meta name="smartbanner:button" content="VIEW">
+    <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+    <meta name="smartbanner:button-url-google" content="https://play.google.com/store">`;
+
+  const HTML_WITHOUT_OPTIONALS = `<!doctype html>
     <html>
     <head>
-      <meta charset="utf-8">
-      <meta name="smartbanner:title" content="Smart Application">
-      <meta name="smartbanner:author" content="SmartBanner Contributors">
-      <meta name="smartbanner:price" content="FREE">
-      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
-      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
-      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
-      <meta name="smartbanner:icon-google" content="icon--google.jpg">
-      <meta name="smartbanner:button" content="VIEW">
-      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
-      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
-      <meta name="smartbanner:enabled-platforms" content="android">
-      <meta name="smartbanner:custom-design-modifier" content="tekkie.flashbit.net">
-      <meta name="smartbanner:hide-path" content="/smartbanner">
-      <meta name="smartbanner:api" content="true">
-      <meta name="smartbanner:close-label" content="Close">
+      ${HEAD}
     </head>
     <body>
     </body>
     </html>`;
 
-  const HTML_WITHOUT_OPTIONALS = `<!doctype html>
+  const HTML_WITH_FULL_OPTIONS = `<!doctype html>
     <html>
     <head>
-      <meta charset="utf-8">
-      <meta name="smartbanner:title" content="Smart Application">
-      <meta name="smartbanner:author" content="SmartBanner Contributors">
-      <meta name="smartbanner:price" content="FREE">
-      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
-      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
-      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
-      <meta name="smartbanner:icon-google" content="icon--google.jpg">
-      <meta name="smartbanner:button" content="VIEW">
-      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
-      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      ${HEAD}
+      <meta name="smartbanner:enabled-platforms" content="android">
+      <meta name="smartbanner:custom-design-modifier" content="tekkie.flashbit.net">
+      <meta name="smartbanner:hide-path" content="/smartbanner">
+      <meta name="smartbanner:api" content="true">
+      <meta name="smartbanner:close-label" content="Close">
     </head>
     <body>
     </body>
