@@ -34,7 +34,7 @@
     "watchify": "^3.11.1"
   },
   "engines": {
-    "node": ">=8.11.3 <13.0.0"
+    "node": ">=8.11.3 <14.0.0"
   },
   "repository": {
     "type": "git",
