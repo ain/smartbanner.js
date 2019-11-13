@@ -15,6 +15,11 @@ function handleExitClick(event, self) {
   event.preventDefault();
 }
 
+function handleClickout(event, self) {
+  self.clickout();
+  event.preventDefault();
+}
+
 function handleJQueryMobilePageLoad(event) {
   if (!this.positioningDisabled) {
     setContentPosition(event.data.height);
@@ -24,6 +29,10 @@ function handleJQueryMobilePageLoad(event) {
 function addEventListeners(self) {
   let closeIcon = document.querySelector('.js_smartbanner__exit');
   closeIcon.addEventListener('click', (event) => handleExitClick(event, self));
+
+  let button = document.querySelector('.js_smartbanner__button');
+  button.addEventListener('click', (event) => handleClickout(event, self));
+
   if (Detector.jQueryMobilePage()) {
     $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
   }
@@ -131,7 +140,7 @@ export default class SmartBanner {
           <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
         </div>
       </div>
-      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button" rel="noopener" aria-label="${this.options.button}"><span class="smartbanner__button__label">${this.options.button}</span></a>
+      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="${this.options.button}"><span class="smartbanner__button__label">${this.options.button}</span></a>
     </div>`;
   }
 
@@ -219,5 +228,10 @@ export default class SmartBanner {
     let event = new Event('smartbanner.exit');
     document.dispatchEvent(event);
     Bakery.bake(this.hideTtl, this.hidePath);
+  }
+
+  clickout() {
+    let event = new Event('smartbanner.clickout');
+    document.dispatchEvent(event);
   }
 }
