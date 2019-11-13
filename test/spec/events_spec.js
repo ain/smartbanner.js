@@ -123,7 +123,6 @@ describe('SmartBanner', function() {
 
   });
 
-
   describe('exit', function() {
 
     context('when on iPhone', function() {
@@ -202,6 +201,99 @@ describe('SmartBanner', function() {
           done();
         });
         smartbanner.exit();
+      });
+
+    });
+
+  });
+
+  describe('clickout', function() {
+
+    context('when on iPhone', function() {
+
+      beforeEach(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        global.$ = undefined;
+        global.Event = window.Event;
+        smartbanner = new SmartBanner();
+      });
+
+      afterEach(function() {
+        smartbanner.exit();
+      });
+
+      it('expected to dispatch smartbanner.clickout event', function(done) {
+        document.addEventListener('smartbanner.clickout', function () {
+          done();
+        });
+        smartbanner.publish();
+        smartbanner.clickout();
+      });
+
+    });
+
+    context('when on iPad', function() {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPAD });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        global.Event = window.Event;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to dispatch smartbanner.clickout event', function(done) {
+        document.addEventListener('smartbanner.clickout', function () {
+          done();
+        });
+        smartbanner.publish();
+        smartbanner.clickout();
+      });
+
+    });
+
+    context('when on iPod', function() {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPOD });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        global.Event = window.Event;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to dispatch smartbanner.clickout event', function(done) {
+        document.addEventListener('smartbanner.clickout', function () {
+          done();
+        });
+        smartbanner.publish();
+        smartbanner.clickout();
+      });
+
+    });
+
+    context('when on Android', function() {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        global.Event = window.Event;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to dispatch event', function(done) {
+        document.addEventListener('smartbanner.clickout', function () {
+          done();
+        });
+        smartbanner.publish();
+        smartbanner.clickout();
       });
 
     });
