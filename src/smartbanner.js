@@ -17,7 +17,6 @@ function handleExitClick(event, self) {
 
 function handleClickout(event, self) {
   self.clickout();
-  event.preventDefault();
 }
 
 function handleJQueryMobilePageLoad(event) {
