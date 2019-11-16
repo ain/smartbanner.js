@@ -147,17 +147,16 @@ smartbanner uses built-in platform-specific styles (e.g. `smartbanner--ios` or `
 
 Following events are being dispatched:
 
-| Event              | Description                                     |
-| -----              | -----------                                     |
-| `smartbanner.view` | Dispatched when smartbanner is added to display |
-| `smartbanner.exit` | Dispatched when smartbanner is closed           |
+| Event                  | Description                                                     |
+| -----                  | -----------                                                     |
+| `smartbanner.view`     | Dispatched when smartbanner is added to display                 |
+| `smartbanner.clickout` | Dispatched when smartbanner is clicked to navigate to app store |
+| `smartbanner.exit`     | Dispatched when smartbanner is closed                           |
 
-Example handler:
+Example handler to automatically close smartbanner when user clicks to navigate to app store:
 
 ```js
-document.addEventListener('smartbanner.exit', function() {
-  console.log('smartbanner.exit');
-});
+document.addEventListener('smartbanner.clickout', smartbanner.exit);
 ```
 
 ## Contributing
