@@ -153,7 +153,7 @@ Following events are being dispatched:
 | `smartbanner.clickout` | Dispatched when smartbanner is clicked to navigate to app store |
 | `smartbanner.exit`     | Dispatched when smartbanner is closed                           |
 
-Example handler to automatically close smartbanner when user clicks to navigate to app store:
+Example handler (closes smartbanner when user clicks to navigate to app store):
 
 ```js
 document.addEventListener('smartbanner.clickout', smartbanner.exit);
