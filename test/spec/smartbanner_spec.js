@@ -881,6 +881,27 @@ describe('SmartBanner', function() {
 
   });
 
+  describe('handleClickout', function() {
+    before(function() {
+      const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+      global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
+      global.document = window.document;
+      global.getComputedStyle = window.getComputedStyle;
+      smartbanner = new SmartBanner();
+      smartbanner.publish();
+    });
+
+    it('expected to handle clickout', function(done) {
+      document.addEventListener('smartbanner.clickout', function () {
+        done();
+      });
+      let clickEvent = document.createEvent("HTMLEvents");
+      clickEvent.initEvent("click", false, true);
+      document.querySelector('.js_smartbanner__button').dispatchEvent(clickEvent);
+    });
+
+  });
+
   describe('hidePath', function() {
 
     const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
