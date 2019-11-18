@@ -5,24 +5,19 @@ Customisable smart app banner for iOS and Android.
 
 ## Features
 
-- Pure JavaScript, no jQuery (13 KB in minified size)
-- ECMAScript 6 source
+- Populating smartbanner is as easy as [adding meta tags](#basic-usage), no JavaScript knowledge required
 - Default [Smart App Banner](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html) like design
-- Customisable design by using
+- Customisable info with i18n support and design by using
   - automatically generated `smartbanner--<platform>` class on wrapper
   - [custom design modifier](#custom-design-modifier) for externally defined styles or same design on all platforms
-- Fully customisable info
-- Close button that
-  - closes the banner
-  - sets cookie to keep banner closed
-    - for current session or [for defined time](#time-limited-close)
-    - at current path or [site-wide](#path-designated-close)
-  - emits [exit event](#events)
-  - has translatable label
-- Platform-specific app icon URL
-- Platform-specific URL for _View_ button
-- jQuery Mobile and AngularJS compliance
+- Close button that closes the banner and sets cookie to keep banner closed
+  - for current session or [for defined time](#time-limited-close)
+  - at current path or [site-wide](#path-designated-close)
+- Platform-specific app icon and _View_ button
 - User Agent specific targeting
+- Pure JavaScript coming at 13 KB in minified size, no jQuery required
+- [Events](#events) emitted for [API](#smartbanner-api-use) implementations
+- ECMAScript 6 source
 
 ## Basic Usage
 
@@ -109,20 +104,6 @@ Following example would keep smartbanner closed site-wide (but only when user ha
 <meta name="smartbanner:hide-path" content="/">
 ```
 
-### smartbanner API use
-
-By default smartbanner is added to DOM automatically. You can disable it with
-
-```html
-<meta name="smartbanner:api" content="true">
-```
-
-and add smartbanner to DOM manually:
-
-```js
-smartbanner.publish();
-```
-
 ### Custom design modifier
 
 smartbanner uses built-in platform-specific styles (e.g. `smartbanner--ios` or `smartbanner--android`), but this behaviour can be altered by adding custom design modifier that allows use of:
@@ -142,6 +123,20 @@ smartbanner uses built-in platform-specific styles (e.g. `smartbanner--ios` or `
     ```
 
     which would add `smartbanner--ios` class on wrapper regardless of actual platform.
+
+### smartbanner API use
+
+By default smartbanner is added to DOM automatically. You can disable it with
+
+```html
+<meta name="smartbanner:api" content="true">
+```
+
+and add smartbanner to DOM manually:
+
+```js
+smartbanner.publish();
+```
 
 ### Events
 
