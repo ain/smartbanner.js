@@ -147,7 +147,7 @@ Following events are being dispatched:
 | `smartbanner.view`     | Dispatched when smartbanner is added to display                 |
 | `smartbanner.clickout` | Dispatched when smartbanner is clicked to navigate to app store |
 | `smartbanner.exit`     | Dispatched when smartbanner is closed                           |
-| `smartbanner.apiready` | Dispatched when the smartbanner api has been added to the window|
+| `smartbanner.init` | Dispatched when the smartbanner has been initialised |
 
 Example handler (closes smartbanner when user clicks to navigate to app store):
 
