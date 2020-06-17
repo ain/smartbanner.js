@@ -144,10 +144,10 @@ Following events are being dispatched:
 
 | Event                  | Description                                                     |
 | :-----                 | :-----------                                                    |
+| `smartbanner.init`     | Dispatched when smartbanner has been initialised                |
 | `smartbanner.view`     | Dispatched when smartbanner is added to display                 |
 | `smartbanner.clickout` | Dispatched when smartbanner is clicked to navigate to app store |
 | `smartbanner.exit`     | Dispatched when smartbanner is closed                           |
-| `smartbanner.init` | Dispatched when the smartbanner has been initialised |
 
 Example handler (closes smartbanner when user clicks to navigate to app store):
 
