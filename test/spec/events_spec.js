@@ -322,10 +322,7 @@ describe('SmartBanner', function() {
         document.addEventListener('smartbanner.init', function () {
           done();
         });
-
-        require('../../src/index');
-        // need to delete from node's cache so that it will execute again when it is next required
-        delete require.cache[require.resolve('../../src/index')];
+        smartbanner = new SmartBanner();
       });
 
     });
@@ -342,10 +339,7 @@ describe('SmartBanner', function() {
         document.addEventListener('smartbanner.init', function () {
           done();
         });
-
-        require('../../src/index');
-        // need to delete from node's cache so that it will execute again when it is next required
-        delete require.cache[require.resolve('../../src/index')];
+        smartbanner = new SmartBanner();
       });
 
     });
@@ -362,10 +356,7 @@ describe('SmartBanner', function() {
         document.addEventListener('smartbanner.init', function () {
           done();
         });
-
-        require('../../src/index');
-        // need to delete from node's cache so that it will execute again when it is next required
-        delete require.cache[require.resolve('../../src/index')];
+        smartbanner = new SmartBanner();
       });
 
     });
@@ -382,10 +373,7 @@ describe('SmartBanner', function() {
         document.addEventListener('smartbanner.init', function () {
           done();
         });
-
-        require('../../src/index');
-        // need to delete from node's cache so that it will execute again when it is next required
-        delete require.cache[require.resolve('../../src/index')];
+        smartbanner = new SmartBanner();
       });
 
     });
@@ -393,4 +381,3 @@ describe('SmartBanner', function() {
   });
 
 });
-
