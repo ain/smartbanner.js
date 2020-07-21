@@ -7,6 +7,7 @@ node_js:
   - 11
   - 12
   - 13
+  - 14
 
 script:
   - npm run eslint

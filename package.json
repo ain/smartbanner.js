@@ -1,6 +1,6 @@
 {
   "name": "smartbanner.js",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "description": "Customisable smart app banner for iOS and Android",
   "homepage": "https://github.com/ain/smartbanner.js",
   "author": {
@@ -34,7 +34,7 @@
     "watchify": "^3.11.1"
   },
   "engines": {
-    "node": ">=8.11.3 <14.0.0"
+    "node": ">=8.11.3 <15.0.0"
   },
   "repository": {
     "type": "git",

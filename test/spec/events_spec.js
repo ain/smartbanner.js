@@ -27,6 +27,14 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
+  const HTML_API_MODE = `<!doctype html>
+    <html>
+    <head>
+        <meta name="smartbanner:api" content="true">
+    </head>
+    <body></body>
+  </html>`;
+
   const USER_AGENT_IPHONE_IOS9 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
   const USER_AGENT_IPAD = 'Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1';
   const USER_AGENT_IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4';
@@ -294,6 +302,78 @@ describe('SmartBanner', function() {
         });
         smartbanner.publish();
         smartbanner.clickout();
+      });
+
+    });
+
+  });
+
+  describe('init', function() {
+
+    context('when on iPhone', function() {
+
+      beforeEach(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+        global.window = new JSDOM(HTML_API_MODE, { resources: resourceLoader }).window;
+        global.document = window.document;
+      });
+
+      it('expected to dispatch smartbanner.init event', function(done) {
+        document.addEventListener('smartbanner.init', function () {
+          done();
+        });
+        smartbanner = new SmartBanner();
+      });
+
+    });
+
+    context('when on iPad', function() {
+
+      beforeEach(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPAD });
+        global.window = new JSDOM(HTML_API_MODE, { resources: resourceLoader }).window;
+        global.document = window.document;
+      });
+
+      it('expected to dispatch smartbanner.init event', function(done) {
+        document.addEventListener('smartbanner.init', function () {
+          done();
+        });
+        smartbanner = new SmartBanner();
+      });
+
+    });
+
+    context('when on iPod', function() {
+
+      beforeEach(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPOD });
+        global.window = new JSDOM(HTML_API_MODE, { resources: resourceLoader }).window;
+        global.document = window.document;
+      });
+
+      it('expected to dispatch smartbanner.init event', function(done) {
+        document.addEventListener('smartbanner.init', function () {
+          done();
+        });
+        smartbanner = new SmartBanner();
+      });
+
+    });
+
+    context('when on Android', function() {
+
+      beforeEach(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
+        global.window = new JSDOM(HTML_API_MODE, { resources: resourceLoader }).window;
+        global.document = window.document;
+      });
+
+      it('expected to dispatch smartbanner.init event', function(done) {
+        document.addEventListener('smartbanner.init', function () {
+          done();
+        });
+        smartbanner = new SmartBanner();
       });
 
     });
