@@ -120,7 +120,7 @@ describe('SmartBanner', function() {
           <div class="smartbanner__price">FREE - On the App Store</div>
         </div>
       </div>
-      <a href="https://itunes.apple.com/us/genre/ios/id36?mt=8" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button-label">View</span></a>
+      <a href="https://itunes.apple.com/us/genre/ios/id36?mt=8" class="smartbanner__button js_smartbanner__button" aria-label="View"><span class="smartbanner__button-label">View</span></a>
     </div>`;
 
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android js_smartbanner">
@@ -133,7 +133,7 @@ describe('SmartBanner', function() {
           <div class="smartbanner__price">FREE - In Google Play</div>
         </div>
       </div>
-      <a href="https://play.google.com/store" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button-label">View</span></a>
+      <a href="https://play.google.com/store" class="smartbanner__button js_smartbanner__button" aria-label="View"><span class="smartbanner__button-label">View</span></a>
     </div>`;
 
   const UNDEFINED_BODY = `<div class="smartbanner smartbanner--undefined js_smartbanner">
@@ -146,7 +146,7 @@ describe('SmartBanner', function() {
           <div class="smartbanner__price">FREE</div>
         </div>
       </div>
-      <a href="#" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button-label">View</span></a>
+      <a href="#" class="smartbanner__button js_smartbanner__button" aria-label="View"><span class="smartbanner__button-label">View</span></a>
     </div>`;
 
   const ANDROID_CUSTOM_DESIGN_BODY = `<div class="smartbanner smartbanner--custom-design js_smartbanner">
@@ -159,7 +159,7 @@ describe('SmartBanner', function() {
           <div class="smartbanner__price">FREE - In Google Play</div>
         </div>
       </div>
-      <a href="https://play.google.com/store" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="View"><span class="smartbanner__button-label">View</span></a>
+      <a href="https://play.google.com/store" class="smartbanner__button js_smartbanner__button" aria-label="View"><span class="smartbanner__button-label">View</span></a>
     </div>`;
 
   const USER_AGENT_IPHONE_IOS8 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A405 Safari/600.1.4';
