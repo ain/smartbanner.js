@@ -189,6 +189,12 @@ export default class SmartBanner {
     return this.options.hidePath ? this.options.hidePath : '/';
   }
 
+  get parentElement() {
+    const parentElement = this.options.parentElement ? document.querySelector(this.options.parentElement) : null;
+
+    return parentElement || document.querySelector('body');
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
@@ -210,7 +216,7 @@ export default class SmartBanner {
     }
 
     let bannerDiv = document.createElement('div');
-    document.querySelector('body').appendChild(bannerDiv);
+    this.parentElement.appendChild(bannerDiv);
     bannerDiv.outerHTML = this.html;
     let event = new Event('smartbanner.view');
     document.dispatchEvent(event);

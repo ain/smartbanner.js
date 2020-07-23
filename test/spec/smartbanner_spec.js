@@ -103,7 +103,36 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
-  const SCRIPTS = `<script>window.conclude();</script>`;
+  const HTML_PARENT_ELEMENT = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      ${HEAD}
+      <meta name="smartbanner:disable-positioning" content="true">
+      <meta name="smartbanner:parent-element" content="#smartbanner-parent-container">
+    </head>
+    <body>
+      <header>
+        <div id="smartbanner-parent-container"></div>
+      </header>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
+  const HTML_PARENT_ELEMENT_MISSING = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      ${HEAD}
+      <meta name="smartbanner:disable-positioning" content="true">
+      <meta name="smartbanner:parent-element" content="#smartbanner-parent-container">
+    </head>
+    <body>
+      <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+      <div class="ui-page" style="position:absolute; top:13px;"></div>
+    </body>
+  </html>`;
+
+  const SCRIPTS = '<script>window.conclude();</script>';
   const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script>window.conclude();</script>`;
@@ -874,8 +903,8 @@ describe('SmartBanner', function() {
       document.addEventListener('smartbanner.exit', function () {
         done();
       });
-      let clickEvent = document.createEvent("HTMLEvents");
-      clickEvent.initEvent("click", false, true);
+      let clickEvent = document.createEvent('HTMLEvents');
+      clickEvent.initEvent('click', false, true);
       document.querySelector('.js_smartbanner__exit').dispatchEvent(clickEvent);
     });
 
@@ -895,8 +924,8 @@ describe('SmartBanner', function() {
       document.addEventListener('smartbanner.clickout', function () {
         done();
       });
-      let clickEvent = document.createEvent("HTMLEvents");
-      clickEvent.initEvent("click", false, true);
+      let clickEvent = document.createEvent('HTMLEvents');
+      clickEvent.initEvent('click', false, true);
       document.querySelector('.js_smartbanner__button').dispatchEvent(clickEvent);
     });
 
@@ -988,6 +1017,44 @@ describe('SmartBanner', function() {
       });
     });
 
+  });
+
+  describe('parentElement', function () {
+
+    context('desired parent element exists', function () {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
+        global.window = new JSDOM(HTML_PARENT_ELEMENT, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        global.Event = window.Event;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
+      });
+
+      it('expect smartbanner to be placed inside defined element', function () {
+        expect(document.querySelector('#smartbanner-parent-container').childNodes.length).to.eql(1);
+        expect(document.querySelector('#smartbanner-parent-container .smartbanner')).to.exist;
+      });
+    });
+
+    context('desired parent element doesnt exist', function () {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
+        global.window = new JSDOM(HTML_PARENT_ELEMENT_MISSING, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        global.Event = window.Event;
+        smartbanner = new SmartBanner();
+        smartbanner.publish();
+      });
+
+      it('expect smartbanner to be placed inside body element', function () {
+        expect(document.querySelector('body > .smartbanner')).to.exist;
+      });
+    });
   });
 
 });

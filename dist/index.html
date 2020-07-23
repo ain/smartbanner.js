@@ -18,7 +18,8 @@
   <!--<meta name="smartbanner:api" content="true">-->
   <!--<meta name="smartbanner:hide-ttl" content="2629746000">-->
   <!--<meta name="smartbanner:hide-path" content="/">-->
-  <!--<meta name="smartbanner:disable-positioning" content="true">-->
+  <meta name="smartbanner:disable-positioning" content="true">
+  <meta name="smartbanner:parent-element" content="#container">
   <!-- Enable for all platforms -->
   <!--<meta name="smartbanner:include-user-agent-regex" content=".*">-->
   <!-- iOS -->
@@ -31,6 +32,9 @@
 </head>
 <body>
   <h1>&nbsp;</h1>
+  <header>
+    <div id="container"></div>
+  </header>
   <script>
     let onLoadHandlerForConflictTesting = function() {};
     window.onload = onLoadHandlerForConflictTesting;

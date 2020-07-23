@@ -78,6 +78,17 @@ If you want to position smart app banner yourself (e.g. in CSS), you can disable
 <meta name="smartbanner:disable-positioning" content="true">
 ```
 
+#### Define parent element
+
+Additionally to disabling positioning, you might want to place the smart app banner inside a specific container (e.g. parent element). The parent element is defined by a css selector:
+```html
+<meta name="smartbanner:disable-positioning" content="true">
+<meta name="smartbanner:parent-element" content="#mobile-navigation.banner-container">
+```
+
+If the desired element can't be found by the defined selector the smart app banner will fallback to the document body.
+ 
+
 ### Hide the smartbanner completely
 
 If you want to prevent smartbanner rendering in some html pages, you can add optional `meta` tag:

@@ -16,9 +16,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Bakery =
-/*#__PURE__*/
-function () {
+var Bakery = /*#__PURE__*/function () {
   function Bakery() {
     _classCallCheck(this, Bakery);
   }
@@ -68,9 +66,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Detector =
-/*#__PURE__*/
-function () {
+var Detector = /*#__PURE__*/function () {
   function Detector() {
     _classCallCheck(this, Detector);
   }
@@ -155,9 +151,7 @@ function convertToCamelCase(name) {
   return parts.join('');
 }
 
-var OptionParser =
-/*#__PURE__*/
-function () {
+var OptionParser = /*#__PURE__*/function () {
   function OptionParser() {
     _classCallCheck(this, OptionParser);
   }
@@ -296,9 +290,7 @@ function restoreContentPosition() {
   }
 }
 
-var SmartBanner =
-/*#__PURE__*/
-function () {
+var SmartBanner = /*#__PURE__*/function () {
   function SmartBanner() {
     _classCallCheck(this, SmartBanner);
 
@@ -333,7 +325,7 @@ function () {
       }
 
       var bannerDiv = document.createElement('div');
-      document.querySelector('body').appendChild(bannerDiv);
+      this.parentElement.appendChild(bannerDiv);
       bannerDiv.outerHTML = this.html;
       var event = new Event('smartbanner.view');
       document.dispatchEvent(event);
@@ -475,6 +467,12 @@ function () {
     key: "hidePath",
     get: function get() {
       return this.options.hidePath ? this.options.hidePath : '/';
+    }
+  }, {
+    key: "parentElement",
+    get: function get() {
+      var parentElement = this.options.parentElement ? document.querySelector(this.options.parentElement) : null;
+      return parentElement || document.querySelector('body');
     }
   }]);
 
