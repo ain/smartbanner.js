@@ -136,13 +136,13 @@ export default class SmartBanner {
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="${this.closeLabel}"></a>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
-        <div>
-          <div class="smartbanner__info__title">${this.options.title}</div>
-          <div class="smartbanner__info__author">${this.options.author}</div>
-          <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
+        <div class="smartbanner__copy">
+          <div class="smartbanner__title">${this.options.title}</div>
+          <div class="smartbanner__author">${this.options.author}</div>
+          <div class="smartbanner__price">${this.options.price}${this.priceSuffix}</div>
         </div>
       </div>
-      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="${this.options.button}"><span class="smartbanner__button__label">${this.options.button}</span></a>
+      <a href="${this.buttonUrl}" class="smartbanner__button js_smartbanner__button" aria-label="${this.options.button}"><span class="smartbanner__button-label">${this.options.button}</span></a>
     </div>`;
   }
 

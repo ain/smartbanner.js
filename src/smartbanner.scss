@@ -82,16 +82,15 @@ $black: #000;
     align-items: center;
 
     color: $black;
+  }
 
-    &__title {
-      font-size: 14px;
-    }
+  &__title {
+    font-size: 14px;
+  }
 
-    &__author,
-    &__price {
-      font-size: 12px;
-    }
-
+  &__author,
+  &__price {
+    font-size: 12px;
   }
 
   &__button {
@@ -112,10 +111,10 @@ $black: #000;
     font-size: 18px;
     text-align: center;
     text-decoration: none;
+  }
 
-    &__label {
-      text-align: center;
-    }
+  &__button-label {
+    text-align: center;
   }
 
   /** Android styles **/
@@ -165,11 +164,11 @@ $black: #000;
     .smartbanner__info {
       color: #ccc;
       text-shadow: 0 1px 2px #000;
+    }
 
-      &__title {
-        color: #fff;
-        font-weight: bold;
-      }
+    .smartbanner__title {
+      color: #fff;
+      font-weight: bold;
     }
 
     .smartbanner__button {
@@ -191,24 +190,24 @@ $black: #000;
       &:hover {
         background: none;
       }
+    }
 
-      &__label {
-        display: block;
-        padding: 0 10px;
+    .smartbanner__button-label {
+      display: block;
+      padding: 0 10px;
 
-        background: #42b6c9;
-        background: linear-gradient(to bottom, #42b6c9, #39a9bb);
-        box-shadow: none;
+      background: #42b6c9;
+      background: linear-gradient(to bottom, #42b6c9, #39a9bb);
+      box-shadow: none;
 
-        line-height: 24px;
-        text-align: center;
-        text-shadow: none;
-        text-transform: none;
+      line-height: 24px;
+      text-align: center;
+      text-shadow: none;
+      text-transform: none;
 
-        &:active,
-        &:hover {
-          background: #2ac7e1;
-        }
+      &:active,
+      &:hover {
+        background: #2ac7e1;
       }
     }
   }
