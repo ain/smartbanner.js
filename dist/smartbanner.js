@@ -201,10 +201,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var DEFAULT_PLATFORMS = 'android,ios';
 var DEFAULT_CLOSE_LABEL = 'Close';
-var datas = {
-  originalTop: 'data-smartbanner-original-top',
-  originalMarginTop: 'data-smartbanner-original-margin-top'
-};
 
 function handleExitClick(event, self) {
   self.exit();
@@ -226,34 +222,6 @@ function addEventListeners(self) {
   });
 }
 
-function setContentPosition(value) {
-  var wrappers = _detector["default"].wrapperElement();
-
-  for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-
-    if (wrapper.getAttribute(datas.originalMarginTop)) {
-      continue;
-    }
-
-    var margin = parseFloat(getComputedStyle(wrapper).marginTop);
-    wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
-    wrapper.style.marginTop = value + 'px';
-  }
-}
-
-function restoreContentPosition() {
-  var wrappers = _detector["default"].wrapperElement();
-
-  for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-
-    if (wrapper.getAttribute(datas.originalMarginTop)) {
-      wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
-    }
-  }
-}
-
 var SmartBanner = /*#__PURE__*/function () {
   function SmartBanner() {
     _classCallCheck(this, SmartBanner);
@@ -263,8 +231,7 @@ var SmartBanner = /*#__PURE__*/function () {
     this.platform = _detector["default"].platform();
     var event = new Event('smartbanner.init');
     document.dispatchEvent(event);
-  } // DEPRECATED. Will be removed.
-
+  }
 
   _createClass(SmartBanner, [{
     key: "publish",
@@ -275,13 +242,12 @@ var SmartBanner = /*#__PURE__*/function () {
 
       if (_bakery["default"].baked) {
         return false;
-      } // User Agent was explicetely excluded by defined excludeUserAgentRegex
+      } // User Agent was explicetely excluded by excludeUserAgentRegex
 
 
       if (this.userAgentExcluded) {
         return false;
-      } // User agent was neither included by platformEnabled,
-      // nor by defined includeUserAgentRegex
+      } // User Agent was neither included by platformEnabled nor defined by includeUserAgentRegex
 
 
       if (!(this.platformEnabled || this.userAgentIncluded)) {
@@ -293,20 +259,11 @@ var SmartBanner = /*#__PURE__*/function () {
       bannerDiv.outerHTML = this.html;
       var event = new Event('smartbanner.view');
       document.dispatchEvent(event);
-
-      if (!this.positioningDisabled) {
-        setContentPosition(this.height);
-      }
-
       addEventListeners(this);
     }
   }, {
     key: "exit",
     value: function exit() {
-      if (!this.positioningDisabled) {
-        restoreContentPosition();
-      }
-
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
       var event = new Event('smartbanner.exit');
@@ -319,21 +276,6 @@ var SmartBanner = /*#__PURE__*/function () {
     value: function clickout() {
       var event = new Event('smartbanner.clickout');
       document.dispatchEvent(event);
-    }
-  }, {
-    key: "originalTop",
-    get: function get() {
-      var wrapper = _detector["default"].wrapperElement()[0];
-
-      return parseFloat(wrapper.getAttribute(datas.originalTop));
-    } // DEPRECATED. Will be removed.
-
-  }, {
-    key: "originalTopMargin",
-    get: function get() {
-      var wrapper = _detector["default"].wrapperElement()[0];
-
-      return parseFloat(wrapper.getAttribute(datas.originalMarginTop));
     }
   }, {
     key: "priceSuffix",

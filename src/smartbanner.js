@@ -5,11 +5,6 @@ import Bakery from './bakery.js';
 const DEFAULT_PLATFORMS = 'android,ios';
 const DEFAULT_CLOSE_LABEL = 'Close';
 
-let datas = {
-  originalTop: 'data-smartbanner-original-top',
-  originalMarginTop: 'data-smartbanner-original-margin-top'
-};
-
 function handleExitClick(event, self) {
   self.exit();
   event.preventDefault();
@@ -27,29 +22,6 @@ function addEventListeners(self) {
   button.addEventListener('click', (event) => handleClickout(event, self));
 }
 
-function setContentPosition(value) {
-  let wrappers = Detector.wrapperElement();
-  for (let i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-    if (wrapper.getAttribute(datas.originalMarginTop)) {
-      continue;
-    }
-    let margin = parseFloat(getComputedStyle(wrapper).marginTop);
-    wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
-    wrapper.style.marginTop = value + 'px';
-  }
-}
-
-function restoreContentPosition() {
-  let wrappers = Detector.wrapperElement();
-  for (let i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-    if (wrapper.getAttribute(datas.originalMarginTop)) {
-      wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
-    }
-  }
-}
-
 export default class SmartBanner {
 
   constructor() {
@@ -59,18 +31,6 @@ export default class SmartBanner {
 
     let event = new Event('smartbanner.init');
     document.dispatchEvent(event);
-  }
-
-  // DEPRECATED. Will be removed.
-  get originalTop() {
-    let wrapper = Detector.wrapperElement()[0];
-    return parseFloat(wrapper.getAttribute(datas.originalTop));
-  }
-
-  // DEPRECATED. Will be removed.
-  get originalTopMargin() {
-    let wrapper = Detector.wrapperElement()[0];
-    return parseFloat(wrapper.getAttribute(datas.originalMarginTop));
   }
 
   get priceSuffix() {
@@ -177,13 +137,12 @@ export default class SmartBanner {
       return false;
     }
 
-    // User Agent was explicetely excluded by defined excludeUserAgentRegex
+    // User Agent was explicetely excluded by excludeUserAgentRegex
     if (this.userAgentExcluded) {
       return false;
     }
 
-    // User agent was neither included by platformEnabled,
-    // nor by defined includeUserAgentRegex
+    // User Agent was neither included by platformEnabled nor defined by includeUserAgentRegex
     if (!(this.platformEnabled || this.userAgentIncluded)) {
       return false;
     }
@@ -193,16 +152,10 @@ export default class SmartBanner {
     bannerDiv.outerHTML = this.html;
     let event = new Event('smartbanner.view');
     document.dispatchEvent(event);
-    if (!this.positioningDisabled) {
-      setContentPosition(this.height);
-    }
     addEventListeners(this);
   }
 
   exit() {
-    if (!this.positioningDisabled) {
-      restoreContentPosition();
-    }
     let banner = document.querySelector('.js_smartbanner');
     document.querySelector('body').removeChild(banner);
     let event = new Event('smartbanner.exit');

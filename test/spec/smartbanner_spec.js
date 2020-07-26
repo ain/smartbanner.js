@@ -239,14 +239,6 @@ describe('SmartBanner', function() {
           let html = document.querySelector('.js_smartbanner').outerHTML;
           expect(html).to.eql(IOS_BODY);
         });
-
-        it('expected to store original top margin', function() {
-          let html = document.querySelector('html');
-          let margin = parseFloat(getComputedStyle(html).marginTop);
-          smartbanner.publish();
-          expect(smartbanner.originalTopMargin).to.eql(margin);
-        });
-
       });
 
       context('when on iPad', function() {
@@ -737,17 +729,6 @@ describe('SmartBanner', function() {
       smartbanner.exit();
       let element = document.querySelector('.js_smartbanner');
       expect(element).not.to.exist;
-      done();
-    });
-
-    it('expected to restore HTML margin', function(done) {
-      smartbanner.exit();
-      let html = document.querySelector('html');
-      let margin = parseFloat(getComputedStyle(html).marginTop);
-      if (isNaN(margin)) {
-        margin = 0;
-      }
-      expect(margin).to.eql(smartbanner.originalTopMargin);
       done();
     });
   });
