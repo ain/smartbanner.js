@@ -133,11 +133,6 @@ describe('SmartBanner', function() {
   </html>`;
 
   const SCRIPTS = '<script>window.conclude();</script>';
-  const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script>window.conclude();</script>`;
-  const HTML_WITH_JQUERY_MOBILE = `<!doctype html><html><head></head><body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
-  const HTML_WITH_JQUERY_MOBILE_AND_META = `<!doctype html><html>${HEAD}<body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios js_smartbanner">
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="Close iOS Smart App Banner"></a>
@@ -724,69 +719,37 @@ describe('SmartBanner', function() {
 
   describe('exit', function() {
 
-    context('without jQuery Mobile', function() {
-
-      beforeEach(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
-        global.document = window.document;
-        global.getComputedStyle = window.getComputedStyle;
-        smartbanner = new SmartBanner();
-        smartbanner.publish();
-      });
-
-      it('expected to set cookie', function() {
-        smartbanner.exit();
-        expect(Bakery.baked).to.be.true;
-      });
-
-      it('expected to remove component markup', function(done) {
-        smartbanner.exit();
-        let element = document.querySelector('.js_smartbanner');
-        expect(element).not.to.exist;
-        done();
-      });
-
-      it('expected to restore HTML margin', function(done) {
-        smartbanner.exit();
-        let html = document.querySelector('html');
-        let margin = parseFloat(getComputedStyle(html).marginTop);
-        if (isNaN(margin)) {
-          margin = 0;
-        }
-        expect(margin).to.eql(smartbanner.originalTopMargin);
-        done();
-      });
-
+    beforeEach(function() {
+      const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+      global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+      global.document = window.document;
+      global.getComputedStyle = window.getComputedStyle;
+      smartbanner = new SmartBanner();
+      smartbanner.publish();
     });
 
-    context('with jQuery Mobile', function(done) {
-
-      before(function(done) {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE_AND_META, { runScripts: 'dangerously', resources: resourceLoader }).window;
-        global.window.conclude = () => {
-          global.document = window.document;
-          global.getComputedStyle = window.getComputedStyle;
-          global.$ = window.jQuery;
-          global.Event = window.Event;
-          smartbanner = new SmartBanner();
-          smartbanner.publish();
-          done();
-        };
-      });
-
-      it('expected to restore top distance', function() {
-        smartbanner.exit();
-        let page = global.document.querySelector('.ui-page');
-        let top = parseFloat(getComputedStyle(page).top);
-        if (isNaN(top)) {
-          top = 0;
-        }
-        expect(top).to.eql(smartbanner.originalTop);
-      });
+    it('expected to set cookie', function() {
+      smartbanner.exit();
+      expect(Bakery.baked).to.be.true;
     });
 
+    it('expected to remove component markup', function(done) {
+      smartbanner.exit();
+      let element = document.querySelector('.js_smartbanner');
+      expect(element).not.to.exist;
+      done();
+    });
+
+    it('expected to restore HTML margin', function(done) {
+      smartbanner.exit();
+      let html = document.querySelector('html');
+      let margin = parseFloat(getComputedStyle(html).marginTop);
+      if (isNaN(margin)) {
+        margin = 0;
+      }
+      expect(margin).to.eql(smartbanner.originalTopMargin);
+      done();
+    });
   });
 
   describe('height', function() {

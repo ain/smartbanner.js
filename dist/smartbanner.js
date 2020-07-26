@@ -52,7 +52,6 @@ var Bakery = /*#__PURE__*/function () {
 exports["default"] = Bakery;
 
 },{}],2:[function(require,module,exports){
-(function (global){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86,15 +85,9 @@ var Detector = /*#__PURE__*/function () {
       return new RegExp(regexString).test(window.navigator.userAgent);
     }
   }, {
-    key: "jQueryMobilePage",
-    value: function jQueryMobilePage() {
-      return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
-    }
-  }, {
     key: "wrapperElement",
     value: function wrapperElement() {
-      var selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
-      return document.querySelectorAll(selector);
+      return document.querySelectorAll('html');
     }
   }]);
 
@@ -103,7 +96,6 @@ var Detector = /*#__PURE__*/function () {
 
 exports["default"] = Detector;
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
 "use strict";
 
@@ -223,12 +215,6 @@ function handleClickout(event, self) {
   self.clickout();
 }
 
-function handleJQueryMobilePageLoad(event) {
-  if (!this.positioningDisabled) {
-    setContentPosition(event.data.height);
-  }
-}
-
 function addEventListeners(self) {
   var closeIcon = document.querySelector('.js_smartbanner__exit');
   closeIcon.addEventListener('click', function (event) {
@@ -238,16 +224,6 @@ function addEventListeners(self) {
   button.addEventListener('click', function (event) {
     return handleClickout(event, self);
   });
-
-  if (_detector["default"].jQueryMobilePage()) {
-    $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
-  }
-}
-
-function removeEventListeners() {
-  if (_detector["default"].jQueryMobilePage()) {
-    $(document).off('pagebeforeshow', handleJQueryMobilePageLoad);
-  }
 }
 
 function setContentPosition(value) {
@@ -256,23 +232,13 @@ function setContentPosition(value) {
   for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
     wrapper = wrappers[i];
 
-    if (_detector["default"].jQueryMobilePage()) {
-      if (wrapper.getAttribute(datas.originalTop)) {
-        continue;
-      }
-
-      var top = parseFloat(getComputedStyle(wrapper).top);
-      wrapper.setAttribute(datas.originalTop, isNaN(top) ? 0 : top);
-      wrapper.style.top = value + 'px';
-    } else {
-      if (wrapper.getAttribute(datas.originalMarginTop)) {
-        continue;
-      }
-
-      var margin = parseFloat(getComputedStyle(wrapper).marginTop);
-      wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
-      wrapper.style.marginTop = value + 'px';
+    if (wrapper.getAttribute(datas.originalMarginTop)) {
+      continue;
     }
+
+    var margin = parseFloat(getComputedStyle(wrapper).marginTop);
+    wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
+    wrapper.style.marginTop = value + 'px';
   }
 }
 
@@ -282,9 +248,7 @@ function restoreContentPosition() {
   for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
     wrapper = wrappers[i];
 
-    if (_detector["default"].jQueryMobilePage() && wrapper.getAttribute(datas.originalTop)) {
-      wrapper.style.top = wrapper.getAttribute(datas.originalTop) + 'px';
-    } else if (wrapper.getAttribute(datas.originalMarginTop)) {
+    if (wrapper.getAttribute(datas.originalMarginTop)) {
       wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
     }
   }
@@ -339,8 +303,6 @@ var SmartBanner = /*#__PURE__*/function () {
   }, {
     key: "exit",
     value: function exit() {
-      removeEventListeners();
-
       if (!this.positioningDisabled) {
         restoreContentPosition();
       }

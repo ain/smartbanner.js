@@ -19,11 +19,7 @@ describe('Detector', function() {
   const INCLUDE_USER_AGENT_REGEX = '.*iPhone OS [9\\-10].*';
 
   const { JSDOM } = jsdom;
-  const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script>window.conclude();</script>`;
   const HTML = `<!doctype html><html><head></head><body></body></html>`;
-  const HTML_WITH_JQUERY_MOBILE = `<!doctype html><html><head></head><body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
 
   describe('platform', function() {
 
@@ -178,71 +174,15 @@ describe('Detector', function() {
     });
   });
 
-  describe('jQueryMobilePage', function() {
-
-    context('without jQuery Mobile', function() {
-
-      before(function() {
-        global.window = new JSDOM(HTML).window;
-        global.document = window.document;
-      });
-
-      it('expected to return false', function() {
-        expect(Detector.jQueryMobilePage()).to.be.false;
-      });
-
-    });
-
-    context('with jQuery Mobile', function() {
-
-      before(function(done) {
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
-        global.window.conclude = function() {
-          global.document = window.document;
-          global.$ = window.jQuery;
-          done();
-        };
-      });
-
-      it('expected to return true', function(done) {
-        expect(Detector.jQueryMobilePage()).to.be.true;
-        done();
-      });
-
-    });
-  });
-
   describe('marginedElement', function() {
 
-    context('without jQuery Mobile', function() {
-
-      before(function() {
-        global.window = new JSDOM(HTML).window;
-        global.document = window.document;
-      });
-
-      it('expected to return html element as first item of array', function() {
-        expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('html'));
-      });
-
+    before(function() {
+      global.window = new JSDOM(HTML).window;
+      global.document = window.document;
     });
 
-    context('with jQuery Mobile', function() {
-
-      before(function(done) {
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
-        global.window.conclude = () => {
-          global.document = window.document;
-          global.$ = window.jQuery;
-          done();
-        };
-      });
-
-      it('expected to return ui-page element as first item of array', function(done) {
-        expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('.ui-page'));
-        done();
-      });
-
+    it('expected to return html element as first item of array', function() {
+      expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('html'));
     });
   });
 
