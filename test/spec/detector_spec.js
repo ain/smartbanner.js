@@ -178,72 +178,15 @@ describe('Detector', function() {
     });
   });
 
-  describe('jQueryMobilePage', function() {
-
-    context('without jQuery Mobile', function() {
-
-      before(function() {
-        global.window = new JSDOM(HTML).window;
-        global.document = window.document;
-      });
-
-      it('expected to return false', function() {
-        expect(Detector.jQueryMobilePage()).to.be.false;
-      });
-
-    });
-
-    context('with jQuery Mobile', function() {
-
-      before(function(done) {
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
-        global.window.conclude = function() {
-          global.document = window.document;
-          global.$ = window.jQuery;
-          done();
-        };
-      });
-
-      it('expected to return true', function(done) {
-        expect(Detector.jQueryMobilePage()).to.be.true;
-        done();
-      });
-
-    });
-  });
-
   describe('marginedElement', function() {
 
-    context('without jQuery Mobile', function() {
-
-      before(function() {
-        global.window = new JSDOM(HTML).window;
-        global.document = window.document;
-      });
-
-      it('expected to return html element as first item of array', function() {
-        expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('html'));
-      });
-
+    before(function() {
+      global.window = new JSDOM(HTML).window;
+      global.document = window.document;
     });
 
-    context('with jQuery Mobile', function() {
-
-      before(function(done) {
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE, { runScripts: 'dangerously', resources: "usable" }).window;
-        global.window.conclude = () => {
-          global.document = window.document;
-          global.$ = window.jQuery;
-          done();
-        };
-      });
-
-      it('expected to return ui-page element as first item of array', function(done) {
-        expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('.ui-page'));
-        done();
-      });
-
+    it('expected to return html element as first item of array', function() {
+      expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('html'));
     });
   });
-
 });

@@ -19,49 +19,24 @@ function handleClickout(event, self) {
   self.clickout();
 }
 
-function handleJQueryMobilePageLoad(event) {
-  if (!this.positioningDisabled) {
-    setContentPosition(event.data.height);
-  }
-}
-
 function addEventListeners(self) {
   let closeIcon = document.querySelector('.js_smartbanner__exit');
   closeIcon.addEventListener('click', (event) => handleExitClick(event, self));
 
   let button = document.querySelector('.js_smartbanner__button');
   button.addEventListener('click', (event) => handleClickout(event, self));
-
-  if (Detector.jQueryMobilePage()) {
-    $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
-  }
-}
-
-function removeEventListeners() {
-  if (Detector.jQueryMobilePage()) {
-    $(document).off('pagebeforeshow', handleJQueryMobilePageLoad);
-  }
 }
 
 function setContentPosition(value) {
   let wrappers = Detector.wrapperElement();
   for (let i = 0, l = wrappers.length, wrapper; i < l; i++) {
     wrapper = wrappers[i];
-    if (Detector.jQueryMobilePage()) {
-      if (wrapper.getAttribute(datas.originalTop)) {
-        continue;
-      }
-      let top = parseFloat(getComputedStyle(wrapper).top);
-      wrapper.setAttribute(datas.originalTop, isNaN(top) ? 0 : top);
-      wrapper.style.top = value + 'px';
-    } else {
-      if (wrapper.getAttribute(datas.originalMarginTop)) {
-        continue;
-      }
-      let margin = parseFloat(getComputedStyle(wrapper).marginTop);
-      wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
-      wrapper.style.marginTop = value + 'px';
+    if (wrapper.getAttribute(datas.originalMarginTop)) {
+      continue;
     }
+    let margin = parseFloat(getComputedStyle(wrapper).marginTop);
+    wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
+    wrapper.style.marginTop = value + 'px';
   }
 }
 
@@ -69,9 +44,7 @@ function restoreContentPosition() {
   let wrappers = Detector.wrapperElement();
   for (let i = 0, l = wrappers.length, wrapper; i < l; i++) {
     wrapper = wrappers[i];
-    if (Detector.jQueryMobilePage() && wrapper.getAttribute(datas.originalTop)) {
-      wrapper.style.top = wrapper.getAttribute(datas.originalTop) + 'px';
-    } else if (wrapper.getAttribute(datas.originalMarginTop)) {
+    if (wrapper.getAttribute(datas.originalMarginTop)) {
       wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
     }
   }
@@ -221,7 +194,6 @@ export default class SmartBanner {
   }
 
   exit() {
-    removeEventListeners();
     if (!this.positioningDisabled) {
       restoreContentPosition();
     }

@@ -12,13 +12,7 @@ export default class Detector {
     return new RegExp(regexString).test(window.navigator.userAgent);
   }
 
-  static jQueryMobilePage() {
-    return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
-  }
-
   static wrapperElement() {
-    let selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
-    return document.querySelectorAll(selector);
+    return document.querySelectorAll('html');
   }
-
 }
