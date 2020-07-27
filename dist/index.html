@@ -30,7 +30,9 @@
   <script src="smartbanner.js?3"></script>
 </head>
 <body>
-  <h1>&nbsp;</h1>
+  <div style="position: fixed; top: 0; z-index: 1000; height: 50px; background-color: #ddd; width: 100%; margin: 0; left: 0; padding: 10px;">Fixed top bar</div>
+  <h1 style="margin-top: 100px;">Example page</h1>
+  <p>Some illustrated content for testing purposes.</p>
   <script>
     let onLoadHandlerForConflictTesting = function() {};
     window.onload = onLoadHandlerForConflictTesting;
