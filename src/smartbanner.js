@@ -5,11 +5,6 @@ import Bakery from './bakery.js';
 const DEFAULT_PLATFORMS = 'android,ios';
 const DEFAULT_CLOSE_LABEL = 'Close';
 
-let datas = {
-  originalTop: 'data-smartbanner-original-top',
-  originalMarginTop: 'data-smartbanner-original-margin-top'
-};
-
 function handleExitClick(event, self) {
   self.exit();
   event.preventDefault();
@@ -19,62 +14,12 @@ function handleClickout(event, self) {
   self.clickout();
 }
 
-function handleJQueryMobilePageLoad(event) {
-  if (!this.positioningDisabled) {
-    setContentPosition(event.data.height);
-  }
-}
-
 function addEventListeners(self) {
   let closeIcon = document.querySelector('.js_smartbanner__exit');
   closeIcon.addEventListener('click', (event) => handleExitClick(event, self));
 
   let button = document.querySelector('.js_smartbanner__button');
   button.addEventListener('click', (event) => handleClickout(event, self));
-
-  if (Detector.jQueryMobilePage()) {
-    $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
-  }
-}
-
-function removeEventListeners() {
-  if (Detector.jQueryMobilePage()) {
-    $(document).off('pagebeforeshow', handleJQueryMobilePageLoad);
-  }
-}
-
-function setContentPosition(value) {
-  let wrappers = Detector.wrapperElement();
-  for (let i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-    if (Detector.jQueryMobilePage()) {
-      if (wrapper.getAttribute(datas.originalTop)) {
-        continue;
-      }
-      let top = parseFloat(getComputedStyle(wrapper).top);
-      wrapper.setAttribute(datas.originalTop, isNaN(top) ? 0 : top);
-      wrapper.style.top = value + 'px';
-    } else {
-      if (wrapper.getAttribute(datas.originalMarginTop)) {
-        continue;
-      }
-      let margin = parseFloat(getComputedStyle(wrapper).marginTop);
-      wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
-      wrapper.style.marginTop = value + 'px';
-    }
-  }
-}
-
-function restoreContentPosition() {
-  let wrappers = Detector.wrapperElement();
-  for (let i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-    if (Detector.jQueryMobilePage() && wrapper.getAttribute(datas.originalTop)) {
-      wrapper.style.top = wrapper.getAttribute(datas.originalTop) + 'px';
-    } else if (wrapper.getAttribute(datas.originalMarginTop)) {
-      wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
-    }
-  }
 }
 
 export default class SmartBanner {
@@ -86,18 +31,6 @@ export default class SmartBanner {
 
     let event = new Event('smartbanner.init');
     document.dispatchEvent(event);
-  }
-
-  // DEPRECATED. Will be removed.
-  get originalTop() {
-    let wrapper = Detector.wrapperElement()[0];
-    return parseFloat(wrapper.getAttribute(datas.originalTop));
-  }
-
-  // DEPRECATED. Will be removed.
-  get originalTopMargin() {
-    let wrapper = Detector.wrapperElement()[0];
-    return parseFloat(wrapper.getAttribute(datas.originalMarginTop));
   }
 
   get priceSuffix() {
@@ -136,13 +69,13 @@ export default class SmartBanner {
       <a href="javascript:void();" class="smartbanner__exit js_smartbanner__exit" aria-label="${this.closeLabel}"></a>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
-        <div>
-          <div class="smartbanner__info__title">${this.options.title}</div>
-          <div class="smartbanner__info__author">${this.options.author}</div>
-          <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
+        <div class="smartbanner__copy">
+          <div class="smartbanner__title">${this.options.title}</div>
+          <div class="smartbanner__author">${this.options.author}</div>
+          <div class="smartbanner__price">${this.options.price}${this.priceSuffix}</div>
         </div>
       </div>
-      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="${this.options.button}"><span class="smartbanner__button__label">${this.options.button}</span></a>
+      <a href="${this.buttonUrl}" class="smartbanner__button js_smartbanner__button" aria-label="${this.options.button}"><span class="smartbanner__button-label">${this.options.button}</span></a>
     </div>`;
   }
 
@@ -189,6 +122,12 @@ export default class SmartBanner {
     return this.options.hidePath ? this.options.hidePath : '/';
   }
 
+  get parentElement() {
+    const parentElement = this.options.parentElement ? document.querySelector(this.options.parentElement) : null;
+
+    return parentElement || document.querySelector('body');
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
@@ -198,33 +137,25 @@ export default class SmartBanner {
       return false;
     }
 
-    // User Agent was explicetely excluded by defined excludeUserAgentRegex
+    // User Agent was explicetely excluded by excludeUserAgentRegex
     if (this.userAgentExcluded) {
       return false;
     }
 
-    // User agent was neither included by platformEnabled,
-    // nor by defined includeUserAgentRegex
+    // User Agent was neither included by platformEnabled nor defined by includeUserAgentRegex
     if (!(this.platformEnabled || this.userAgentIncluded)) {
       return false;
     }
 
     let bannerDiv = document.createElement('div');
-    document.querySelector('body').appendChild(bannerDiv);
+    this.parentElement.appendChild(bannerDiv);
     bannerDiv.outerHTML = this.html;
     let event = new Event('smartbanner.view');
     document.dispatchEvent(event);
-    if (!this.positioningDisabled) {
-      setContentPosition(this.height);
-    }
     addEventListeners(this);
   }
 
   exit() {
-    removeEventListeners();
-    if (!this.positioningDisabled) {
-      restoreContentPosition();
-    }
     let banner = document.querySelector('.js_smartbanner');
     document.querySelector('body').removeChild(banner);
     let event = new Event('smartbanner.exit');

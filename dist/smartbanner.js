@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.16.0 <https://github.com/ain/smartbanner.js>
+ * smartbanner.js v2.0.0-beta.1 <https://github.com/ain/smartbanner.js>
  * Copyright © 2020 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
@@ -16,9 +16,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Bakery =
-/*#__PURE__*/
-function () {
+var Bakery = /*#__PURE__*/function () {
   function Bakery() {
     _classCallCheck(this, Bakery);
   }
@@ -54,7 +52,6 @@ function () {
 exports["default"] = Bakery;
 
 },{}],2:[function(require,module,exports){
-(function (global){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68,9 +65,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Detector =
-/*#__PURE__*/
-function () {
+var Detector = /*#__PURE__*/function () {
   function Detector() {
     _classCallCheck(this, Detector);
   }
@@ -90,15 +85,9 @@ function () {
       return new RegExp(regexString).test(window.navigator.userAgent);
     }
   }, {
-    key: "jQueryMobilePage",
-    value: function jQueryMobilePage() {
-      return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
-    }
-  }, {
     key: "wrapperElement",
     value: function wrapperElement() {
-      var selector = Detector.jQueryMobilePage() ? '.ui-page' : 'html';
-      return document.querySelectorAll(selector);
+      return document.querySelectorAll('html');
     }
   }]);
 
@@ -107,7 +96,6 @@ function () {
 
 exports["default"] = Detector;
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
 "use strict";
 
@@ -155,9 +143,7 @@ function convertToCamelCase(name) {
   return parts.join('');
 }
 
-var OptionParser =
-/*#__PURE__*/
-function () {
+var OptionParser = /*#__PURE__*/function () {
   function OptionParser() {
     _classCallCheck(this, OptionParser);
   }
@@ -215,10 +201,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var DEFAULT_PLATFORMS = 'android,ios';
 var DEFAULT_CLOSE_LABEL = 'Close';
-var datas = {
-  originalTop: 'data-smartbanner-original-top',
-  originalMarginTop: 'data-smartbanner-original-margin-top'
-};
 
 function handleExitClick(event, self) {
   self.exit();
@@ -227,12 +209,6 @@ function handleExitClick(event, self) {
 
 function handleClickout(event, self) {
   self.clickout();
-}
-
-function handleJQueryMobilePageLoad(event) {
-  if (!this.positioningDisabled) {
-    setContentPosition(event.data.height);
-  }
 }
 
 function addEventListeners(self) {
@@ -244,61 +220,9 @@ function addEventListeners(self) {
   button.addEventListener('click', function (event) {
     return handleClickout(event, self);
   });
-
-  if (_detector["default"].jQueryMobilePage()) {
-    $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
-  }
 }
 
-function removeEventListeners() {
-  if (_detector["default"].jQueryMobilePage()) {
-    $(document).off('pagebeforeshow', handleJQueryMobilePageLoad);
-  }
-}
-
-function setContentPosition(value) {
-  var wrappers = _detector["default"].wrapperElement();
-
-  for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-
-    if (_detector["default"].jQueryMobilePage()) {
-      if (wrapper.getAttribute(datas.originalTop)) {
-        continue;
-      }
-
-      var top = parseFloat(getComputedStyle(wrapper).top);
-      wrapper.setAttribute(datas.originalTop, isNaN(top) ? 0 : top);
-      wrapper.style.top = value + 'px';
-    } else {
-      if (wrapper.getAttribute(datas.originalMarginTop)) {
-        continue;
-      }
-
-      var margin = parseFloat(getComputedStyle(wrapper).marginTop);
-      wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
-      wrapper.style.marginTop = value + 'px';
-    }
-  }
-}
-
-function restoreContentPosition() {
-  var wrappers = _detector["default"].wrapperElement();
-
-  for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-
-    if (_detector["default"].jQueryMobilePage() && wrapper.getAttribute(datas.originalTop)) {
-      wrapper.style.top = wrapper.getAttribute(datas.originalTop) + 'px';
-    } else if (wrapper.getAttribute(datas.originalMarginTop)) {
-      wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
-    }
-  }
-}
-
-var SmartBanner =
-/*#__PURE__*/
-function () {
+var SmartBanner = /*#__PURE__*/function () {
   function SmartBanner() {
     _classCallCheck(this, SmartBanner);
 
@@ -307,8 +231,7 @@ function () {
     this.platform = _detector["default"].platform();
     var event = new Event('smartbanner.init');
     document.dispatchEvent(event);
-  } // DEPRECATED. Will be removed.
-
+  }
 
   _createClass(SmartBanner, [{
     key: "publish",
@@ -319,13 +242,12 @@ function () {
 
       if (_bakery["default"].baked) {
         return false;
-      } // User Agent was explicetely excluded by defined excludeUserAgentRegex
+      } // User Agent was explicetely excluded by excludeUserAgentRegex
 
 
       if (this.userAgentExcluded) {
         return false;
-      } // User agent was neither included by platformEnabled,
-      // nor by defined includeUserAgentRegex
+      } // User Agent was neither included by platformEnabled nor defined by includeUserAgentRegex
 
 
       if (!(this.platformEnabled || this.userAgentIncluded)) {
@@ -333,26 +255,15 @@ function () {
       }
 
       var bannerDiv = document.createElement('div');
-      document.querySelector('body').appendChild(bannerDiv);
+      this.parentElement.appendChild(bannerDiv);
       bannerDiv.outerHTML = this.html;
       var event = new Event('smartbanner.view');
       document.dispatchEvent(event);
-
-      if (!this.positioningDisabled) {
-        setContentPosition(this.height);
-      }
-
       addEventListeners(this);
     }
   }, {
     key: "exit",
     value: function exit() {
-      removeEventListeners();
-
-      if (!this.positioningDisabled) {
-        restoreContentPosition();
-      }
-
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
       var event = new Event('smartbanner.exit');
@@ -365,21 +276,6 @@ function () {
     value: function clickout() {
       var event = new Event('smartbanner.clickout');
       document.dispatchEvent(event);
-    }
-  }, {
-    key: "originalTop",
-    get: function get() {
-      var wrapper = _detector["default"].wrapperElement()[0];
-
-      return parseFloat(wrapper.getAttribute(datas.originalTop));
-    } // DEPRECATED. Will be removed.
-
-  }, {
-    key: "originalTopMargin",
-    get: function get() {
-      var wrapper = _detector["default"].wrapperElement()[0];
-
-      return parseFloat(wrapper.getAttribute(datas.originalMarginTop));
     }
   }, {
     key: "priceSuffix",
@@ -421,7 +317,7 @@ function () {
     key: "html",
     get: function get() {
       var modifier = !this.options.customDesignModifier ? this.platform : this.options.customDesignModifier;
-      return "<div class=\"smartbanner smartbanner--".concat(modifier, " js_smartbanner\">\n      <a href=\"javascript:void();\" class=\"smartbanner__exit js_smartbanner__exit\" aria-label=\"").concat(this.closeLabel, "\"></a>\n      <div class=\"smartbanner__icon\" style=\"background-image: url(").concat(this.icon, ");\"></div>\n      <div class=\"smartbanner__info\">\n        <div>\n          <div class=\"smartbanner__info__title\">").concat(this.options.title, "</div>\n          <div class=\"smartbanner__info__author\">").concat(this.options.author, "</div>\n          <div class=\"smartbanner__info__price\">").concat(this.options.price).concat(this.priceSuffix, "</div>\n        </div>\n      </div>\n      <a href=\"").concat(this.buttonUrl, "\" target=\"_blank\" class=\"smartbanner__button js_smartbanner__button\" rel=\"noopener\" aria-label=\"").concat(this.options.button, "\"><span class=\"smartbanner__button__label\">").concat(this.options.button, "</span></a>\n    </div>");
+      return "<div class=\"smartbanner smartbanner--".concat(modifier, " js_smartbanner\">\n      <a href=\"javascript:void();\" class=\"smartbanner__exit js_smartbanner__exit\" aria-label=\"").concat(this.closeLabel, "\"></a>\n      <div class=\"smartbanner__icon\" style=\"background-image: url(").concat(this.icon, ");\"></div>\n      <div class=\"smartbanner__info\">\n        <div class=\"smartbanner__copy\">\n          <div class=\"smartbanner__title\">").concat(this.options.title, "</div>\n          <div class=\"smartbanner__author\">").concat(this.options.author, "</div>\n          <div class=\"smartbanner__price\">").concat(this.options.price).concat(this.priceSuffix, "</div>\n        </div>\n      </div>\n      <a href=\"").concat(this.buttonUrl, "\" class=\"smartbanner__button js_smartbanner__button\" aria-label=\"").concat(this.options.button, "\"><span class=\"smartbanner__button-label\">").concat(this.options.button, "</span></a>\n    </div>");
     }
   }, {
     key: "height",
@@ -475,6 +371,12 @@ function () {
     key: "hidePath",
     get: function get() {
       return this.options.hidePath ? this.options.hidePath : '/';
+    }
+  }, {
+    key: "parentElement",
+    get: function get() {
+      var parentElement = this.options.parentElement ? document.querySelector(this.options.parentElement) : null;
+      return parentElement || document.querySelector('body');
     }
   }]);
 
