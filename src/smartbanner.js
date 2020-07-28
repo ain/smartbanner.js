@@ -28,12 +28,8 @@ function addEventListeners(self) {
 }
 
 function setContentPosition(value) {
-  let wrappers = Detector.wrapperElement();
-  for (let i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-    if (wrapper.getAttribute(datas.originalMarginTop)) {
-      continue;
-    }
+  let wrapper = Detector.wrapperElement();
+  if (!wrapper.getAttribute(datas.originalMarginTop)) {
     let margin = parseFloat(getComputedStyle(wrapper).marginTop);
     wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
     wrapper.style.marginTop = value + 'px';
@@ -41,12 +37,9 @@ function setContentPosition(value) {
 }
 
 function restoreContentPosition() {
-  let wrappers = Detector.wrapperElement();
-  for (let i = 0, l = wrappers.length, wrapper; i < l; i++) {
-    wrapper = wrappers[i];
-    if (wrapper.getAttribute(datas.originalMarginTop)) {
-      wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
-    }
+  let wrapper = Detector.wrapperElement();
+  if (wrapper.getAttribute(datas.originalMarginTop)) {
+    wrapper.style.marginTop = wrapper.getAttribute(datas.originalMarginTop) + 'px';
   }
 }
 
@@ -63,13 +56,13 @@ export default class SmartBanner {
 
   // DEPRECATED. Will be removed.
   get originalTop() {
-    let wrapper = Detector.wrapperElement()[0];
+    let wrapper = Detector.wrapperElement();
     return parseFloat(wrapper.getAttribute(datas.originalTop));
   }
 
   // DEPRECATED. Will be removed.
   get originalTopMargin() {
-    let wrapper = Detector.wrapperElement()[0];
+    let wrapper = Detector.wrapperElement();
     return parseFloat(wrapper.getAttribute(datas.originalMarginTop));
   }
 

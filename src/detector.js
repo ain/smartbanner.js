@@ -13,6 +13,6 @@ export default class Detector {
   }
 
   static wrapperElement() {
-    return document.querySelectorAll('html');
+    return document.querySelector('html');
   }
 }

@@ -174,15 +174,15 @@ describe('Detector', function() {
     });
   });
 
-  describe('marginedElement', function() {
+  describe('wrapperElement', function() {
 
     before(function() {
       global.window = new JSDOM(HTML).window;
       global.document = window.document;
     });
 
-    it('expected to return html element as first item of array', function() {
-      expect(Detector.wrapperElement()[0]).to.eql(document.querySelector('html'));
+    it('expected to return html element', function() {
+      expect(Detector.wrapperElement()).to.eql(document.querySelector('html'));
     });
   });
 });
