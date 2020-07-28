@@ -19,11 +19,7 @@ describe('Detector', function() {
   const INCLUDE_USER_AGENT_REGEX = '.*iPhone OS [9\\-10].*';
 
   const { JSDOM } = jsdom;
-  const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script>window.conclude();</script>`;
   const HTML = `<!doctype html><html><head></head><body></body></html>`;
-  const HTML_WITH_JQUERY_MOBILE = `<!doctype html><html><head></head><body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
 
   describe('platform', function() {
 
