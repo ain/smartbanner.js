@@ -31,8 +31,11 @@
 </head>
 <body>
   <div style="position: fixed; top: 0; z-index: 1000; height: 50px; background-color: #ddd; width: 100%; margin: 0; left: 0; padding: 10px;">Fixed top bar</div>
+  <div>
+    <div style="position: fixed; right: 0; top: 0;">Fixed element at right edge</div>
+  </div>
   <h1 style="margin-top: 100px;">Example page</h1>
-  <p>Some illustrated content for testing purposes.</p>
+  <div>Some illustrated content for testing purposes.<br><br><br><br><p> </p></div>
   <script>
     let onLoadHandlerForConflictTesting = function() {};
     window.onload = onLoadHandlerForConflictTesting;

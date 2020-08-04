@@ -185,4 +185,48 @@ describe('Detector', function() {
       expect(Detector.wrapperElement()).to.eql(document.querySelector('html'));
     });
   });
+
+  describe.only('fixedElements', function() {
+
+    let FIXED_ELEMENT = `<div style="position: fixed; top: 0; z-index: 1000; height: 50px; background-color: #ddd; width: 100%; margin: 0; left: 0; margin-top: 84px; padding: 10px;">Fixed element</div>`;
+    let ABSOLUTE_ELEMENT = `<div style="position: absolute; top: 0;">Nested top-aligned element</div>`;
+    let HTML_WITH_FIXED_ELEMENT = `<!doctype html><html style="margin-top:10px;"><head></head><body>${FIXED_ELEMENT}</body></html>`;
+    let HTML_WITH_FIXED_ELEMENTS = `<!doctype html><html><head></head><body>${FIXED_ELEMENT}<p>${ABSOLUTE_ELEMENT}</p></body></html>`;
+
+    context('with single fixed top-aligned element', function() {
+      before(function() {
+        global.window = new JSDOM(HTML_WITH_FIXED_ELEMENT).window;
+        global.document = window.document;
+        global.getComputedStyle = global.document.defaultView.getComputedStyle;
+      });
+
+      it('expected to return one item', function() {
+        expect(Detector.fixedElements()).to.have.lengthOf(1);
+      });
+
+      it('expected to return top-aligned fixed element', function() {
+        expect(Detector.fixedElements()[0].outerHTML).to.eql(FIXED_ELEMENT);
+      });
+    });
+
+    context('with multiple fixed top-aligned elements', function() {
+      before(function() {
+        global.window = new JSDOM(HTML_WITH_FIXED_ELEMENTS).window;
+        global.document = window.document;
+        global.getComputedStyle = global.document.defaultView.getComputedStyle;
+      });
+
+      it('expected to return two items', function() {
+        expect(Detector.fixedElements()).to.have.lengthOf(2);
+      });
+
+      it('expected to return top-aligned fixed element', function() {
+        expect(Detector.fixedElements()[0].outerHTML).to.eql(FIXED_ELEMENT);
+      });
+
+      it('expected to return top-aligned absolute element', function() {
+        expect(Detector.fixedElements()[1].outerHTML).to.eql(ABSOLUTE_ELEMENT);
+      });
+    });
+  });
 });

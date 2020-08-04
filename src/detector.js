@@ -15,4 +15,14 @@ export default class Detector {
   static wrapperElement() {
     return document.querySelector('html');
   }
+
+  static fixedElements() {
+    let fixedElements = [];
+    document.querySelectorAll('body > *').forEach((node) => {
+      if (getComputedStyle(node).position === 'fixed' || getComputedStyle(node).position === 'absolute') {
+        fixedElements.push(node);
+      }
+    });
+    return fixedElements;
+  }
 }
