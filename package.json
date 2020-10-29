@@ -71,6 +71,7 @@
     "*.md",
     "LICENSE",
     "package-lock.json",
-    "package.json"
+    "package.json",
+    "src"
   ]
 }
