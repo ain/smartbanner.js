@@ -10,6 +10,9 @@ node_js:
   - 14
   - 15
 
+cache:
+  npm: false
+
 script:
   - npm run eslint
   - npm run sasslint
