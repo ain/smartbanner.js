@@ -7,7 +7,9 @@
     "name": "Ain Tohvri",
     "email": "ain@flashbit.net"
   },
-  "funding": "https://github.com/sponsors/ain",
+  "funding": {
+    "url": "https://github.com/sponsors/ain"
+  },
   "main": "dist/smartbanner.js",
   "style": "dist/smartbanner.css",
   "license": "GPL-3.0",
