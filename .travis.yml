@@ -9,6 +9,8 @@ node_js:
   - 13
   - 14
 
+cache: false
+
 script:
   - npm run eslint
   - npm run sasslint
