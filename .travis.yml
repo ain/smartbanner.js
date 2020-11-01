@@ -9,6 +9,11 @@ node_js:
   - 13
   - 14
 
+install:
+  - git config --global url."https://github.com/".insteadOf git@github.com:
+  - git config --global url."https://".insteadOf git://
+  - npm ci
+
 script:
   - npm run eslint
   - npm run sasslint
