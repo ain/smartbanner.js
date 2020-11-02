@@ -25,7 +25,7 @@ jobs:
       - name: Run Node.js CI
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: npm ci
+        run: npm install
       - run: npm run eslint
       - run: npm run sasslint
       - run: npm test
