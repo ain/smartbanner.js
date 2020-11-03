@@ -2,10 +2,13 @@
   "name": "smartbanner.js",
   "version": "1.16.0",
   "description": "Customisable smart app banner for iOS and Android",
-  "homepage": "https://github.com/ain/smartbanner.js",
+  "homepage": "https://github.com/ain/smartbanner.js#readme",
   "author": {
     "name": "Ain Tohvri",
     "email": "ain@flashbit.net"
+  },
+  "funding": {
+    "url": "https://github.com/sponsors/ain"
   },
   "main": "dist/smartbanner.js",
   "style": "dist/smartbanner.css",
@@ -15,7 +18,7 @@
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/register": "^7.6.2",
-    "add-banner": "github:ain/add-banner#0667ab6",
+    "add-banner": "ain/add-banner#0667ab6",
     "autoprefixer": "^9.6.1",
     "babelify": "^10.0.0",
     "browserify": "^17.0.0",
@@ -33,7 +36,7 @@
     "watchify": "^3.11.1"
   },
   "engines": {
-    "node": ">=8.11.3 <15.0.0"
+    "node": ">=8.11.3 <16.0.0"
   },
   "repository": {
     "type": "git",
@@ -69,6 +72,7 @@
     "*.md",
     "LICENSE",
     "package-lock.json",
-    "package.json"
+    "package.json",
+    "src"
   ]
 }
