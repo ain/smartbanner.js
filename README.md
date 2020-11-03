@@ -163,7 +163,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Cross-browser testing across all mobile platforms is powered by
 
-<a href="https://www.browserstack.com" title="BrowserStack"><img src="https://rawgithub.com/ain/smartbanner.js/master/browserstack.svg" height="32px" alt="BrowserStack"></a>
+<a href="https://www.browserstack.com" title="BrowserStack"><img src="https://raw.githubusercontent.com/ain/smartbanner.js/master/browserstack.svg" height="32px" alt="BrowserStack"></a>
 
 ## Licence
 
