@@ -24,7 +24,7 @@
     "browserify": "^17.0.0",
     "chai": "^4.2.0",
     "coveralls": "^3.1.0",
-    "eslint": "^6.4.0",
+    "eslint": "^7.13.0",
     "http-server": "^0.12.3",
     "jsdom": "^15.1.1",
     "mocha": "^8.0.1",
