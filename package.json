@@ -32,7 +32,7 @@
     "nyc": "^15.1.0",
     "postcss-cli": "^7.1.2",
     "sass-lint": "^1.13.1",
-    "uglify-js": "^3.6.0",
+    "uglify-js": "^3.11.5",
     "watchify": "^3.11.1"
   },
   "engines": {
