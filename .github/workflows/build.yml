@@ -19,8 +19,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install --global --production windows-build-tools
-        if: ${{ matrix.os == 'windows-latest' }}
       - run: npm install
       - run: npm run eslint
         if: ${{ matrix.os == 'ubuntu-latest' }}
