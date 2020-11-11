@@ -20,7 +20,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
-      - run: npm run eslint -- --rule 'linebreak-style: [2, windows]'
+      - run: |
+          npm run eslint -- --rule 'linebreak-style: [2, windows]'
         if: ${{ matrix.os == 'windows-latest' }}
       - run: npm run eslint
         if: ${{ matrix.os == 'ubuntu-latest' }}
