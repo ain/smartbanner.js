@@ -16,7 +16,7 @@
     "android",
     "banner"
   ],
-  "homepage": "https://github.com/ain/smartbanner.js",
+  "homepage": "https://github.com/ain/smartbanner.js#readme",
   "ignore": [
     "**/.*",
     "node_modules",
