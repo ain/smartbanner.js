@@ -24,9 +24,22 @@ jobs:
         run: npm run eslint
       - run: npm run sasslint
       - run: npm test
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       - run: npm run build
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: run-${{ matrix.node }}
+          parallel: true
+
+  finish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
+
   publish:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
