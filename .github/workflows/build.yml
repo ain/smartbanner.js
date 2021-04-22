@@ -33,6 +33,7 @@ jobs:
           parallel: true
 
   finish:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: coverallsapp/github-action@master
