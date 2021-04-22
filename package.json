@@ -56,7 +56,7 @@
     "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ @babel/preset-env ] ] -v",
     "watch:css": "npm run build:css | npm run autoprefix -- -w",
     "mocha": "mocha --require @babel/register",
-    "test": "nyc mocha --require @babel/register test/spec/*.js && nyc report --reporter=text-lcov",
+    "test": "nyc mocha --require @babel/register test/spec/*.js && nyc report --reporter=text-lcov --report-dir=./coverage",
     "test:watch": "npm run test -- -w",
     "start": "http-server dist/ -o"
   },
