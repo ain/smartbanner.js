@@ -58,7 +58,7 @@
     "mocha": "mocha --require @babel/register",
     "test": "nyc mocha --require @babel/register test/spec/*.js && nyc report --reporter=lcovonly",
     "test:watch": "npm run test -- -w",
-    "start": "ws --spa dist/index.html"
+    "start": "ws --spa dist/index.html --port=8080"
   },
   "keywords": [
     "javascript",
