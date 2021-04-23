@@ -19,7 +19,7 @@
     "@babel/preset-env": "^7.6.2",
     "@babel/register": "^7.6.2",
     "add-banner": "ain/add-banner#0667ab6",
-    "autoprefixer": "^9.6.1",
+    "autoprefixer": "^10.2.5",
     "babelify": "^10.0.0",
     "browserify": "^17.0.0",
     "chai": "^4.2.0",
