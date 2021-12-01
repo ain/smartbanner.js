@@ -1,6 +1,6 @@
 /*!
- * smartbanner.js v1.16.0 <https://github.com/ain/smartbanner.js>
- * Copyright © 2020 Ain Tohvri, contributors. Licensed under GPL-3.0.
+ * smartbanner.js v1.17.0 <https://github.com/ain/smartbanner.js#readme>
+ * Copyright © 2021 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
@@ -16,9 +16,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Bakery =
-/*#__PURE__*/
-function () {
+var Bakery = /*#__PURE__*/function () {
   function Bakery() {
     _classCallCheck(this, Bakery);
   }
@@ -54,7 +52,7 @@ function () {
 exports["default"] = Bakery;
 
 },{}],2:[function(require,module,exports){
-(function (global){
+(function (global){(function (){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68,9 +66,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Detector =
-/*#__PURE__*/
-function () {
+var Detector = /*#__PURE__*/function () {
   function Detector() {
     _classCallCheck(this, Detector);
   }
@@ -107,7 +103,7 @@ function () {
 
 exports["default"] = Detector;
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
 "use strict";
 
@@ -155,9 +151,7 @@ function convertToCamelCase(name) {
   return parts.join('');
 }
 
-var OptionParser =
-/*#__PURE__*/
-function () {
+var OptionParser = /*#__PURE__*/function () {
   function OptionParser() {
     _classCallCheck(this, OptionParser);
   }
@@ -296,9 +290,7 @@ function restoreContentPosition() {
   }
 }
 
-var SmartBanner =
-/*#__PURE__*/
-function () {
+var SmartBanner = /*#__PURE__*/function () {
   function SmartBanner() {
     _classCallCheck(this, SmartBanner);
 
@@ -311,62 +303,6 @@ function () {
 
 
   _createClass(SmartBanner, [{
-    key: "publish",
-    value: function publish() {
-      if (Object.keys(this.options).length === 0) {
-        throw new Error('No options detected. Please consult documentation.');
-      }
-
-      if (_bakery["default"].baked) {
-        return false;
-      } // User Agent was explicetely excluded by defined excludeUserAgentRegex
-
-
-      if (this.userAgentExcluded) {
-        return false;
-      } // User agent was neither included by platformEnabled,
-      // nor by defined includeUserAgentRegex
-
-
-      if (!(this.platformEnabled || this.userAgentIncluded)) {
-        return false;
-      }
-
-      var bannerDiv = document.createElement('div');
-      document.querySelector('body').appendChild(bannerDiv);
-      bannerDiv.outerHTML = this.html;
-      var event = new Event('smartbanner.view');
-      document.dispatchEvent(event);
-
-      if (!this.positioningDisabled) {
-        setContentPosition(this.height);
-      }
-
-      addEventListeners(this);
-    }
-  }, {
-    key: "exit",
-    value: function exit() {
-      removeEventListeners();
-
-      if (!this.positioningDisabled) {
-        restoreContentPosition();
-      }
-
-      var banner = document.querySelector('.js_smartbanner');
-      document.querySelector('body').removeChild(banner);
-      var event = new Event('smartbanner.exit');
-      document.dispatchEvent(event);
-
-      _bakery["default"].bake(this.hideTtl, this.hidePath);
-    }
-  }, {
-    key: "clickout",
-    value: function clickout() {
-      var event = new Event('smartbanner.clickout');
-      document.dispatchEvent(event);
-    }
-  }, {
     key: "originalTop",
     get: function get() {
       var wrapper = _detector["default"].wrapperElement()[0];
@@ -475,6 +411,62 @@ function () {
     key: "hidePath",
     get: function get() {
       return this.options.hidePath ? this.options.hidePath : '/';
+    }
+  }, {
+    key: "publish",
+    value: function publish() {
+      if (Object.keys(this.options).length === 0) {
+        throw new Error('No options detected. Please consult documentation.');
+      }
+
+      if (_bakery["default"].baked) {
+        return false;
+      } // User Agent was explicetely excluded by defined excludeUserAgentRegex
+
+
+      if (this.userAgentExcluded) {
+        return false;
+      } // User agent was neither included by platformEnabled,
+      // nor by defined includeUserAgentRegex
+
+
+      if (!(this.platformEnabled || this.userAgentIncluded)) {
+        return false;
+      }
+
+      var bannerDiv = document.createElement('div');
+      document.querySelector('body').appendChild(bannerDiv);
+      bannerDiv.outerHTML = this.html;
+      var event = new Event('smartbanner.view');
+      document.dispatchEvent(event);
+
+      if (!this.positioningDisabled) {
+        setContentPosition(this.height);
+      }
+
+      addEventListeners(this);
+    }
+  }, {
+    key: "exit",
+    value: function exit() {
+      removeEventListeners();
+
+      if (!this.positioningDisabled) {
+        restoreContentPosition();
+      }
+
+      var banner = document.querySelector('.js_smartbanner');
+      document.querySelector('body').removeChild(banner);
+      var event = new Event('smartbanner.exit');
+      document.dispatchEvent(event);
+
+      _bakery["default"].bake(this.hideTtl, this.hidePath);
+    }
+  }, {
+    key: "clickout",
+    value: function clickout() {
+      var event = new Event('smartbanner.clickout');
+      document.dispatchEvent(event);
     }
   }]);
 
