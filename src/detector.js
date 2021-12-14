@@ -1,10 +1,15 @@
 export default class Detector {
 
   static platform() {
-    if (/iPhone|iPad|iPod/i.test(window.navigator.userAgent)) {
-      return 'ios';
-    } else if (/Android/i.test(window.navigator.userAgent)) {
+    let maxTouchPoints = window.navigator.maxTouchPoints;
+    let userAgent = window.navigator.userAgent;
+
+    // if Android, it's Android
+    if (/Android/i.test(userAgent)){
       return 'android';
+    // if not Android and either has maxTouchPoints greater than 0 (newer iPads) or is an older iOS device, it's iOS
+    } else if ((maxTouchPoints && maxTouchPoints > 0) || /iPhone|iPad|iPod/i.test(userAgent)) {
+      return 'ios';
     }
   }
 
