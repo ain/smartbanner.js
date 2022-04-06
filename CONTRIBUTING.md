@@ -30,10 +30,6 @@ If some of the files do not pass linters, build will fail.
 
 Pull Requests will only be accepted if build succeeds.
 
-To lint SCSS, run:
-
-    $ npm run sasslint
-
 To lint JavaScript, run:
 
     $ npm run eslint

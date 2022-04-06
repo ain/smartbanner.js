@@ -21,7 +21,6 @@ jobs:
           npm run eslint -- --rule 'linebreak-style: [2, windows]'
       - if: ${{ matrix.os == 'ubuntu-latest' }}
         run: npm run eslint
-      - run: npm run sasslint
       - run: npm test
       - run: npm run build
       - name: Coveralls Parallel
