@@ -14,6 +14,7 @@ describe('Detector', function() {
   const USER_AGENT_IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4';
   const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
   const USER_AGENT_ANDROID_CUSTOM_WEBAPP = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]  My Example Webapp';
+  const USER_AGENT_IPAD_IOS13 = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15';
 
   const EXCLUDE_USER_AGENT_REGEX = '^.*My Example Webapp$';
   const INCLUDE_USER_AGENT_REGEX = '.*iPhone OS [9\\-10].*';
@@ -92,12 +93,37 @@ describe('Detector', function() {
       });
     });
 
-
     context('when on iPad', function() {
 
       before(function() {
         const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPAD });
         global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        platform = Detector.platform();
+      });
+
+      it('expected to return ios', function() {
+        expect(platform).to.eql('ios');
+      });
+
+      it('expected exclude regex to not match', function() {
+        expect(Detector.userAgentMatchesRegex(EXCLUDE_USER_AGENT_REGEX)).to.be.false;
+      });
+
+      it('expected include regex to not match', function() {
+        expect(Detector.userAgentMatchesRegex(INCLUDE_USER_AGENT_REGEX)).to.be.false;
+      });
+    });
+
+    context('when on iPad iOS 13 or newer', function() {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPAD_IOS13 });
+        global.window = new JSDOM(HTML, {
+          resources: resourceLoader,
+          beforeParse(window) {
+            window.navigator.maxTouchPoints = 1;
+          }
+        }).window;
         platform = Detector.platform();
       });
 
