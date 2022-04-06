@@ -1,10 +1,14 @@
 export default class Detector {
 
   static platform() {
-    if (/iPhone|iPad|iPod/i.test(window.navigator.userAgent)) {
-      return 'ios';
-    } else if (/Android/i.test(window.navigator.userAgent)) {
+    let maxTouchPoints = window.navigator.maxTouchPoints;
+    let userAgent = window.navigator.userAgent;
+
+    if (/Android/i.test(userAgent)){
       return 'android';
+    // maxTouchPoints is the only effective method to detect iPad iOS 13+
+    } else if ((maxTouchPoints && maxTouchPoints > 0) || /iPhone|iPad|iPod/i.test(userAgent)) {
+      return 'ios';
     }
   }
 
