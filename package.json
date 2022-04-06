@@ -55,7 +55,7 @@
     "mocha": "mocha --require @babel/register",
     "test": "nyc mocha --require @babel/register test/spec/*.js && nyc report --reporter=lcovonly",
     "test:watch": "npm run test -- -w",
-    "start": "ws --directory dist/ --port=8080"
+    "start": "ws --directory dist/ --port=8080 --log.format dev"
   },
   "keywords": [
     "javascript",
