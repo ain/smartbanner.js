@@ -18,4 +18,4 @@ in [new issue](https://github.com/ain/smartbanner.js/issues/new).
 Such reports will be approached as high priority and fixed within days. You can help by providing a thorough
 description or by contributing a fix.
 
-See also [Contributing to smartbanner.js](https://github.com/ain/smartbanner.js/blob/master/CONTRIBUTING.md).
+See also [Contributing to smartbanner.js](https://github.com/ain/smartbanner.js/blob/main/CONTRIBUTING.md).

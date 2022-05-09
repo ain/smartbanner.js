@@ -1,7 +1,7 @@
-# smartbanner.js [![Build Status](https://github.com/ain/smartbanner.js/workflows/Node.js%20CI/badge.svg)](https://github.com/ain/smartbanner.js/actions?query=workflow%3A%22Node.js+CI%22) [![npm version](https://badge.fury.io/js/smartbanner.js.svg)](https://badge.fury.io/js/smartbanner.js) [![Bower version](https://badge.fury.io/bo/smartbanner.js.svg)](https://badge.fury.io/bo/smartbanner.js) [![Coverage Status](https://coveralls.io/repos/github/ain/smartbanner.js/badge.svg?branch=master)](https://coveralls.io/github/ain/smartbanner.js?branch=master)
+# smartbanner.js [![Build Status](https://github.com/ain/smartbanner.js/workflows/Node.js%20CI/badge.svg)](https://github.com/ain/smartbanner.js/actions?query=workflow%3A%22Node.js+CI%22) [![npm version](https://badge.fury.io/js/smartbanner.js.svg)](https://badge.fury.io/js/smartbanner.js) [![Bower version](https://badge.fury.io/bo/smartbanner.js.svg)](https://badge.fury.io/bo/smartbanner.js) [![Coverage Status](https://coveralls.io/repos/github/ain/smartbanner.js/badge.svg?branch=main)](https://coveralls.io/github/ain/smartbanner.js?branch=main)
 Customisable smart app banner for iOS and Android.
 
-![smartbanner.js iOS screenshot](https://github.com/ain/smartbanner.js/raw/master/screenshot-ios.png) &nbsp; ![smartbanner.js Android screenshot](https://github.com/ain/smartbanner.js/raw/master/screenshot-android.png)
+![smartbanner.js iOS screenshot](https://github.com/ain/smartbanner.js/raw/main/screenshot-ios.png) &nbsp; ![smartbanner.js Android screenshot](https://github.com/ain/smartbanner.js/raw/main/screenshot-android.png)
 
 ## Features
 
@@ -163,8 +163,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Cross-browser testing across all mobile platforms is powered by
 
-<a href="https://www.browserstack.com" title="BrowserStack"><img src="https://raw.githubusercontent.com/ain/smartbanner.js/master/browserstack.svg" height="32px" alt="BrowserStack"></a>
+<a href="https://www.browserstack.com" title="BrowserStack"><img src="https://raw.githubusercontent.com/ain/smartbanner.js/main/browserstack.svg" height="32px" alt="BrowserStack"></a>
 
 ## Licence
 
-Copyright © 2016-2022 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/master/LICENSE).
+Copyright © 2016-2022 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/main/LICENSE).
