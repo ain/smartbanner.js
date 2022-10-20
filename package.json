@@ -33,7 +33,7 @@
     "watchify": "^4.0.0"
   },
   "engines": {
-    "node": ">=10.24.1 <19.0.0"
+    "node": ">=10.24.1 <20.0.0"
   },
   "repository": {
     "type": "git",
