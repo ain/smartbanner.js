@@ -326,7 +326,7 @@ describe('SmartBanner', function() {
 
       before(function() {
         const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML, { resources: resourceLoader, url: 'http://localhost' }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -699,7 +699,7 @@ describe('SmartBanner', function() {
 
       beforeEach(function() {
         const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML, { resources: resourceLoader, url: 'https://localhost' }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         smartbanner = new SmartBanner();
