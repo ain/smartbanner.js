@@ -15,6 +15,7 @@ describe('Detector', function() {
   const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
   const USER_AGENT_ANDROID_CUSTOM_WEBAPP = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]  My Example Webapp';
   const USER_AGENT_IPAD_IOS13 = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15';
+  const USER_AGENT_LINUX_DESKTOP = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36';
 
   const EXCLUDE_USER_AGENT_REGEX = '^.*My Example Webapp$';
   const INCLUDE_USER_AGENT_REGEX = '.*iPhone OS [9\\-10].*';
@@ -29,6 +30,19 @@ describe('Detector', function() {
   describe('platform', function() {
 
     let platform = null;
+
+    context('when on Linux desktop', function() {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_LINUX_DESKTOP });
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        platform = Detector.platform();
+      });
+
+      it('expected to return undefined', function() {
+        expect(platform).to.be.undefined;
+      });
+    });
 
     context('when on iPhone with iOS8', function() {
 

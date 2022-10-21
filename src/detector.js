@@ -7,7 +7,8 @@ export default class Detector {
     if (/Android/i.test(userAgent)){
       return 'android';
     // maxTouchPoints is the only effective method to detect iPad iOS 13+
-    } else if ((maxTouchPoints && maxTouchPoints > 0) || /iPhone|iPad|iPod/i.test(userAgent)) {
+    // FMI https://developer.apple.com/forums/thread/119186
+    } else if ((!window.MSStream && !/X11|Linux/i.test(userAgent) && maxTouchPoints && maxTouchPoints > 0) || /iPhone|iPad|iPod/i.test(userAgent)) {
       return 'ios';
     }
   }
