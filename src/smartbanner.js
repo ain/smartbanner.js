@@ -4,6 +4,7 @@ import Bakery from './bakery.js';
 
 const DEFAULT_PLATFORMS = 'android,ios';
 const DEFAULT_CLOSE_LABEL = 'Close';
+const OPEN_BODY_CLASS = 'smartbanner__open';
 
 let datas = {
   originalTop: 'data-smartbanner-original-top',
@@ -80,8 +81,7 @@ function restoreContentPosition() {
 export default class SmartBanner {
 
   constructor() {
-    let parser = new OptionParser();
-    this.options = parser.parse();
+    this.parseMeta();
     this.platform = Detector.platform();
 
     let event = new Event('smartbanner.init');
@@ -189,6 +189,11 @@ export default class SmartBanner {
     return this.options.hidePath ? this.options.hidePath : '/';
   }
 
+  parseMeta() {
+    let parser = new OptionParser();
+    this.options = parser.parse();
+  }
+
   publish() {
     if (Object.keys(this.options).length === 0) {
       throw new Error('No options detected. Please consult documentation.');
@@ -210,7 +215,9 @@ export default class SmartBanner {
     }
 
     let bannerDiv = document.createElement('div');
-    document.querySelector('body').appendChild(bannerDiv);
+    const body = document.querySelector('body');
+    body.appendChild(bannerDiv);
+    body.classList.add(OPEN_BODY_CLASS);
     bannerDiv.outerHTML = this.html;
     let event = new Event('smartbanner.view');
     document.dispatchEvent(event);
@@ -226,7 +233,9 @@ export default class SmartBanner {
       restoreContentPosition();
     }
     let banner = document.querySelector('.js_smartbanner');
-    document.querySelector('body').removeChild(banner);
+    const body = document.querySelector('body');
+    body.removeChild(banner);
+    body.classList.remove(OPEN_BODY_CLASS);
     let event = new Event('smartbanner.exit');
     document.dispatchEvent(event);
     Bakery.bake(this.hideTtl, this.hidePath);

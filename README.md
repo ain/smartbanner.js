@@ -47,6 +47,11 @@ Additionally, JavaScript and CSS has to be included:
 <script src="node_modules/smartbanner.js/dist/smartbanner.min.js"></script>
 ```
 
+A css class is also added to the body of the website so you can customize your website to it : 
+```html
+<body class="smartbanner__open">
+```
+
 ## Advanced usage
 
 ### Hide the smartbanner for certain User Agents
@@ -136,6 +141,12 @@ and add smartbanner to DOM manually:
 
 ```js
 smartbanner.publish();
+```
+
+You can also force smartbanner to parse again your meta tags:
+
+```js
+smartbanner.parseMeta();
 ```
 
 ### Events
