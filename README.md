@@ -143,7 +143,7 @@ and add smartbanner to DOM manually:
 smartbanner.publish();
 ```
 
-You can also force smartbanner to parse again your meta tags:
+You can also force smartbanner to parse again your meta tags in case there has been a change, e.g. in SPA:
 
 ```js
 smartbanner.parseMeta();
