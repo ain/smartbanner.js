@@ -174,6 +174,13 @@ describe('SmartBanner', function() {
 
   let smartbanner = null;
 
+  const createMetaTag = (name, content) => {
+    const meta = document.createElement('meta');
+    meta.name = name;
+    meta.content = content;
+    document.head.append(meta);
+  };
+
   describe('publish', function() {
 
     context('without options', function() {
@@ -990,4 +997,69 @@ describe('SmartBanner', function() {
 
   });
 
+  describe('SPA scenarios', function() {
+
+    const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+
+    const htmlWithNoValue = `<!doctype html>
+        <html style="margin-top:10px;">
+        <head>
+          <meta name="smartbanner:enabled-platforms" content="ios">
+        </head>
+        <body>
+          <div class="ui-page ui-page-active" style="position:absolute; top:12px;"></div>
+          <div class="ui-page" style="position:absolute; top:13px;"></div>
+        </body>
+      </html>`;
+
+    before(function () {
+      global.window = new JSDOM(htmlWithNoValue, {resources: resourceLoader}).window;
+      global.document = window.document;
+      smartbanner = new SmartBanner();
+
+      createMetaTag('smartbanner:title', 'bannerTitle');
+      createMetaTag('smartbanner:author', 'Author name');
+      createMetaTag('smartbanner:price-suffix-apple', '$');
+      createMetaTag('smartbanner:price', 'free');
+      createMetaTag('smartbanner:button', 'Details');
+      createMetaTag('smartbanner:close-label', 'Close');
+      createMetaTag('smartbanner:button-url-apple', 'https://itunes.apple.com/us/genre/ios/id36?mt=8');
+    });
+
+    context('on the first initial page load', function() {
+
+      it('doesn\'t have all the meta data at first', function () {
+        expect(smartbanner.options).to.be.eql({enabledPlatforms: 'ios'});
+      });
+
+      it('doesn\'t have body class', function () {
+        expect(document.body.classList.contains('smartbanner__open')).to.eql(false);
+      })
+    });
+
+    context('when we call manually parseMeta and publish', function() {
+
+      before(function() {
+        smartbanner.parseMeta();
+        smartbanner.publish();
+      });
+
+      it('does have meta data after parseMeta', function() {
+        expect(smartbanner.options).to.be.eql({
+          author: 'Author name',
+          button: 'Details',
+          buttonUrlApple: 'https://itunes.apple.com/us/genre/ios/id36?mt=8',
+          closeLabel: 'Close',
+          enabledPlatforms: 'ios',
+          price: 'free',
+          priceSuffixApple: '$',
+          title: 'bannerTitle',
+        });
+      });
+
+      it('does have the body class', function() {
+        expect(document.body.classList.contains('smartbanner__open')).to.eql(true);
+      });
+    });
+  });
 });
