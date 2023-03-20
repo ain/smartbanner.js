@@ -324,9 +324,9 @@ var SmartBanner = /*#__PURE__*/function () {
   }, {
     key: "priceSuffix",
     get: function get() {
-      if (this.platform === 'ios') {
+      if (this.platform === 'ios' && this.options.priceSuffixApple) {
         return this.options.priceSuffixApple;
-      } else if (this.platform === 'android') {
+      } else if (this.platform === 'android' && this.options.priceSuffixGoogle) {
         return this.options.priceSuffixGoogle;
       }
 
