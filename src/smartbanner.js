@@ -101,9 +101,9 @@ export default class SmartBanner {
   }
 
   get priceSuffix() {
-    if (this.platform === 'ios') {
+    if (this.platform === 'ios' && this.options.priceSuffixApple) {
       return this.options.priceSuffixApple;
-    } else if (this.platform === 'android') {
+    } else if (this.platform === 'android' && this.options.priceSuffixGoogle) {
       return this.options.priceSuffixGoogle;
     }
     return '';
