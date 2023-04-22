@@ -103,6 +103,24 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
+  const HTML_WITHOUT_PRICE_SUFFIX = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="FREE">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:close-label" content="Close Smart App Banner">
+    </head>
+    <body>
+    </body>
+  </html>`;
+
   const SCRIPTS = `<script>window.conclude();</script>`;
   const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -687,6 +705,23 @@ describe('SmartBanner', function() {
 
       it('expected to have empty button URL', function() {
         expect(smartbanner.buttonUrl).to.eql('#');
+      });
+
+    });
+
+    context('without platform-specific price suffixes', function() {
+
+      before(function() {
+        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
+        global.window = new JSDOM(HTML_WITHOUT_PRICE_SUFFIX, { resources: resourceLoader }).window;
+        global.document = window.document;
+        global.getComputedStyle = window.getComputedStyle;
+        global.Event = window.Event;
+        smartbanner = new SmartBanner();
+      });
+
+      it('expected to have no price suffix', function() {
+        expect(smartbanner.priceSuffix).to.be.empty;
       });
 
     });
