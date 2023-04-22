@@ -1,5 +1,4 @@
 let jsdom = require('jsdom');
-let path = require('path');
 let chai = require('chai');
 let expect = chai.expect;
 
