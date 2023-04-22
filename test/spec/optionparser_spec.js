@@ -11,8 +11,6 @@ describe('OptionParser', function() {
     <meta name="smartbanner:title" content="Smart Application">
     <meta name="smartbanner:author" content="SmartBanner Contributors">
     <meta name="smartbanner:price" content="FREE">
-    <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
-    <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
     <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
     <meta name="smartbanner:icon-google" content="icon--google.jpg">
     <meta name="smartbanner:button" content="VIEW">
@@ -37,6 +35,8 @@ describe('OptionParser', function() {
       <meta name="smartbanner:hide-path" content="/smartbanner">
       <meta name="smartbanner:api" content="true">
       <meta name="smartbanner:close-label" content="Close">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
     </head>
     <body>
     </body>
