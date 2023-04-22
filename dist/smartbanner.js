@@ -1,6 +1,6 @@
 /*!
- * smartbanner.js v1.19.1 <https://github.com/ain/smartbanner.js#readme>
- * Copyright © 2022 Ain Tohvri, contributors. Licensed under GPL-3.0.
+ * smartbanner.js v1.19.2 <https://github.com/ain/smartbanner.js#readme>
+ * Copyright © 2023 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
@@ -9,18 +9,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var Bakery = /*#__PURE__*/function () {
   function Bakery() {
     _classCallCheck(this, Bakery);
   }
-
   _createClass(Bakery, null, [{
     key: "getCookieExpiresString",
     value: function getCookieExpiresString(hideTtl) {
@@ -45,10 +43,8 @@ var Bakery = /*#__PURE__*/function () {
       return value === '1';
     }
   }]);
-
   return Bakery;
 }();
-
 exports["default"] = Bakery;
 
 },{}],2:[function(require,module,exports){
@@ -59,26 +55,24 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var Detector = /*#__PURE__*/function () {
   function Detector() {
     _classCallCheck(this, Detector);
   }
-
   _createClass(Detector, null, [{
     key: "platform",
     value: function platform() {
       var maxTouchPoints = window.navigator.maxTouchPoints;
       var userAgent = window.navigator.userAgent;
-
       if (/Android/i.test(userAgent)) {
-        return 'android'; // maxTouchPoints is the only effective method to detect iPad iOS 13+
+        return 'android';
+        // maxTouchPoints is the only effective method to detect iPad iOS 13+
         // FMI https://developer.apple.com/forums/thread/119186
       } else if (!window.MSStream && !/X11|Linux/i.test(userAgent) && maxTouchPoints && maxTouchPoints > 0 || /iPhone|iPad|iPod/i.test(userAgent)) {
         return 'ios';
@@ -101,10 +95,8 @@ var Detector = /*#__PURE__*/function () {
       return document.querySelectorAll(selector);
     }
   }]);
-
   return Detector;
 }();
-
 exports["default"] = Detector;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
@@ -112,13 +104,10 @@ exports["default"] = Detector;
 "use strict";
 
 var _smartbanner = _interopRequireDefault(require("./smartbanner.js"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
 var smartbanner;
 window.addEventListener('load', function () {
   smartbanner = new _smartbanner["default"]();
-
   if (smartbanner.apiEnabled) {
     window.smartbanner = smartbanner;
   } else {
@@ -133,18 +122,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function valid(name) {
   // TODO: validate against options dictionary
   return name.indexOf('smartbanner:') !== -1 && name.split(':')[1].length > 0;
 }
-
 function convertToCamelCase(name) {
   var parts = name.split('-');
   parts.map(function (part, index) {
@@ -154,12 +141,10 @@ function convertToCamelCase(name) {
   });
   return parts.join('');
 }
-
 var OptionParser = /*#__PURE__*/function () {
   function OptionParser() {
     _classCallCheck(this, OptionParser);
   }
-
   _createClass(OptionParser, [{
     key: "parse",
     value: function parse() {
@@ -169,24 +154,19 @@ var OptionParser = /*#__PURE__*/function () {
         var optionName = null;
         var name = meta.getAttribute('name');
         var content = meta.getAttribute('content');
-
         if (name && content && valid(name) && content.length > 0) {
           optionName = name.split(':')[1];
-
           if (optionName.indexOf('-') !== -1) {
             optionName = convertToCamelCase(optionName);
           }
-
           options[optionName] = content;
         }
       });
       return options;
     }
   }]);
-
   return OptionParser;
 }();
-
 exports["default"] = OptionParser;
 
 },{}],5:[function(require,module,exports){
@@ -196,43 +176,34 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _optionparser = _interopRequireDefault(require("./optionparser.js"));
-
 var _detector = _interopRequireDefault(require("./detector.js"));
-
 var _bakery = _interopRequireDefault(require("./bakery.js"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var DEFAULT_PLATFORMS = 'android,ios';
 var DEFAULT_CLOSE_LABEL = 'Close';
 var datas = {
   originalTop: 'data-smartbanner-original-top',
   originalMarginTop: 'data-smartbanner-original-margin-top'
 };
-
 function handleExitClick(event, self) {
   self.exit();
   event.preventDefault();
 }
-
 function handleClickout(event, self) {
   self.clickout();
 }
-
 function handleJQueryMobilePageLoad(event) {
   if (!this.positioningDisabled) {
     setContentPosition(event.data.height);
   }
 }
-
 function addEventListeners(self) {
   var closeIcon = document.querySelector('.js_smartbanner__exit');
   closeIcon.addEventListener('click', function (event) {
@@ -242,29 +213,23 @@ function addEventListeners(self) {
   button.addEventListener('click', function (event) {
     return handleClickout(event, self);
   });
-
   if (_detector["default"].jQueryMobilePage()) {
     $(document).on('pagebeforeshow', self, handleJQueryMobilePageLoad);
   }
 }
-
 function removeEventListeners() {
   if (_detector["default"].jQueryMobilePage()) {
     $(document).off('pagebeforeshow', handleJQueryMobilePageLoad);
   }
 }
-
 function setContentPosition(value) {
   var wrappers = _detector["default"].wrapperElement();
-
   for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
     wrapper = wrappers[i];
-
     if (_detector["default"].jQueryMobilePage()) {
       if (wrapper.getAttribute(datas.originalTop)) {
         continue;
       }
-
       var top = parseFloat(getComputedStyle(wrapper).top);
       wrapper.setAttribute(datas.originalTop, isNaN(top) ? 0 : top);
       wrapper.style.top = value + 'px';
@@ -272,20 +237,16 @@ function setContentPosition(value) {
       if (wrapper.getAttribute(datas.originalMarginTop)) {
         continue;
       }
-
       var margin = parseFloat(getComputedStyle(wrapper).marginTop);
       wrapper.setAttribute(datas.originalMarginTop, isNaN(margin) ? 0 : margin);
       wrapper.style.marginTop = value + 'px';
     }
   }
 }
-
 function restoreContentPosition() {
   var wrappers = _detector["default"].wrapperElement();
-
   for (var i = 0, l = wrappers.length, wrapper; i < l; i++) {
     wrapper = wrappers[i];
-
     if (_detector["default"].jQueryMobilePage() && wrapper.getAttribute(datas.originalTop)) {
       wrapper.style.top = wrapper.getAttribute(datas.originalTop) + 'px';
     } else if (wrapper.getAttribute(datas.originalMarginTop)) {
@@ -293,32 +254,29 @@ function restoreContentPosition() {
     }
   }
 }
-
 var SmartBanner = /*#__PURE__*/function () {
   function SmartBanner() {
     _classCallCheck(this, SmartBanner);
-
     var parser = new _optionparser["default"]();
     this.options = parser.parse();
     this.platform = _detector["default"].platform();
     var event = new Event('smartbanner.init');
     document.dispatchEvent(event);
-  } // DEPRECATED. Will be removed.
+  }
 
-
+  // DEPRECATED. Will be removed.
   _createClass(SmartBanner, [{
     key: "originalTop",
     get: function get() {
       var wrapper = _detector["default"].wrapperElement()[0];
-
       return parseFloat(wrapper.getAttribute(datas.originalTop));
-    } // DEPRECATED. Will be removed.
+    }
 
+    // DEPRECATED. Will be removed.
   }, {
     key: "originalTopMargin",
     get: function get() {
       var wrapper = _detector["default"].wrapperElement()[0];
-
       return parseFloat(wrapper.getAttribute(datas.originalMarginTop));
     }
   }, {
@@ -329,7 +287,6 @@ var SmartBanner = /*#__PURE__*/function () {
       } else if (this.platform === 'android' && this.options.priceSuffixGoogle) {
         return this.options.priceSuffixGoogle;
       }
-
       return '';
     }
   }, {
@@ -349,7 +306,6 @@ var SmartBanner = /*#__PURE__*/function () {
       } else if (this.platform === 'ios') {
         return this.options.buttonUrlApple;
       }
-
       return '#';
     }
   }, {
@@ -394,7 +350,6 @@ var SmartBanner = /*#__PURE__*/function () {
       if (!this.options.excludeUserAgentRegex) {
         return false;
       }
-
       return _detector["default"].userAgentMatchesRegex(this.options.excludeUserAgentRegex);
     }
   }, {
@@ -403,7 +358,6 @@ var SmartBanner = /*#__PURE__*/function () {
       if (!this.options.includeUserAgentRegex) {
         return false;
       }
-
       return _detector["default"].userAgentMatchesRegex(this.options.includeUserAgentRegex);
     }
   }, {
@@ -422,48 +376,41 @@ var SmartBanner = /*#__PURE__*/function () {
       if (Object.keys(this.options).length === 0) {
         throw new Error('No options detected. Please consult documentation.');
       }
-
       if (_bakery["default"].baked) {
-        return false;
-      } // User Agent was explicetely excluded by defined excludeUserAgentRegex
-
-
-      if (this.userAgentExcluded) {
-        return false;
-      } // User agent was neither included by platformEnabled,
-      // nor by defined includeUserAgentRegex
-
-
-      if (!(this.platformEnabled || this.userAgentIncluded)) {
         return false;
       }
 
+      // User Agent was explicetely excluded by defined excludeUserAgentRegex
+      if (this.userAgentExcluded) {
+        return false;
+      }
+
+      // User agent was neither included by platformEnabled,
+      // nor by defined includeUserAgentRegex
+      if (!(this.platformEnabled || this.userAgentIncluded)) {
+        return false;
+      }
       var bannerDiv = document.createElement('div');
       document.querySelector('body').appendChild(bannerDiv);
       bannerDiv.outerHTML = this.html;
       var event = new Event('smartbanner.view');
       document.dispatchEvent(event);
-
       if (!this.positioningDisabled) {
         setContentPosition(this.height);
       }
-
       addEventListeners(this);
     }
   }, {
     key: "exit",
     value: function exit() {
       removeEventListeners();
-
       if (!this.positioningDisabled) {
         restoreContentPosition();
       }
-
       var banner = document.querySelector('.js_smartbanner');
       document.querySelector('body').removeChild(banner);
       var event = new Event('smartbanner.exit');
       document.dispatchEvent(event);
-
       _bakery["default"].bake(this.hideTtl, this.hidePath);
     }
   }, {
@@ -473,10 +420,8 @@ var SmartBanner = /*#__PURE__*/function () {
       document.dispatchEvent(event);
     }
   }]);
-
   return SmartBanner;
 }();
-
 exports["default"] = SmartBanner;
 
 },{"./bakery.js":1,"./detector.js":2,"./optionparser.js":4}]},{},[3]);
