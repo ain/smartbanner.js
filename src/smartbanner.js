@@ -83,9 +83,6 @@ export default class SmartBanner {
     let parser = new OptionParser();
     this.options = parser.parse();
     this.platform = Detector.platform();
-
-    let event = new Event('smartbanner.init');
-    document.dispatchEvent(event);
   }
 
   // DEPRECATED. Will be removed.
