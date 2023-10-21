@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node: [16, 17, 18, 19, 20]
+        node: [16, 17, 18, 19, 20, 21]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node }}
