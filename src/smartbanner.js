@@ -210,7 +210,7 @@ export default class SmartBanner {
     }
 
     let bannerDiv = document.createElement('div');
-    document.querySelector('body').appendChild(bannerDiv);
+    document.querySelector('body').prepend(bannerDiv);
     bannerDiv.outerHTML = this.html;
     let event = new Event('smartbanner.view');
     document.dispatchEvent(event);
