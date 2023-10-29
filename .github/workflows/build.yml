@@ -1,18 +1,6 @@
 name: Node.js CI
 
-on:
-  push:
-    tags:
-      - v*.*
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - '**.png'
-      - '**.svg'
-  pull_request_target:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   test:
@@ -20,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node: [17, 18, 19, 20]
+        node: [17, 18, 19, 20, 21]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node }}
