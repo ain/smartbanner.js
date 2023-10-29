@@ -1,18 +1,7 @@
 name: Node.js CI
 
 on:
-  push:
-    tags:
-      - v*.*
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - '**.png'
-      - '**.svg'
-  pull_request_target:
-    branches:
-      - main
+  on: [push, pull_request]
 
 jobs:
   test:
