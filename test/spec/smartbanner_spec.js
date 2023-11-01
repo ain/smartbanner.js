@@ -120,6 +120,60 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
+  const HTML_WITH_EMPTY_PRICE = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:price" content="">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:close-label" content="Close Smart App Banner">
+    </head>
+    <body>
+    </body>
+  </html>`;
+
+  const HTML_WITHOUT_PRICE = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:close-label" content="Close Smart App Banner">
+      <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+      <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+    </head>
+    <body>
+    </body>
+  </html>`;
+
+  const HTML_WITHOUT_PRICE_AND_SUFFIX = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      <meta charset="utf-8">
+      <meta name="smartbanner:title" content="Smart Application">
+      <meta name="smartbanner:author" content="SmartBanner Contributors">
+      <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+      <meta name="smartbanner:icon-google" content="icon--google.jpg">
+      <meta name="smartbanner:button" content="View">
+      <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+      <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+      <meta name="smartbanner:close-label" content="Close Smart App Banner">
+    </head>
+    <body>
+    </body>
+  </html>`;
+
   const SCRIPTS = `<script>window.conclude();</script>`;
   const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -704,6 +758,77 @@ describe('SmartBanner', function() {
 
       it('expected to have empty button URL', function() {
         expect(smartbanner.buttonUrl).to.eql('#');
+      });
+
+    });
+
+    context('without price', function() {
+
+      context('with price suffixes', function() {
+
+        context('on unknown platform', function() {
+
+          before(function() {
+            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
+            global.window = new JSDOM(HTML_WITHOUT_PRICE, { resources: resourceLoader }).window;
+            global.document = window.document;
+            global.getComputedStyle = window.getComputedStyle;
+            global.Event = window.Event;
+            smartbanner = new SmartBanner();
+          });
+
+          it('expected to have no price', function() {
+            expect(smartbanner.price).to.be.empty;
+          });
+
+          it('expected to have no price suffix', function() {
+            expect(smartbanner.priceSuffix).to.be.empty;
+          });
+
+        });
+
+        context('on known platform', function() {
+
+          before(function() {
+            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPOD });
+            global.window = new JSDOM(HTML_WITHOUT_PRICE, { resources: resourceLoader }).window;
+            global.document = window.document;
+            global.getComputedStyle = window.getComputedStyle;
+            global.Event = window.Event;
+            smartbanner = new SmartBanner();
+          });
+
+          it('expected to have no price', function() {
+            expect(smartbanner.price).to.be.empty;
+          });
+
+          it('expected to have price suffix', function() {
+            expect(smartbanner.priceSuffix).to.not.be.empty;
+          });
+
+        });
+
+      });
+
+      context('without price suffixes', function() {
+
+        before(function() {
+          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
+          global.window = new JSDOM(HTML_WITHOUT_PRICE_AND_SUFFIX, { resources: resourceLoader }).window;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          global.Event = window.Event;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to have no price', function() {
+          expect(smartbanner.price).to.be.empty;
+        });
+
+        it('expected to have no price suffix', function() {
+          expect(smartbanner.priceSuffix).to.be.empty;
+        });
+
       });
 
     });
