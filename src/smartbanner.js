@@ -109,6 +109,14 @@ export default class SmartBanner {
     return '';
   }
 
+  get price() {
+    if (this.options.price && this.options.price !== '') {
+      return this.options.price;
+    } else {
+      return '';
+    }
+  }
+
   get icon() {
     if (this.platform === 'android') {
       return this.options.iconGoogle;
@@ -139,7 +147,7 @@ export default class SmartBanner {
         <div>
           <div class="smartbanner__info__title">${this.options.title}</div>
           <div class="smartbanner__info__author">${this.options.author}</div>
-          <div class="smartbanner__info__price">${this.options.price}${this.priceSuffix}</div>
+          <div class="smartbanner__info__price">${this.price}${this.priceSuffix}</div>
         </div>
       </div>
       <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="${this.options.button}"><span class="smartbanner__button__label">${this.options.button}</span></a>
