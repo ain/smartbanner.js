@@ -111,7 +111,7 @@ export default class SmartBanner {
 
   get price() {
    if (this.options.price && this.options.price !== '') {
-      return this.options.price;
+     return this.options.price;
    } else {
      return '';
    }
