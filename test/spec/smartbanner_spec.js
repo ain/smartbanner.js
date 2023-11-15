@@ -3,6 +3,7 @@ let chai = require('chai');
 let expect = chai.expect;
 
 import SmartBanner from '../../src/smartbanner.js';
+import {SmartBanner as SmartBannerNamedExport} from '../../src/smartbanner.js';
 import Bakery from '../../src/bakery.js';
 
 describe('SmartBanner', function() {
@@ -174,7 +175,7 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
-  const SCRIPTS = `<script>window.conclude();</script>`;
+  const SCRIPTS = '<script>window.conclude();</script>';
   const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script>window.conclude();</script>`;
@@ -1033,8 +1034,8 @@ describe('SmartBanner', function() {
       document.addEventListener('smartbanner.exit', function () {
         done();
       });
-      let clickEvent = document.createEvent("HTMLEvents");
-      clickEvent.initEvent("click", false, true);
+      let clickEvent = document.createEvent('HTMLEvents');
+      clickEvent.initEvent('click', false, true);
       document.querySelector('.js_smartbanner__exit').dispatchEvent(clickEvent);
     });
 
@@ -1054,8 +1055,8 @@ describe('SmartBanner', function() {
       document.addEventListener('smartbanner.clickout', function () {
         done();
       });
-      let clickEvent = document.createEvent("HTMLEvents");
-      clickEvent.initEvent("click", false, true);
+      let clickEvent = document.createEvent('HTMLEvents');
+      clickEvent.initEvent('click', false, true);
       document.querySelector('.js_smartbanner__button').dispatchEvent(clickEvent);
     });
 
@@ -1144,6 +1145,19 @@ describe('SmartBanner', function() {
 
       it('returns option value', function() {
         expect(smartbanner.hideTtl).to.eql(1244);
+      });
+    });
+
+    context('when importing SmartBanner named export', function () {
+      before(function() {
+        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.document = window.document;
+      });
+      it('returns SmartBannerNamed exports import', function () {
+        expect(SmartBannerNamedExport).to.be.a('function');
+      });
+      it('will create a new instance of SmartBanner', function () {
+        expect(new SmartBannerNamedExport()).to.be.an.instanceof(SmartBanner);
       });
     });
 

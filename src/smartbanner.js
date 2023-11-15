@@ -245,3 +245,7 @@ export default class SmartBanner {
     document.dispatchEvent(event);
   }
 }
+
+export {
+  SmartBanner
+};
