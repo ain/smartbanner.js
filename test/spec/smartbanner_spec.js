@@ -850,6 +850,122 @@ describe('SmartBanner', function() {
 
     });
 
+    context('button label', function() {
+      context('when button label is not set', function() {
+        const HTML_WITHOUT_BUTTON_LABEL = `<!doctype html>
+        <html style="margin-top:10px;">
+          <head>
+            <meta charset="utf-8">
+            <meta name="smartbanner:title" content="Smart Application">
+            <meta name="smartbanner:author" content="SmartBanner Contributors">
+            <meta name="smartbanner:price" content="FREE">
+            <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+            <meta name="smartbanner:icon-google" content="icon--google.jpg">
+            <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+            <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+            <meta name="smartbanner:close-label" content="Close Smart App Banner">
+          </head>
+          <body>
+          </body>
+        </html>`;
+
+        before(function() {
+          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
+          global.window = new JSDOM(HTML_WITHOUT_BUTTON_LABEL, { resources: resourceLoader }).window;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          global.Event = window.Event;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to have default button label', function() {
+          expect(smartbanner.buttonLabel).to.eql('View');
+        });
+      });
+
+      context('when default button label is set', function() {
+          const HTML_WITH_BUTTON_LABEL = `<!doctype html>
+          <html style="margin-top:10px;">
+            <head>
+              <meta name="smartbanner:title" content="Smart Application">
+              <meta name="smartbanner:author" content="SmartBanner Contributors">
+              <meta name="smartbanner:price" content="FREE">
+              <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+              <meta name="smartbanner:icon-google" content="icon--google.jpg">
+              <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+              <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+              <meta name="smartbanner:close-label" content="Close Smart App Banner">
+              <meta name="smartbanner:button" content="View in App Store">
+            </head>
+            <body>
+            </body>
+          </html>`;
+
+          before(function() {
+            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
+            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: resourceLoader }).window;
+            global.document = window.document;
+            global.getComputedStyle = window.getComputedStyle;
+            global.Event = window.Event;
+            smartbanner = new SmartBanner();
+          });
+
+          it('expected to have default button label', function() {
+            expect(smartbanner.buttonLabel).to.eql('View in App Store');
+          });
+        });
+
+      context('when platform specific button label is set', function() {
+        const HTML_WITH_BUTTON_LABEL = `<!doctype html>
+          <html style="margin-top:10px;">
+            <head>
+              <meta name="smartbanner:title" content="Smart Application">
+              <meta name="smartbanner:author" content="SmartBanner Contributors">
+              <meta name="smartbanner:price" content="FREE">
+              <meta name="smartbanner:icon-apple" content="icon--apple.jpg">
+              <meta name="smartbanner:icon-google" content="icon--google.jpg">
+              <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/genre/ios/id36?mt=8">
+              <meta name="smartbanner:button-url-google" content="https://play.google.com/store">
+              <meta name="smartbanner:close-label" content="Close Smart App Banner">
+              <meta name="smartbanner:button-apple" content="View in App Store">
+              <meta name="smartbanner:button-google" content="View in Play Store">
+            </head>
+            <body>
+            </body>
+          </html>`;
+
+        context('when on iOS', function() {
+          before(function() {
+            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
+            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: resourceLoader }).window;
+            global.document = window.document;
+            global.getComputedStyle = window.getComputedStyle;
+            global.Event = window.Event;
+            smartbanner = new SmartBanner();
+          });
+
+          it('expected to have iOS button label', function() {
+            expect(smartbanner.buttonLabel).to.eql('View in App Store');
+          });
+        });
+
+        context('when on Android', function() {
+          before(function() {
+            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
+            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: resourceLoader }).window;
+            global.document = window.document;
+            global.getComputedStyle = window.getComputedStyle;
+            global.Event = window.Event;
+            smartbanner = new SmartBanner();
+          });
+
+          it('expected to have Android button label', function() {
+            expect(smartbanner.buttonLabel).to.eql('View in Play Store');
+          });
+        });
+      });
+    });
+
   });
 
   describe('exit', function() {
