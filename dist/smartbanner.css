@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.21.0 <https://github.com/ain/smartbanner.js#readme>
+ * smartbanner.js v1.21.1 <https://github.com/ain/smartbanner.js#readme>
  * Copyright © 2023 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 .smartbanner {
@@ -28,7 +28,7 @@
   position: absolute;
   width: 1px;
   height: 12px;
-  background: #767676;
+  background: #716F6F;
   content: " ";
 }
 .smartbanner__exit::before {
