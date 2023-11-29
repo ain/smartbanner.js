@@ -141,10 +141,10 @@ export default class SmartBanner {
 
   get buttonLabel() {
     let buttonLabel = this.options.button;
-    if (this.platform === 'android') {
-      buttonLabel = this.options.buttonGoogle || this.options.button || DEFAULT_BUTTON_LABEL;
-    } else if (this.platform === 'ios') {
-      buttonLabel = this.options.buttonApple || this.options.button || DEFAULT_BUTTON_LABEL;
+    if (this.platform === 'android' && this.options.buttonGoogle) {
+      buttonLabel = this.options.buttonGoogle;
+    } else if (this.platform === 'ios' && this.options.buttonApple) {
+      buttonLabel = this.options.buttonApple;
     }
 
     return buttonLabel || DEFAULT_BUTTON_LABEL;
