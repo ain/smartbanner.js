@@ -324,9 +324,9 @@ var SmartBanner = exports["default"] = /*#__PURE__*/function () {
     key: "buttonLabel",
     get: function get() {
       var buttonLabel = this.options.button;
-      if (this.platform === 'android') {
+      if (this.platform === 'android' && this.options.buttonGoogle) {
         buttonLabel = this.options.buttonGoogle;
-      } else if (this.platform === 'ios') {
+      } else if (this.platform === 'ios' && this.options.buttonApple) {
         buttonLabel = this.options.buttonApple;
       }
       return buttonLabel || DEFAULT_BUTTON_LABEL;
