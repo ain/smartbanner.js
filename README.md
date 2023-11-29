@@ -124,7 +124,7 @@ smartbanner uses built-in platform-specific styles (e.g. `smartbanner--ios` or `
 
     which would add `smartbanner--ios` class on wrapper regardless of actual platform.
 
-### Platform depending button label
+### Platform-specific button labels
 If you want to have a different button label for each platform, you can use the following meta tags:
 ```html
 <meta name="smartbanner:button-apple" content="Download on the App Store">
