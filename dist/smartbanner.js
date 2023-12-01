@@ -1,5 +1,5 @@
 /*!
- * smartbanner.js v1.21.1 <https://github.com/ain/smartbanner.js#readme>
+ * smartbanner.js v1.22.0 <https://github.com/ain/smartbanner.js#readme>
  * Copyright © 2023 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
@@ -185,6 +185,7 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var DEFAULT_PLATFORMS = 'android,ios';
 var DEFAULT_CLOSE_LABEL = 'Close';
+var DEFAULT_BUTTON_LABEL = 'View';
 var datas = {
   originalTop: 'data-smartbanner-original-top',
   originalMarginTop: 'data-smartbanner-original-margin-top'
@@ -320,10 +321,21 @@ var SmartBanner = exports["default"] = /*#__PURE__*/function () {
       return this.options.closeLabel !== undefined ? this.options.closeLabel : DEFAULT_CLOSE_LABEL;
     }
   }, {
+    key: "buttonLabel",
+    get: function get() {
+      var buttonLabel = this.options.button;
+      if (this.platform === 'android' && this.options.buttonGoogle) {
+        buttonLabel = this.options.buttonGoogle;
+      } else if (this.platform === 'ios' && this.options.buttonApple) {
+        buttonLabel = this.options.buttonApple;
+      }
+      return buttonLabel || DEFAULT_BUTTON_LABEL;
+    }
+  }, {
     key: "html",
     get: function get() {
       var modifier = !this.options.customDesignModifier ? this.platform : this.options.customDesignModifier;
-      return "<div class=\"smartbanner smartbanner--".concat(modifier, " js_smartbanner\">\n      <a href=\"javascript:void(0);\" class=\"smartbanner__exit js_smartbanner__exit\" aria-label=\"").concat(this.closeLabel, "\"></a>\n      <div class=\"smartbanner__icon\" style=\"background-image: url(").concat(this.icon, ");\"></div>\n      <div class=\"smartbanner__info\">\n        <div>\n          <div class=\"smartbanner__info__title\">").concat(this.options.title, "</div>\n          <div class=\"smartbanner__info__author\">").concat(this.options.author, "</div>\n          <div class=\"smartbanner__info__price\">").concat(this.price).concat(this.priceSuffix, "</div>\n        </div>\n      </div>\n      <a href=\"").concat(this.buttonUrl, "\" target=\"_blank\" class=\"smartbanner__button js_smartbanner__button\" rel=\"noopener\" aria-label=\"").concat(this.options.button, "\"><span class=\"smartbanner__button__label\">").concat(this.options.button, "</span></a>\n    </div>");
+      return "<div class=\"smartbanner smartbanner--".concat(modifier, " js_smartbanner\">\n      <a href=\"javascript:void(0);\" class=\"smartbanner__exit js_smartbanner__exit\" aria-label=\"").concat(this.closeLabel, "\"></a>\n      <div class=\"smartbanner__icon\" style=\"background-image: url(").concat(this.icon, ");\"></div>\n      <div class=\"smartbanner__info\">\n        <div>\n          <div class=\"smartbanner__info__title\">").concat(this.options.title, "</div>\n          <div class=\"smartbanner__info__author\">").concat(this.options.author, "</div>\n          <div class=\"smartbanner__info__price\">").concat(this.price).concat(this.priceSuffix, "</div>\n        </div>\n      </div>\n      <a href=\"").concat(this.buttonUrl, "\" target=\"_blank\" class=\"smartbanner__button js_smartbanner__button\" rel=\"noopener\" aria-label=\"").concat(this.buttonLabel, "\"><span class=\"smartbanner__button__label\">").concat(this.buttonLabel, "</span></a>\n    </div>");
     }
   }, {
     key: "height",

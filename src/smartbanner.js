@@ -4,6 +4,7 @@ import Bakery from './bakery.js';
 
 const DEFAULT_PLATFORMS = 'android,ios';
 const DEFAULT_CLOSE_LABEL = 'Close';
+const DEFAULT_BUTTON_LABEL = 'View';
 
 let datas = {
   originalTop: 'data-smartbanner-original-top',
@@ -138,6 +139,17 @@ export default class SmartBanner {
     return this.options.closeLabel !== undefined ? this.options.closeLabel : DEFAULT_CLOSE_LABEL;
   }
 
+  get buttonLabel() {
+    let buttonLabel = this.options.button;
+    if (this.platform === 'android' && this.options.buttonGoogle) {
+      buttonLabel = this.options.buttonGoogle;
+    } else if (this.platform === 'ios' && this.options.buttonApple) {
+      buttonLabel = this.options.buttonApple;
+    }
+
+    return buttonLabel || DEFAULT_BUTTON_LABEL;
+  }
+
   get html() {
     let modifier = !this.options.customDesignModifier ? this.platform : this.options.customDesignModifier;
     return `<div class="smartbanner smartbanner--${modifier} js_smartbanner">
@@ -150,7 +162,7 @@ export default class SmartBanner {
           <div class="smartbanner__info__price">${this.price}${this.priceSuffix}</div>
         </div>
       </div>
-      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="${this.options.button}"><span class="smartbanner__button__label">${this.options.button}</span></a>
+      <a href="${this.buttonUrl}" target="_blank" class="smartbanner__button js_smartbanner__button" rel="noopener" aria-label="${this.buttonLabel}"><span class="smartbanner__button__label">${this.buttonLabel}</span></a>
     </div>`;
   }
 
