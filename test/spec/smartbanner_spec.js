@@ -1,5 +1,6 @@
 let jsdom = require('jsdom');
-let chai = require('chai');
+
+import chai from '../../node_modules/chai/chai.js';
 let expect = chai.expect;
 
 import SmartBanner from '../../src/smartbanner.js';
