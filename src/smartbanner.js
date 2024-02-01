@@ -153,7 +153,7 @@ export default class SmartBanner {
   get html() {
     let modifier = !this.options.customDesignModifier ? this.platform : this.options.customDesignModifier;
     return `<div class="smartbanner smartbanner--${modifier} js_smartbanner">
-      <a href="javascript:void(0);" class="smartbanner__exit js_smartbanner__exit" aria-label="${this.closeLabel}"></a>
+      <span class="smartbanner__exit js_smartbanner__exit" aria-label="${this.closeLabel}"></span>
       <div class="smartbanner__icon" style="background-image: url(${this.icon});"></div>
       <div class="smartbanner__info">
         <div>
