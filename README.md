@@ -136,7 +136,7 @@ If you want to have a different button label for each platform, you can use the 
 By default smartbanner is added to DOM automatically. You can disable it with
 
 ```html
-<meta name="smartbanner:api" content="true">
+<meta name="smartbanner:api" content="yes">
 ```
 
 and add smartbanner to DOM manually:
