@@ -184,7 +184,7 @@ export default class SmartBanner {
   }
 
   get apiEnabled() {
-    return this.options.api === 'true';
+    return this.options.api === 'true' || this.options.api === 'yes';
   }
 
   get userAgentExcluded() {
