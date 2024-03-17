@@ -17,7 +17,7 @@
   <meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=com.duckduckgo.mobile.android&hl=en_US">
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <meta name="smartbanner:close-label" content="Close this banner">
-  <!--<meta name="smartbanner:api" content="true">-->
+  <!--<meta name="smartbanner:api" content="yes">-->
   <!--<meta name="smartbanner:hide-ttl" content="2629746000">-->
   <!--<meta name="smartbanner:hide-path" content="/">-->
   <!--<meta name="smartbanner:disable-positioning" content="true">-->
@@ -41,7 +41,7 @@
     document.addEventListener('smartbanner.clickout', function() { console.log('smartbanner.clickout'); });
 
     // Manual smartbanner population:
-    //   1) set smartbanner:api meta tag to true above for manual smartbanner population
+    //   1) uncomment smartbanner:api meta tag above for manual smartbanner population
     //   2) Uncomment below
     //let apiHandler = function() { smartbanner.publish(); };
     //window.onload = apiHandler;
