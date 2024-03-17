@@ -73,6 +73,17 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
+  // TODO: consider as default in v2
+  const HTML_API_YES = `<!doctype html>
+    <html style="margin-top:10px;">
+    <head>
+      ${HEAD}
+      <meta name="smartbanner:api" content="yes">
+    </head>
+    <body>
+    </body>
+  </html>`;
+
   const HTML_IOS = `<!doctype html>
     <html style="margin-top:10px;">
     <head>
@@ -1172,14 +1183,32 @@ describe('SmartBanner', function() {
 
     context('when API option set', function() {
 
-      before(function() {
-        global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
-        global.document = window.document;
-        smartbanner = new SmartBanner();
+      context('with value of "true"', function() {
+
+        before(function() {
+          global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
+          global.document = window.document;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to return true ', function() {
+          expect(smartbanner.apiEnabled).to.be.true;
+        });
+
       });
 
-      it('expected to return true ', function() {
-        expect(smartbanner.apiEnabled).to.be.true;
+      context('with value of "yes"', function() {
+
+        before(function() {
+          global.window = new JSDOM(HTML_API_YES, { resources: resourceLoader }).window;
+          global.document = window.document;
+          smartbanner = new SmartBanner();
+        });
+
+        it('expected to return true ', function() {
+          expect(smartbanner.apiEnabled).to.be.true;
+        });
+
       });
 
     });
