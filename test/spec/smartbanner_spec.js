@@ -253,6 +253,7 @@ describe('SmartBanner', function() {
   const USER_AGENT_ANDROID = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]';
   const USER_AGENT_ANDROID_CUSTOM_WEBAPP = 'Mozilla/5.0 (Linux; Android 5.1; XT1039 Build/LPB23.13-17.6; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/79.0.0.18.71;]  My Example Webapp';
   const USER_AGENT_DESKTOP = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7';
+  const USER_AGENT_WINDOWS_TAB = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36';
   const USER_AGENT_UNKNOWN = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/0.0.1 Unknown/0.0.1';
 
   let smartbanner = null;
@@ -389,6 +390,24 @@ describe('SmartBanner', function() {
 
         before(function() {
           const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_DESKTOP });
+          global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+          global.document = window.document;
+          global.getComputedStyle = window.getComputedStyle;
+          global.Event = window.Event;
+          smartbanner = new SmartBanner();
+          smartbanner.publish();
+        });
+
+        it('expected to not add anything to body', function() {
+          expect(document.querySelector('.js_smartbanner')).to.be.null;
+        });
+
+      });
+
+      context('when on Windows Tab', function() {
+
+        before(function() {
+          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_WINDOWS_TAB });
           global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
