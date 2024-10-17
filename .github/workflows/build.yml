@@ -41,7 +41,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
-          carryforward: "run-23"
+          carryforward: "run-20"
 
   publish:
     runs-on: ubuntu-latest
