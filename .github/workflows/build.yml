@@ -16,11 +16,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm install
-      - if: ${{ matrix.os == 'windows-latest' }}
-        run: |
-          npm run eslint -- --rule 'linebreak-style: [2, windows]'
-      - if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: npm run eslint
+      - run: npm run eslint
       - run: npm test
       - run: npm run build
       - name: Coveralls Parallel
