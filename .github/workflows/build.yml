@@ -11,7 +11,9 @@ jobs:
         node: [17, 18, 19, 20, 21, 22, 23]
         exclude:
           - os: windows-latest
-            node: [22, 23]
+            node: 22
+          - os: windows-latest
+            node: 23
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node }}
