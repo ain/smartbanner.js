@@ -27,13 +27,13 @@
     "jsdom": "^25.0.0",
     "local-web-server": "^5.1.0",
     "mocha": "^10.0.0",
-    "nyc": "^17.0.0",
     "sass": "^1.32.11",
     "uglify-js": "^3.6.0",
-    "watchify": "^4.0.0"
+    "watchify": "^4.0.0",
+    "c8": "^10.1.2"
   },
   "engines": {
-    "node": ">=10.24.1 <22.0.0"
+    "node": ">=10.24.1 <24.0.0"
   },
   "repository": {
     "type": "git",
@@ -51,7 +51,7 @@
     "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ @babel/preset-env ] ] -v",
     "watch:css": "npm run build:css | npm run autoprefix -- -w",
     "mocha": "mocha --require @babel/register",
-    "test": "nyc mocha --require @babel/register test/spec/*.js && nyc report --reporter=lcovonly",
+    "test": "c8 mocha --require @babel/register test/spec/*.js && c8 report --reporter=lcovonly",
     "test:watch": "npm run test -- -w",
     "start": "ws --directory dist/ --port=8080 --log.format dev"
   },

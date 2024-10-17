@@ -1,5 +1,4 @@
-let jsdom = require('jsdom');
-
+import jsdom from 'jsdom';
 import chai from '../../node_modules/chai/chai.js';
 let expect = chai.expect;
 
