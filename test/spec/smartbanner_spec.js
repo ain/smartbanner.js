@@ -1,4 +1,5 @@
-let jsdom = require('jsdom');
+//let jsdom = require('jsdom');
+import jsdom from 'jsdom';
 
 import chai from '../../node_modules/chai/chai.js';
 let expect = chai.expect;
@@ -29,6 +30,8 @@ describe('SmartBanner', function() {
     <body>
     </body>
   </html>`;
+
+  const SCRIPTS = `<script>window.conclude();</script>`;
 
   const HTML_WITH_CONCLUDE = `<!doctype html>
     <html style="margin-top:10px;">
@@ -186,7 +189,6 @@ describe('SmartBanner', function() {
     </body>
   </html>`;
 
-  const SCRIPTS = `<script>window.conclude();</script>`;
   const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script>window.conclude();</script>`;
