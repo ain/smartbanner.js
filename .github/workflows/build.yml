@@ -30,7 +30,7 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: run-${{ matrix.node }}
+          flag-name: run-${{ matrix.os }}-${{ matrix.node }}
           parallel: true
 
   finish:
@@ -41,7 +41,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
-          allow-empty: true
+          carryforward: "run-ubuntu-latest-18,run-ubuntu-latest-20,run-ubuntu-latest-22"
 
   publish:
     runs-on: ubuntu-latest
