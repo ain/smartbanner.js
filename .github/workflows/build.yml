@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node: [17, 18, 19, 20, 21, 22]
+        node: [17, 18, 19, 20, 21, 22, 23]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node }}
@@ -24,17 +24,17 @@ jobs:
       - run: npm test
       - run: npm run build
       - name: Coveralls Parallel
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: run-${{ matrix.node }}
+          flag-name: run-${{ matrix.os }}-${{ matrix.node }}
           parallel: true
 
   finish:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: coverallsapp/github-action@master
+      - uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
