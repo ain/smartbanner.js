@@ -196,7 +196,7 @@ describe('SmartBanner', function() {
   const HTML_WITH_JQUERY_MOBILE_AND_META = `<!doctype html><html>${HEAD}<body class="ui-page">${SCRIPTS_JQUERY_MOBILE}</body></html>`;
 
   const IOS_BODY = `<div class="smartbanner smartbanner--ios js_smartbanner">
-      <span class="smartbanner__exit js_smartbanner__exit" aria-label="Close iOS Smart App Banner"></span>
+      <a href="#" class="smartbanner__exit js_smartbanner__exit" title="Close iOS Smart App Banner" rel="nofollow"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
       <div class="smartbanner__info">
         <div>
@@ -209,7 +209,7 @@ describe('SmartBanner', function() {
     </div>`;
 
   const ANDROID_BODY = `<div class="smartbanner smartbanner--android js_smartbanner">
-      <span class="smartbanner__exit js_smartbanner__exit" aria-label="Close Android Smart App Banner"></span>
+      <a href="#" class="smartbanner__exit js_smartbanner__exit" title="Close Android Smart App Banner" rel="nofollow"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
         <div>
@@ -222,7 +222,7 @@ describe('SmartBanner', function() {
     </div>`;
 
   const UNDEFINED_BODY = `<div class="smartbanner smartbanner--undefined js_smartbanner">
-      <span class="smartbanner__exit js_smartbanner__exit" aria-label="Close Smart App Banner"></span>
+      <a href="#" class="smartbanner__exit js_smartbanner__exit" title="Close Smart App Banner" rel="nofollow"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--apple.jpg);"></div>
       <div class="smartbanner__info">
         <div>
@@ -235,7 +235,7 @@ describe('SmartBanner', function() {
     </div>`;
 
   const ANDROID_CUSTOM_DESIGN_BODY = `<div class="smartbanner smartbanner--custom-design js_smartbanner">
-      <span class="smartbanner__exit js_smartbanner__exit" aria-label="Close banner"></span>
+      <a href="#" class="smartbanner__exit js_smartbanner__exit" title="Close banner" rel="nofollow"></a>
       <div class="smartbanner__icon" style="background-image: url(icon--google.jpg);"></div>
       <div class="smartbanner__info">
         <div>
