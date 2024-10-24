@@ -1,6 +1,4 @@
-//let jsdom = require('jsdom');
 import jsdom from 'jsdom';
-
 import SmartBanner from '../../src/smartbanner.js';
 
 describe('SmartBanner', function() {

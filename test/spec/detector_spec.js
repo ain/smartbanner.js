@@ -1,9 +1,5 @@
-//let jsdom = require('jsdom');
 import jsdom from 'jsdom';
-
-import chai from '../../node_modules/chai/chai.js';
-let expect = chai.expect;
-
+import { expect } from 'chai';
 import Detector from '../../src/detector.js';
 
 describe('Detector', function() {

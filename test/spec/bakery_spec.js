@@ -1,7 +1,5 @@
 import jsdom from 'jsdom';
-import chai from '../../node_modules/chai/chai.js';
-let expect = chai.expect;
-
+import { expect } from 'chai';
 import Bakery from '../../src/bakery.js';
 
 describe('Bakery', function() {
