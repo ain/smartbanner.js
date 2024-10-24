@@ -1,11 +1,10 @@
-import jsdom from 'jsdom';
+import jsdom, { JSDOM } from 'jsdom';
 import { expect } from 'chai';
 import SmartBanner from '../../src/smartbanner.js';
 import Bakery from '../../src/bakery.js';
 
 describe('SmartBanner', function() {
 
-  const { JSDOM } = jsdom;
   const HEAD = `<meta charset="utf-8">
       <meta name="smartbanner:title" content="Smart Application">
       <meta name="smartbanner:author" content="SmartBanner Contributors">

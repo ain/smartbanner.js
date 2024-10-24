@@ -1,9 +1,8 @@
-import jsdom from 'jsdom';
+import jsdom, { JSDOM } from 'jsdom';
 import SmartBanner from '../../src/smartbanner.js';
 
 describe('SmartBanner', function() {
 
-  const { JSDOM } = jsdom;
   const HEAD = `<head>
       <meta charset="utf-8">
       <meta name="smartbanner:title" content="Smart Application">

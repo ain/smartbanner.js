@@ -1,4 +1,4 @@
-import jsdom from 'jsdom';
+import jsdom, { JSDOM } from 'jsdom';
 import { expect } from 'chai';
 import OptionParser from '../../src/optionparser.js';
 
@@ -54,8 +54,6 @@ describe('OptionParser', function() {
     <body>
     </body>
     </html>`;
-
-  const { JSDOM } = jsdom;
 
   describe('parse', function() {
 

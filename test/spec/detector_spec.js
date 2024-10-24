@@ -1,4 +1,4 @@
-import jsdom from 'jsdom';
+import jsdom, { JSDOM } from 'jsdom';
 import { expect } from 'chai';
 import Detector from '../../src/detector.js';
 
@@ -17,7 +17,6 @@ describe('Detector', function() {
   const EXCLUDE_USER_AGENT_REGEX = '^.*My Example Webapp$';
   const INCLUDE_USER_AGENT_REGEX = '.*iPhone OS [9\\-10].*';
 
-  const { JSDOM } = jsdom;
   const SCRIPTS_JQUERY_MOBILE = `<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script>window.conclude();</script>`;

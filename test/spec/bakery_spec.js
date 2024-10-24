@@ -1,10 +1,9 @@
-import jsdom from 'jsdom';
+import jsdom, { JSDOM } from 'jsdom';
 import { expect } from 'chai';
 import Bakery from '../../src/bakery.js';
 
 describe('Bakery', function() {
 
-  const { JSDOM } = jsdom;
   const HTML = '<!doctype html><html><head></head><body></body></html>';
 
   before(function() {
