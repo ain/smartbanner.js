@@ -26,7 +26,7 @@
     "eslint": "^9.0.0",
     "jsdom": "^25.0.0",
     "local-web-server": "^5.1.0",
-    "mocha": "^10.0.0",
+    "mocha": "^11.0.1",
     "sass": "^1.32.11",
     "uglify-js": "^3.6.0",
     "watchify": "^4.0.0",
