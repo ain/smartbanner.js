@@ -24,7 +24,7 @@
     "chai": "^4.2.0",
     "coveralls": "^3.1.0",
     "eslint": "^9.0.0",
-    "jsdom": "^25.0.0",
+    "jsdom": "^26.0.0",
     "local-web-server": "^5.1.0",
     "mocha": "^11.0.1",
     "sass": "^1.32.11",
