@@ -174,4 +174,4 @@ Cross-browser testing across all mobile platforms is powered by
 
 ## Licence
 
-Copyright © 2016-2024 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/main/LICENSE).
+Copyright © 2016-2025 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/main/LICENSE).
