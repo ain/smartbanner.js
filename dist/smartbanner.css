@@ -1,6 +1,6 @@
 /*!
- * smartbanner.js v1.25.0 <https://github.com/ain/smartbanner.js#readme>
- * Copyright © 2024 Ain Tohvri, contributors. Licensed under GPL-3.0.
+ * smartbanner.js v1.26.0 <https://github.com/ain/smartbanner.js#readme>
+ * Copyright © 2026 Ain Tohvri, contributors. Licensed under GPL-3.0.
  */
 .smartbanner {
   position: absolute;
@@ -11,7 +11,6 @@
   height: 84px;
   background: #f3f3f3;
   font-family: Helvetica, sans, sans-serif;
-  /** Android styles **/
 }
 .smartbanner__exit {
   position: absolute;
@@ -80,6 +79,9 @@
 }
 .smartbanner__button__label {
   text-align: center;
+}
+.smartbanner {
+  /** Android styles **/
 }
 .smartbanner.smartbanner--android {
   background: #3d3d3d url("data:image/gif;base64,R0lGODlhCAAIAIABAFVVVf///yH5BAEHAAEALAAAAAAIAAgAAAINRG4XudroGJBRsYcxKAA7");
