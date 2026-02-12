@@ -2,6 +2,10 @@ name: Node.js CI
 
 on: [push, pull_request]
 
+permissions:
+  id-token: write
+  contents: readm
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -47,5 +51,3 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
       - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
