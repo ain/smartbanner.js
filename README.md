@@ -15,7 +15,7 @@ Customisable smart app banner for iOS and Android.
   - at current path or [site-wide](#path-designated-close)
 - Platform-specific app icon and _View_ button
 - User Agent specific targeting
-- Pure JavaScript coming in at 15.7 KB minified, no jQuery required
+- Pure JavaScript coming in at 16 KB minified, no jQuery required
 - [Events](#events) emitted for [API](#smartbanner-api-use) implementations
 - ECMAScript 6 source
 
@@ -175,3 +175,4 @@ Cross-browser testing across all mobile platforms is powered by
 ## Licence
 
 Copyright © 2016-2026 Ain Tohvri, contributors. Licenced under [GPL-3](https://raw.githubusercontent.com/ain/smartbanner.js/main/LICENSE).
+:q
