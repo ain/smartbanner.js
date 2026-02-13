@@ -1,5 +1,5 @@
 # smartbanner.js [![Build Status](https://github.com/ain/smartbanner.js/workflows/Node.js%20CI/badge.svg)](https://github.com/ain/smartbanner.js/actions?query=workflow%3A%22Node.js+CI%22) [![npm version](https://badge.fury.io/js/smartbanner.js.svg)](https://badge.fury.io/js/smartbanner.js) [![Bower version](https://badge.fury.io/bo/smartbanner.js.svg)](https://badge.fury.io/bo/smartbanner.js) [![Coverage Status](https://coveralls.io/repos/github/ain/smartbanner.js/badge.svg?branch=main)](https://coveralls.io/github/ain/smartbanner.js?branch=main)
-Customisable smart app banner for iOS and Android.
+Customisable and lightweight smart app banner for iOS and Android.
 
 ![smartbanner.js iOS screenshot](https://github.com/ain/smartbanner.js/raw/main/screenshot-ios.png) &nbsp; ![smartbanner.js Android screenshot](https://github.com/ain/smartbanner.js/raw/main/screenshot-android.png)
 
