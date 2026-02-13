@@ -1,6 +1,7 @@
 {
   "name": "smartbanner.js",
   "version": "1.27.0",
+  "type": "module",
   "description": "Customisable smart app banner for iOS and Android",
   "homepage": "https://github.com/ain/smartbanner.js#readme",
   "author": {
