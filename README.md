@@ -17,7 +17,7 @@ Customisable smart app banner for iOS and Android.
 - User Agent specific targeting
 - Pure JavaScript coming in at 16 KB minified, no jQuery required
 - [Events](#events) emitted for [API](#smartbanner-api-use) implementations
-- ECMAScript 6 source
+- ECMAScript 6 (`es2015`) source
 
 ## Basic Usage
 

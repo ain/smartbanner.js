@@ -18,7 +18,7 @@ export default class Detector {
   }
 
   static jQueryMobilePage() {
-    return typeof global.$ !== 'undefined' && global.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
+    return typeof window.$ !== 'undefined' && typeof window.$.mobile !== 'undefined' && document.querySelector('.ui-page') !== null;
   }
 
   static wrapperElement() {

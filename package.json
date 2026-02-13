@@ -1,6 +1,7 @@
 {
   "name": "smartbanner.js",
-  "version": "1.26.0",
+  "version": "1.27.0",
+  "type": "module",
   "description": "Customisable smart app banner for iOS and Android",
   "homepage": "https://github.com/ain/smartbanner.js#readme",
   "author": {
@@ -15,25 +16,20 @@
   "license": "GPL-3.0",
   "bugs": "https://github.com/ain/smartbanner.js/issues",
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/register": "^7.6.2",
     "add-banner": "ain/add-banner#0667ab6",
-    "babelify": "^10.0.0",
-    "browserify": "^17.0.0",
+    "c8": "^10.1.2",
     "chai": "^6.0.1",
+    "concurrently": "^9.2.1",
     "coveralls": "^3.1.0",
+    "esbuild": "^0.27.3",
     "eslint": "^10.0.0",
     "jsdom": "^27.0.0",
     "local-web-server": "^5.1.0",
     "mocha": "^11.0.1",
-    "sass": "^1.32.11",
-    "uglify-js": "^3.6.0",
-    "watchify": "^4.0.0",
-    "c8": "^10.1.2"
+    "sass": "^1.32.11"
   },
   "engines": {
-    "node": ">=10.24.1 <26.0.0"
+    "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
@@ -41,19 +37,18 @@
   },
   "scripts": {
     "bannerise": "add-banner --template banner.tmpl dist/smartbanner.css dist/smartbanner.js dist/smartbanner.min.css dist/smartbanner.min.js",
-    "browserify": "browserify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ @babel/preset-env ] ]",
-    "uglify": "uglifyjs dist/smartbanner.js -o dist/smartbanner.min.js",
     "eslint": "eslint src/*.js",
-    "build:js": "npm run browserify && npm run uglify",
+    "prebuild": "npm run build:js && npm run build:css",
+    "build:js": "esbuild src/index.js --bundle --target=es2015 --outfile=dist/smartbanner.js",
+    "build:js-min": "esbuild src/index.js --bundle --target=es2015 --minify --outfile=dist/smartbanner.min.js",
     "build:css": "sass src/smartbanner.scss dist/smartbanner.css",
     "build:css-min": "sass --style=compressed src/smartbanner.scss dist/smartbanner.min.css",
-    "build": "npm run build:js && npm run build:css && npm run build:css-min && npm run bannerise",
-    "watch:js": "watchify src/index.js -o dist/smartbanner.js -t [ babelify --presets [ @babel/preset-env ] ] -v",
-    "watch:css": "npm run build:css | npm run autoprefix -- -w",
-    "mocha": "mocha --require @babel/register",
-    "test": "c8 mocha --require @babel/register test/spec/*.js && c8 report --reporter=lcovonly",
+    "build": "npm run build:js-min && npm run build:css-min && npm run bannerise",
+    "watch:js": "esbuild src/index.js --bundle --target=es2015 --outfile=dist/smartbanner.js --watch",
+    "watch:css": "sass --watch src/smartbanner.scss:dist/smartbanner.css",
+    "test": "c8 mocha test/spec/*.js && c8 report --reporter=lcovonly",
     "test:watch": "npm run test -- -w",
-    "start": "ws --directory dist/ --port=8080 --log.format dev"
+    "start": "npm run prebuild && concurrently \"npm run watch:js\" \"npm run watch:css\" \"ws --directory dist/ --port=8080 --log.format dev\""
   },
   "keywords": [
     "javascript",
