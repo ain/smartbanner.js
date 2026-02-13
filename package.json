@@ -43,7 +43,7 @@
     "build:js-min": "esbuild src/index.js --bundle --target=es2015 --minify --outfile=dist/smartbanner.min.js",
     "build:css": "sass src/smartbanner.scss dist/smartbanner.css",
     "build:css-min": "sass --style=compressed src/smartbanner.scss dist/smartbanner.min.css",
-    "build": "npm run build:js && npm run build:js-min && npm run build:css && npm run build:css-min && npm run bannerise",
+    "build": "npm run build:js-min && npm run build:css-min && npm run bannerise",
     "watch:js": "esbuild src/index.js --bundle --target=es2015 --outfile=dist/smartbanner.js --watch",
     "watch:css": "sass --watch src/smartbanner.scss:dist/smartbanner.css",
     "test": "c8 mocha test/spec/*.js && c8 report --reporter=lcovonly",
