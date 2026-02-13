@@ -28,7 +28,7 @@
     "sass": "^1.32.11"
   },
   "engines": {
-    "node": ">=10.24.1 <26.0.0"
+    "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
