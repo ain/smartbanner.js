@@ -23,7 +23,7 @@
     "coveralls": "^3.1.0",
     "esbuild": "^0.27.3",
     "eslint": "^10.0.0",
-    "jsdom": "^27.0.0",
+    "jsdom": "^28.0.0",
     "local-web-server": "^5.1.0",
     "mocha": "^11.0.1",
     "sass": "^1.32.11"
