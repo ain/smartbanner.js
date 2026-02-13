@@ -47,7 +47,7 @@
       return new RegExp(regexString).test(window.navigator.userAgent);
     }
     static jQueryMobilePage() {
-      return typeof window.$ !== "undefined" && window.$.mobile !== "undefined" && document.querySelector(".ui-page") !== null;
+      return typeof window.$ !== "undefined" && typeof window.$.mobile !== "undefined" && document.querySelector(".ui-page") !== null;
     }
     static wrapperElement() {
       let selector = _Detector.jQueryMobilePage() ? ".ui-page" : "html";
