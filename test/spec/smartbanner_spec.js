@@ -1,4 +1,4 @@
-import jsdom, { JSDOM } from 'jsdom';
+import { JSDOM } from 'jsdom';
 import { expect } from 'chai';
 import SmartBanner from '../../src/smartbanner.js';
 import Bakery from '../../src/bakery.js';
@@ -260,9 +260,9 @@ describe('SmartBanner', function() {
     context('without options', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({userAgent: USER_AGENT_IPHONE_IOS9});
-        global.window = new JSDOM('<html></html>', { resource: resourceLoader }).window;
+        global.window = new JSDOM('<html></html>', { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
+        global.Event = window.Event;
         global.getComputedStyle = global.document.defaultView.getComputedStyle;
         smartbanner = new SmartBanner();
       });
@@ -278,8 +278,7 @@ describe('SmartBanner', function() {
       context('when on iPhone', function() {
 
         beforeEach(function() {
-          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-          global.window = new JSDOM(HTML_IOS, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML_IOS, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.$ = undefined;
@@ -309,8 +308,7 @@ describe('SmartBanner', function() {
       context('when on iPad', function() {
 
         before(function() {
-          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPAD });
-          global.window = new JSDOM(HTML_IOS, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML_IOS, { resources: { userAgent: USER_AGENT_IPAD } }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.Event = window.Event;
@@ -328,8 +326,7 @@ describe('SmartBanner', function() {
       context('when on iPod', function() {
 
         before(function() {
-          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPOD });
-          global.window = new JSDOM(HTML_IOS, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML_IOS, { resources: { userAgent: USER_AGENT_IPOD } }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.Event = window.Event;
@@ -348,8 +345,7 @@ describe('SmartBanner', function() {
 
         context('without custom design modifier', function() {
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-            global.window = new JSDOM(HTML_ANDROID, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_ANDROID, { resources: { userAgent: USER_AGENT_ANDROID } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -366,8 +362,7 @@ describe('SmartBanner', function() {
 
         context('with custom design modifier', function() {
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-            global.window = new JSDOM(HTML_CUSTOM_DESIGN_MODIFIER, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_CUSTOM_DESIGN_MODIFIER, { resources: { userAgent: USER_AGENT_ANDROID } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -386,8 +381,7 @@ describe('SmartBanner', function() {
       context('when on desktop', function() {
 
         before(function() {
-          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_DESKTOP });
-          global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_DESKTOP } }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.Event = window.Event;
@@ -404,8 +398,7 @@ describe('SmartBanner', function() {
       context('when on Windows Tab', function() {
 
         before(function() {
-          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_WINDOWS_TAB });
-          global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_WINDOWS_TAB } }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.Event = window.Event;
@@ -424,8 +417,7 @@ describe('SmartBanner', function() {
     context('when has been closed within current session', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-        global.window = new JSDOM(HTML, { resources: resourceLoader, url: 'http://localhost' }).window;
+        global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_ANDROID }, url: 'http://localhost' }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -444,8 +436,7 @@ describe('SmartBanner', function() {
     context('when has been closed, but is reopened in new session', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_ANDROID } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -455,8 +446,7 @@ describe('SmartBanner', function() {
       });
 
       it('expected to add to body', function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_ANDROID } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -489,8 +479,7 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -528,8 +517,7 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -569,8 +557,7 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP });
-        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9_EXCLUDE_WEBAPP, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_ANDROID_INCLUDE_IOS9_EXCLUDE_WEBAPP, { resources: { userAgent: USER_AGENT_IPHONE_CUSTOM_WEBAPP } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -606,8 +593,7 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_IOS, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_WITH_PLATFROM_OPTION_IOS, { resources: { userAgent: USER_AGENT_ANDROID } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -628,8 +614,7 @@ describe('SmartBanner', function() {
     context('when on iPhone', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.window = new JSDOM(HTML_IOS, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_IOS, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -661,8 +646,7 @@ describe('SmartBanner', function() {
     context('when on iPad', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPAD });
-        global.window = new JSDOM(HTML_IOS, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_IOS, { resources: { userAgent: USER_AGENT_IPAD } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -694,8 +678,7 @@ describe('SmartBanner', function() {
     context('when on iPod', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPOD });
-        global.window = new JSDOM(HTML_IOS, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_IOS, { resources: { userAgent: USER_AGENT_IPOD } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -727,8 +710,7 @@ describe('SmartBanner', function() {
     context('when on Android', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-        global.window = new JSDOM(HTML_ANDROID, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_ANDROID, { resources: { userAgent: USER_AGENT_ANDROID } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -760,8 +742,7 @@ describe('SmartBanner', function() {
     context('when on unidentified platform', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
-        global.window = new JSDOM(HTML_UNKNOWN, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_UNKNOWN, { resources: { userAgent: USER_AGENT_UNKNOWN } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -797,8 +778,7 @@ describe('SmartBanner', function() {
         context('on unknown platform', function() {
 
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
-            global.window = new JSDOM(HTML_WITHOUT_PRICE, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_WITHOUT_PRICE, { resources: { userAgent: USER_AGENT_UNKNOWN } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -818,8 +798,7 @@ describe('SmartBanner', function() {
         context('on known platform', function() {
 
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPOD });
-            global.window = new JSDOM(HTML_WITHOUT_PRICE, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_WITHOUT_PRICE, { resources: { userAgent: USER_AGENT_IPOD } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -841,8 +820,7 @@ describe('SmartBanner', function() {
       context('without price suffixes', function() {
 
         before(function() {
-          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
-          global.window = new JSDOM(HTML_WITHOUT_PRICE_AND_SUFFIX, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML_WITHOUT_PRICE_AND_SUFFIX, { resources: { userAgent: USER_AGENT_UNKNOWN } }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.Event = window.Event;
@@ -864,8 +842,7 @@ describe('SmartBanner', function() {
     context('without platform-specific price suffixes', function() {
 
       before(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
-        global.window = new JSDOM(HTML_WITHOUT_PRICE_SUFFIX, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_WITHOUT_PRICE_SUFFIX, { resources: { userAgent: USER_AGENT_UNKNOWN } }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
         global.Event = window.Event;
@@ -898,8 +875,7 @@ describe('SmartBanner', function() {
         </html>`;
 
         before(function() {
-          const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
-          global.window = new JSDOM(HTML_WITHOUT_BUTTON_LABEL, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML_WITHOUT_BUTTON_LABEL, { resources: { userAgent: USER_AGENT_UNKNOWN } }).window;
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
           global.Event = window.Event;
@@ -930,8 +906,7 @@ describe('SmartBanner', function() {
           </html>`;
 
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_UNKNOWN });
-            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: { userAgent: USER_AGENT_UNKNOWN } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -964,8 +939,7 @@ describe('SmartBanner', function() {
 
         context('when on iOS', function() {
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -979,8 +953,7 @@ describe('SmartBanner', function() {
 
         context('when on Android', function() {
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: { userAgent: USER_AGENT_ANDROID } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -1014,8 +987,7 @@ describe('SmartBanner', function() {
 
         context('when on iOS', function() {
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -1029,8 +1001,7 @@ describe('SmartBanner', function() {
 
         context('when on Android', function() {
           before(function() {
-            const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_ANDROID });
-            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: resourceLoader }).window;
+            global.window = new JSDOM(HTML_WITH_BUTTON_LABEL, { resources: { userAgent: USER_AGENT_ANDROID } }).window;
             global.document = window.document;
             global.getComputedStyle = window.getComputedStyle;
             global.Event = window.Event;
@@ -1051,10 +1022,10 @@ describe('SmartBanner', function() {
     context('without jQuery Mobile', function() {
 
       beforeEach(function() {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.window = new JSDOM(HTML, { resources: resourceLoader, url: 'https://localhost' }).window;
+        global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 }, url: 'https://localhost' }).window;
         global.document = window.document;
         global.getComputedStyle = window.getComputedStyle;
+        global.Event = window.Event;
         smartbanner = new SmartBanner();
         smartbanner.publish();
       });
@@ -1087,8 +1058,7 @@ describe('SmartBanner', function() {
     context('with jQuery Mobile', function(done) {
 
       before(function(done) {
-        const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE_AND_META, { runScripts: 'dangerously', resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_WITH_JQUERY_MOBILE_AND_META, { runScripts: 'dangerously', resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.window.conclude = () => {
           global.document = window.document;
           global.getComputedStyle = window.getComputedStyle;
@@ -1115,8 +1085,7 @@ describe('SmartBanner', function() {
 
   describe('height', function() {
     before(function() {
-      const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-      global.window = new JSDOM(HTML, { runScripts: 'dangerously', resources: resourceLoader }).window;
+      global.window = new JSDOM(HTML, { runScripts: 'dangerously', resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
       global.document = window.document;
       global.getComputedStyle = window.getComputedStyle;
       global.Event = window.Event;
@@ -1143,8 +1112,7 @@ describe('SmartBanner', function() {
 
   describe('disable-positioning', function() {
     before(function() {
-      const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-      global.window = new JSDOM(HTML_DISABLED_POSITIONING, { resources: resourceLoader }).window;
+      global.window = new JSDOM(HTML_DISABLED_POSITIONING, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
       global.document = window.document;
       global.getComputedStyle = window.getComputedStyle;
       global.Event = window.Event;
@@ -1181,13 +1149,12 @@ describe('SmartBanner', function() {
 
   describe('apiEnabled', function() {
 
-    const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-
     context('when API option not set', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
+        global.Event = window.Event;
         smartbanner = new SmartBanner();
       });
 
@@ -1202,8 +1169,9 @@ describe('SmartBanner', function() {
       context('with value of "true"', function() {
 
         before(function() {
-          global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML_API, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
           global.document = window.document;
+          global.Event = window.Event;
           smartbanner = new SmartBanner();
         });
 
@@ -1216,8 +1184,9 @@ describe('SmartBanner', function() {
       context('with value of "yes"', function() {
 
         before(function() {
-          global.window = new JSDOM(HTML_API_YES, { resources: resourceLoader }).window;
+          global.window = new JSDOM(HTML_API_YES, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
           global.document = window.document;
+          global.Event = window.Event;
           smartbanner = new SmartBanner();
         });
 
@@ -1233,9 +1202,9 @@ describe('SmartBanner', function() {
 
   describe('handleExitClick', function() {
     before(function() {
-      const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-      global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
+      global.window = new JSDOM(HTML_API, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
       global.document = window.document;
+      global.Event = window.Event;
       global.getComputedStyle = window.getComputedStyle;
       smartbanner = new SmartBanner();
       smartbanner.publish();
@@ -1254,9 +1223,9 @@ describe('SmartBanner', function() {
 
   describe('handleClickout', function() {
     before(function() {
-      const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-      global.window = new JSDOM(HTML_API, { resources: resourceLoader }).window;
+      global.window = new JSDOM(HTML_API, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
       global.document = window.document;
+      global.Event = window.Event;
       global.getComputedStyle = window.getComputedStyle;
       smartbanner = new SmartBanner();
       smartbanner.publish();
@@ -1275,13 +1244,12 @@ describe('SmartBanner', function() {
 
   describe('hidePath', function() {
 
-    const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-
     context('when option is not set', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
+        global.Event = window.Event;
         smartbanner = new SmartBanner();
       });
 
@@ -1305,8 +1273,9 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        global.window = new JSDOM(HTML_WITH_HIDE_PATH, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_WITH_HIDE_PATH, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
+        global.Event = window.Event;
         smartbanner = new SmartBanner();
       });
 
@@ -1319,13 +1288,12 @@ describe('SmartBanner', function() {
 
   describe('hideTtl', function() {
 
-    const resourceLoader = new jsdom.ResourceLoader({ userAgent: USER_AGENT_IPHONE_IOS9 });
-
     context('when option is not set', function() {
 
       before(function() {
-        global.window = new JSDOM(HTML, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
+				global.Event = window.Event;
         smartbanner = new SmartBanner();
       });
 
@@ -1349,8 +1317,9 @@ describe('SmartBanner', function() {
       </html>`;
 
       before(function() {
-        global.window = new JSDOM(HTML_WITH_HIDE_TTL, { resources: resourceLoader }).window;
+        global.window = new JSDOM(HTML_WITH_HIDE_TTL, { resources: { userAgent: USER_AGENT_IPHONE_IOS9 } }).window;
         global.document = window.document;
+				global.Event = window.Event;
         smartbanner = new SmartBanner();
       });
 
