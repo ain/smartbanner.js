@@ -17,7 +17,7 @@
   "bugs": "https://github.com/ain/smartbanner.js/issues",
   "devDependencies": {
     "add-banner": "ain/add-banner#0667ab6",
-    "c8": "^10.1.2",
+    "c8": "^11.0.0",
     "chai": "^6.0.1",
     "concurrently": "^9.2.1",
     "coveralls": "^3.1.0",
@@ -27,6 +27,9 @@
     "local-web-server": "^5.1.0",
     "mocha": "^11.0.1",
     "sass": "^1.32.11"
+  },
+  "overrides": {
+    "yargs": "^18.0.0"
   },
   "engines": {
     "node": ">=20.0.0"
