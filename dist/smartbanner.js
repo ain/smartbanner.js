@@ -1,3 +1,7 @@
+/*!
+ * smartbanner.js v1.28.1 <https://github.com/ain/smartbanner.js#readme>
+ * Copyright © 2026 Ain Tohvri, contributors. Licensed under GPL-3.0.
+ */
 (() => {
   // src/optionparser.js
   function valid(name) {
