@@ -21,7 +21,7 @@
     "chai": "^6.0.1",
     "concurrently": "^9.2.1",
     "coveralls": "^3.1.0",
-    "esbuild": "^0.27.3",
+    "esbuild": "^0.28.0",
     "eslint": "^10.0.0",
     "jsdom": "^29.0.0",
     "local-web-server": "^5.1.0",
