@@ -29,7 +29,8 @@
     "sass": "^1.32.11"
   },
   "overrides": {
-    "yargs": "^18.0.0"
+    "yargs": "^18.0.0",
+    "undici": "^6.19.8"
   },
   "engines": {
     "node": ">=20.0.0"
