@@ -1,6 +1,6 @@
 {
   "name": "smartbanner.js",
-  "version": "1.29.0",
+  "version": "1.30.0",
   "type": "module",
   "description": "Customisable smart app banner for iOS and Android",
   "homepage": "https://github.com/ain/smartbanner.js#readme",
@@ -32,7 +32,7 @@
     "yargs": "^18.0.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "repository": {
     "type": "git",

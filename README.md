@@ -173,6 +173,14 @@ Example handler (closes smartbanner when user clicks to navigate to app store):
 document.addEventListener('smartbanner.clickout', () => smartbanner.exit());
 ```
 
+## Node.js Support
+
+Node.js is only required for installing and building `smartbanner.js`, the distributed bundle itself runs in browsers.
+
+Supported Node.js versions follow the [Node.js release schedule](https://github.com/nodejs/release#release-schedule): _Current_, _Active LTS_ and _Maintenance LTS_ lines are supported, end-of-life ones are not.
+
+**Note:** dropping support for an end-of-life Node.js version is released as a minor version and is not considered a breaking change.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
