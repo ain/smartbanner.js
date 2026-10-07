@@ -29,7 +29,8 @@
     "sass": "^1.32.11"
   },
   "overrides": {
-    "yargs": "^18.0.0"
+    "yargs": "^18.0.0",
+    "shell-quote": "^1.12.0"
   },
   "engines": {
     "node": ">=22.0.0"
