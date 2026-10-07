@@ -16,7 +16,7 @@
   "license": "GPL-3.0",
   "bugs": "https://github.com/ain/smartbanner.js/issues",
   "devDependencies": {
-    "add-banner": "ain/add-banner#0667ab6",
+    "add-banner": "github:ain/add-banner#a579acb",
     "c8": "^12.0.0",
     "chai": "^6.0.1",
     "concurrently": "^10.0.0",
