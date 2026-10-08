@@ -20,7 +20,6 @@
     "c8": "^12.0.0",
     "chai": "^6.0.1",
     "concurrently": "^10.0.0",
-    "coveralls": "^3.1.0",
     "esbuild": "^0.28.0",
     "eslint": "^10.0.0",
     "jsdom": "^30.0.1",
@@ -30,7 +29,7 @@
   },
   "overrides": {
     "yargs": "^18.0.0",
-    "qs": "^6.16.0"
+    "shell-quote": "^1.12.0"
   },
   "engines": {
     "node": ">=22.0.0"
